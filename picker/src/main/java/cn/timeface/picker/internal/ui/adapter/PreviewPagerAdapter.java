@@ -20,7 +20,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.ui.PreviewItemFragment;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.List;
 
 public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<Item> mItems = new ArrayList<>();
+    private ArrayList<MediaItem> mMediaItems = new ArrayList<>();
     private OnPrimaryItemSetListener mListener;
 
     public PreviewPagerAdapter(FragmentManager manager, OnPrimaryItemSetListener listener) {
@@ -38,12 +38,12 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PreviewItemFragment.newInstance(mItems.get(position));
+        return PreviewItemFragment.newInstance(mMediaItems.get(position));
     }
 
     @Override
     public int getCount() {
-        return mItems.size();
+        return mMediaItems.size();
     }
 
     @Override
@@ -54,12 +54,12 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-    public Item getMediaItem(int position) {
-        return mItems.get(position);
+    public MediaItem getMediaItem(int position) {
+        return mMediaItems.get(position);
     }
 
-    public void addAll(List<Item> items) {
-        mItems.addAll(items);
+    public void addAll(List<MediaItem> mediaItems) {
+        mMediaItems.addAll(mediaItems);
     }
 
     interface OnPrimaryItemSetListener {

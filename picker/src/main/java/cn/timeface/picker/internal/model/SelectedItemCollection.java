@@ -20,7 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.timeface.picker.R;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 import cn.timeface.picker.internal.entity.IncapableCause;
 import cn.timeface.picker.internal.ui.widget.CheckView;
@@ -37,7 +37,7 @@ public class SelectedItemCollection {
     public static final String STATE_SELECTION = "state_selection";
     public static final String STATE_COLLECTION_TYPE = "state_collection_type";
     private final Context mContext;
-    private Set<Item> mItems;
+    private Set<MediaItem> mMediaItems;
 
     /**
      * Empty collection
@@ -64,48 +64,48 @@ public class SelectedItemCollection {
 
     public void onCreate(Bundle bundle) {
         if (bundle == null) {
-            mItems = new LinkedHashSet<>();
+            mMediaItems = new LinkedHashSet<>();
         } else {
-            List<Item> saved = bundle.getParcelableArrayList(STATE_SELECTION);
-            mItems = new LinkedHashSet<>(saved);
+            List<MediaItem> saved = bundle.getParcelableArrayList(STATE_SELECTION);
+            mMediaItems = new LinkedHashSet<>(saved);
             mCollectionType = bundle.getInt(STATE_COLLECTION_TYPE, COLLECTION_UNDEFINED);
         }
     }
 
-    public void setDefaultSelection(List<Item> uris) {
-        mItems.addAll(uris);
+    public void setDefaultSelection(List<MediaItem> uris) {
+        mMediaItems.addAll(uris);
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(STATE_SELECTION, new ArrayList<>(mItems));
+        outState.putParcelableArrayList(STATE_SELECTION, new ArrayList<>(mMediaItems));
         outState.putInt(STATE_COLLECTION_TYPE, mCollectionType);
     }
 
     public Bundle getDataWithBundle() {
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(STATE_SELECTION, new ArrayList<>(mItems));
+        bundle.putParcelableArrayList(STATE_SELECTION, new ArrayList<>(mMediaItems));
         bundle.putInt(STATE_COLLECTION_TYPE, mCollectionType);
         return bundle;
     }
 
-    public boolean add(Item item) {
-        if (typeConflict(item)) {
+    public boolean add(MediaItem mediaItem) {
+        if (typeConflict(mediaItem)) {
             throw new IllegalArgumentException("Can't select images and videos at the same time.");
         }
-        boolean added = mItems.add(item);
+        boolean added = mMediaItems.add(mediaItem);
         if (added) {
             if (mCollectionType == COLLECTION_UNDEFINED) {
-                if (item.isImage()) {
+                if (mediaItem.isImage()) {
                     mCollectionType = COLLECTION_IMAGE;
-                } else if (item.isVideo()) {
+                } else if (mediaItem.isVideo()) {
                     mCollectionType = COLLECTION_VIDEO;
                 }
             } else if (mCollectionType == COLLECTION_IMAGE) {
-                if (item.isVideo()) {
+                if (mediaItem.isVideo()) {
                     mCollectionType = COLLECTION_MIXED;
                 }
             } else if (mCollectionType == COLLECTION_VIDEO) {
-                if (item.isImage()) {
+                if (mediaItem.isImage()) {
                     mCollectionType = COLLECTION_MIXED;
                 }
             }
@@ -113,10 +113,10 @@ public class SelectedItemCollection {
         return added;
     }
 
-    public boolean remove(Item item) {
-        boolean removed = mItems.remove(item);
+    public boolean remove(MediaItem mediaItem) {
+        boolean removed = mMediaItems.remove(mediaItem);
         if (removed) {
-            if (mItems.size() == 0) {
+            if (mMediaItems.size() == 0) {
                 mCollectionType = COLLECTION_UNDEFINED;
             } else {
                 if (mCollectionType == COLLECTION_MIXED) {
@@ -127,50 +127,50 @@ public class SelectedItemCollection {
         return removed;
     }
 
-    public void overwrite(ArrayList<Item> items, int collectionType) {
-        if (items.size() == 0) {
+    public void overwrite(ArrayList<MediaItem> mediaItems, int collectionType) {
+        if (mediaItems.size() == 0) {
             mCollectionType = COLLECTION_UNDEFINED;
         } else {
             mCollectionType = collectionType;
         }
-        mItems.clear();
-        mItems.addAll(items);
+        mMediaItems.clear();
+        mMediaItems.addAll(mediaItems);
     }
 
 
-    public List<Item> asList() {
-        return new ArrayList<>(mItems);
+    public List<MediaItem> asList() {
+        return new ArrayList<>(mMediaItems);
     }
 
     public List<Uri> asListOfUri() {
         List<Uri> uris = new ArrayList<>();
-        for (Item item : mItems) {
-            uris.add(item.getContentUri());
+        for (MediaItem mediaItem : mMediaItems) {
+            uris.add(mediaItem.getContentUri());
         }
         return uris;
     }
 
     public boolean isEmpty() {
-        return mItems == null || mItems.isEmpty();
+        return mMediaItems == null || mMediaItems.isEmpty();
     }
 
-    public boolean isSelected(Item item) {
-        return mItems.contains(item);
+    public boolean isSelected(MediaItem mediaItem) {
+        return mMediaItems.contains(mediaItem);
     }
 
-    public IncapableCause isAcceptable(Item item) {
+    public IncapableCause isAcceptable(MediaItem mediaItem) {
         if (maxSelectableReached()) {
             return new IncapableCause(mContext.getString(R.string.error_over_count,
                     SelectionSpec.getInstance().maxSelectable));
-        } else if (typeConflict(item)) {
+        } else if (typeConflict(mediaItem)) {
             return new IncapableCause(mContext.getString(R.string.error_type_conflict));
         }
 
-        return PhotoMetadataUtils.isAcceptable(mContext, item);
+        return PhotoMetadataUtils.isAcceptable(mContext, mediaItem);
     }
 
     public boolean maxSelectableReached() {
-        return mItems.size() == SelectionSpec.getInstance().maxSelectable;
+        return mMediaItems.size() == SelectionSpec.getInstance().maxSelectable;
     }
 
     public int getCollectionType() {
@@ -180,7 +180,7 @@ public class SelectedItemCollection {
     private void refineCollectionType() {
         boolean hasImage = false;
         boolean hasVideo = false;
-        for (Item i : mItems) {
+        for (MediaItem i : mMediaItems) {
             if (i.isImage() && !hasImage) hasImage = true;
             if (i.isVideo() && !hasVideo) hasVideo = true;
         }
@@ -197,18 +197,18 @@ public class SelectedItemCollection {
      * Determine whether there will be conflict media types. A user can only select images and videos at the same time
      * while {@link SelectionSpec#mediaTypeExclusive} is set to false.
      */
-    public boolean typeConflict(Item item) {
+    public boolean typeConflict(MediaItem mediaItem) {
         return SelectionSpec.getInstance().mediaTypeExclusive
-                && ((item.isImage() && (mCollectionType == COLLECTION_VIDEO || mCollectionType == COLLECTION_MIXED))
-                || (item.isVideo() && (mCollectionType == COLLECTION_IMAGE || mCollectionType == COLLECTION_MIXED)));
+                && ((mediaItem.isImage() && (mCollectionType == COLLECTION_VIDEO || mCollectionType == COLLECTION_MIXED))
+                || (mediaItem.isVideo() && (mCollectionType == COLLECTION_IMAGE || mCollectionType == COLLECTION_MIXED)));
     }
 
     public int count() {
-        return mItems.size();
+        return mMediaItems.size();
     }
 
-    public int checkedNumOf(Item item) {
-        int index = new ArrayList<>(mItems).indexOf(item);
+    public int checkedNumOf(MediaItem mediaItem) {
+        int index = new ArrayList<>(mMediaItems).indexOf(mediaItem);
         return index == -1 ? CheckView.UNCHECKED : index + 1;
     }
 }

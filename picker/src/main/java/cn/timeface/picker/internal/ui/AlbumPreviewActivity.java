@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import cn.timeface.picker.internal.entity.Album;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.model.AlbumMediaCollection;
 import cn.timeface.picker.internal.ui.adapter.PreviewPagerAdapter;
 
@@ -45,13 +45,13 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
         Album album = getIntent().getParcelableExtra(EXTRA_ALBUM);
         mCollection.load(album);
 
-        Item item = getIntent().getParcelableExtra(EXTRA_ITEM);
+        MediaItem mediaItem = getIntent().getParcelableExtra(EXTRA_ITEM);
         if (mSpec.countable) {
-            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
+            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(mediaItem));
         } else {
-            mCheckView.setChecked(mSelectedCollection.isSelected(item));
+            mCheckView.setChecked(mSelectedCollection.isSelected(mediaItem));
         }
-        updateSize(item);
+        updateSize(mediaItem);
     }
 
     @Override
@@ -62,18 +62,18 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
 
     @Override
     public void onAlbumMediaLoad(Cursor cursor) {
-        List<Item> items = new ArrayList<>();
+        List<MediaItem> mediaItems = new ArrayList<>();
         while (cursor.moveToNext()) {
-            items.add(Item.valueOf(cursor));
+            mediaItems.add(MediaItem.valueOf(cursor));
         }
         PreviewPagerAdapter adapter = (PreviewPagerAdapter) mPager.getAdapter();
-        adapter.addAll(items);
+        adapter.addAll(mediaItems);
         adapter.notifyDataSetChanged();
         if (!mIsAlreadySetPosition) {
             //onAlbumMediaLoad is called many times..
             mIsAlreadySetPosition = true;
-            Item selected = getIntent().getParcelableExtra(EXTRA_ITEM);
-            int selectedIndex = items.indexOf(selected);
+            MediaItem selected = getIntent().getParcelableExtra(EXTRA_ITEM);
+            int selectedIndex = mediaItems.indexOf(selected);
             mPager.setCurrentItem(selectedIndex, false);
             mPreviousPos = selectedIndex;
         }

@@ -33,7 +33,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:textColor="@color/error_view_text_dark"
-        tools:text="Couldn\'t load items" />
+        tools:text="Couldn\'t load mediaItems" />
 
     <TextView
         android:id="@+id/error_retry"

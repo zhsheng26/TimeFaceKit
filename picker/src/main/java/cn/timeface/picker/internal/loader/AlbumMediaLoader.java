@@ -25,7 +25,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 
 import cn.timeface.picker.internal.entity.Album;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.utils.MediaStoreCompat;
 
 /**
@@ -37,31 +37,34 @@ public class AlbumMediaLoader extends CursorLoader {
             MediaStore.Files.FileColumns._ID,
             MediaStore.MediaColumns.DISPLAY_NAME,
             MediaStore.MediaColumns.MIME_TYPE,
+            MediaStore.MediaColumns.DATE_ADDED,
             MediaStore.MediaColumns.SIZE,
             "duration"};
     private static final String SELECTION_ALL =
             "(" + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
-            + " OR "
-            + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?)"
-            + " AND " + MediaStore.MediaColumns.SIZE + ">0";
+                    + " OR "
+                    + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?)"
+                    + " AND " + MediaStore.MediaColumns.SIZE + ">0";
     private static final String[] SELECTION_ALL_ARGS = {
             String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
             String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO),
     };
     private static final String SELECTION_ALBUM =
             "(" + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
-            + " OR "
-            + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?)"
-            + " AND "
-            + " bucket_id=?"
-            + " AND " + MediaStore.MediaColumns.SIZE + ">0";
+                    + " OR "
+                    + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?)"
+                    + " AND "
+                    + " bucket_id=?"
+                    + " AND " + MediaStore.MediaColumns.SIZE + ">0";
+
     private static String[] getSelectionAlbumArgs(String albumId) {
-        return new String[] {
+        return new String[]{
                 String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE),
                 String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO),
                 albumId
         };
     }
+
     private static final String ORDER_BY = MediaStore.Files.FileColumns._ID + " DESC";
     private final boolean mEnableCapture;
 
@@ -100,7 +103,7 @@ public class AlbumMediaLoader extends CursorLoader {
             return result;
         }
         MatrixCursor dummy = new MatrixCursor(PROJECTION);
-        dummy.addRow(new Object[]{Item.ITEM_ID_CAPTURE, Item.ITEM_DISPLAY_NAME_CAPTURE, "", 0, 0});
+        dummy.addRow(new Object[]{MediaItem.ITEM_ID_CAPTURE, MediaItem.ITEM_DISPLAY_NAME_CAPTURE, "", 0, 0});
         return new MergeCursor(new Cursor[]{dummy, result});
     }
 

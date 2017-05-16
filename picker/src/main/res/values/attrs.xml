@@ -27,6 +27,6 @@
     <attr name="bottomToolbar.bg" format="reference|color"/>
     <attr name="bottomToolbar.preview.textColor" format="reference|color"/>
     <attr name="bottomToolbar.apply.textColor" format="reference|color"/>
-    <attr name="item.placeholder" format="reference|color"/>
+    <attr name="mediaItem.placeholder" format="reference|color"/>
     <attr name="capture.textColor" format="reference|color"/>
 </resources>

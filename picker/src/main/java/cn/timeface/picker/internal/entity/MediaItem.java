@@ -26,17 +26,17 @@ import android.support.annotation.Nullable;
 
 import cn.timeface.picker.MimeType;
 
-public class Item implements Parcelable {
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
+public class MediaItem implements Parcelable {
+    public static final Creator<MediaItem> CREATOR = new Creator<MediaItem>() {
         @Override
         @Nullable
-        public Item createFromParcel(Parcel source) {
-            return new Item(source);
+        public MediaItem createFromParcel(Parcel source) {
+            return new MediaItem(source);
         }
 
         @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
+        public MediaItem[] newArray(int size) {
+            return new MediaItem[size];
         }
     };
     public static final long ITEM_ID_CAPTURE = -1;
@@ -46,8 +46,9 @@ public class Item implements Parcelable {
     public final Uri uri;
     public final long size;
     public final long duration; // only for video, in ms
+    public final long date;
 
-    private Item(long id, String mimeType, long size, long duration) {
+    private MediaItem(long id, String mimeType, long date, long size, long duration) {
         this.id = id;
         this.mimeType = mimeType;
         Uri contentUri;
@@ -62,19 +63,22 @@ public class Item implements Parcelable {
         this.uri = ContentUris.withAppendedId(contentUri, id);
         this.size = size;
         this.duration = duration;
+        this.date = date;
     }
 
-    private Item(Parcel source) {
+    private MediaItem(Parcel source) {
         id = source.readLong();
         mimeType = source.readString();
         uri = source.readParcelable(Uri.class.getClassLoader());
         size = source.readLong();
         duration = source.readLong();
+        date = 0;
     }
 
-    public static Item valueOf(Cursor cursor) {
-        return new Item(cursor.getLong(cursor.getColumnIndex(MediaStore.Files.FileColumns._ID)),
+    public static MediaItem valueOf(Cursor cursor) {
+        return new MediaItem(cursor.getLong(cursor.getColumnIndex(MediaStore.Files.FileColumns._ID)),
                 cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.MIME_TYPE)),
+                cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED)),
                 cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns.SIZE)),
                 cursor.getLong(cursor.getColumnIndex("duration")));
     }
@@ -127,11 +131,11 @@ public class Item implements Parcelable {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Item)) {
+        if (!(obj instanceof MediaItem)) {
             return false;
         }
 
-        Item other = (Item) obj;
+        MediaItem other = (MediaItem) obj;
         return other.uri.equals(uri);
     }
 
@@ -142,6 +146,7 @@ public class Item implements Parcelable {
         result = 31 * result + mimeType.hashCode();
         result = 31 * result + uri.hashCode();
         result = 31 * result + Long.valueOf(size).hashCode();
+        result = 31 * result + Long.valueOf(date).hashCode();
         result = 31 * result + Long.valueOf(duration).hashCode();
         return result;
     }

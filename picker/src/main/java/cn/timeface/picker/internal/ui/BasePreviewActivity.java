@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.timeface.picker.R;
 import cn.timeface.picker.internal.entity.IncapableCause;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 import cn.timeface.picker.internal.model.SelectedItemCollection;
 import cn.timeface.picker.internal.ui.adapter.PreviewPagerAdapter;
@@ -92,19 +92,19 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
             @Override
             public void onClick(View v) {
-                Item item = mAdapter.getMediaItem(mPager.getCurrentItem());
-                if (mSelectedCollection.isSelected(item)) {
-                    mSelectedCollection.remove(item);
+                MediaItem mediaItem = mAdapter.getMediaItem(mPager.getCurrentItem());
+                if (mSelectedCollection.isSelected(mediaItem)) {
+                    mSelectedCollection.remove(mediaItem);
                     if (mSpec.countable) {
                         mCheckView.setCheckedNum(CheckView.UNCHECKED);
                     } else {
                         mCheckView.setChecked(false);
                     }
                 } else {
-                    if (assertAddSelection(item)) {
-                        mSelectedCollection.add(item);
+                    if (assertAddSelection(mediaItem)) {
+                        mSelectedCollection.add(mediaItem);
                         if (mSpec.countable) {
-                            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
+                            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(mediaItem));
                         } else {
                             mCheckView.setChecked(true);
                         }
@@ -149,9 +149,9 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         if (mPreviousPos != -1 && mPreviousPos != position) {
             ((PreviewItemFragment) adapter.instantiateItem(mPager, mPreviousPos)).resetView();
 
-            Item item = adapter.getMediaItem(position);
+            MediaItem mediaItem = adapter.getMediaItem(position);
             if (mSpec.countable) {
-                int checkedNum = mSelectedCollection.checkedNumOf(item);
+                int checkedNum = mSelectedCollection.checkedNumOf(mediaItem);
                 mCheckView.setCheckedNum(checkedNum);
                 if (checkedNum > 0) {
                     mCheckView.setEnabled(true);
@@ -159,7 +159,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                     mCheckView.setEnabled(!mSelectedCollection.maxSelectableReached());
                 }
             } else {
-                boolean checked = mSelectedCollection.isSelected(item);
+                boolean checked = mSelectedCollection.isSelected(mediaItem);
                 mCheckView.setChecked(checked);
                 if (checked) {
                     mCheckView.setEnabled(true);
@@ -167,7 +167,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                     mCheckView.setEnabled(!mSelectedCollection.maxSelectableReached());
                 }
             }
-            updateSize(item);
+            updateSize(mediaItem);
         }
         mPreviousPos = position;
     }
@@ -188,10 +188,10 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         }
     }
 
-    protected void updateSize(Item item) {
-        if (item.isGif()) {
+    protected void updateSize(MediaItem mediaItem) {
+        if (mediaItem.isGif()) {
             mSize.setVisibility(View.VISIBLE);
-            mSize.setText(PhotoMetadataUtils.getSizeInMB(item.size) + "M");
+            mSize.setText(PhotoMetadataUtils.getSizeInMB(mediaItem.size) + "M");
         } else {
             mSize.setVisibility(View.GONE);
         }
@@ -204,8 +204,8 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         setResult(Activity.RESULT_OK, intent);
     }
 
-    private boolean assertAddSelection(Item item) {
-        IncapableCause cause = mSelectedCollection.isAcceptable(item);
+    private boolean assertAddSelection(MediaItem mediaItem) {
+        IncapableCause cause = mSelectedCollection.isAcceptable(mediaItem);
         IncapableCause.handleCause(this, cause);
         return cause == null;
     }

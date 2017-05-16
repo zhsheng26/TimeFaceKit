@@ -37,7 +37,7 @@ import android.widget.TextView;
 
 import com.timeface.picker.R;
 import cn.timeface.picker.internal.entity.Album;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 import cn.timeface.picker.internal.model.AlbumCollection;
 import cn.timeface.picker.internal.model.SelectedItemCollection;
@@ -164,15 +164,15 @@ public class PickActivity extends AppCompatActivity implements
 
         if (requestCode == REQUEST_CODE_PREVIEW) {
             Bundle resultBundle = data.getBundleExtra(BasePreviewActivity.EXTRA_RESULT_BUNDLE);
-            ArrayList<Item> selected = resultBundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
+            ArrayList<MediaItem> selected = resultBundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
             int collectionType = resultBundle.getInt(SelectedItemCollection.STATE_COLLECTION_TYPE,
                     SelectedItemCollection.COLLECTION_UNDEFINED);
             if (data.getBooleanExtra(BasePreviewActivity.EXTRA_RESULT_APPLY, false)) {
                 Intent result = new Intent();
                 ArrayList<Uri> selectedUris = new ArrayList<>();
                 if (selected != null) {
-                    for (Item item : selected) {
-                        selectedUris.add(item.getContentUri());
+                    for (MediaItem mediaItem : selected) {
+                        selectedUris.add(mediaItem.getContentUri());
                     }
                 }
                 result.putParcelableArrayListExtra(EXTRA_RESULT_SELECTION, selectedUris);
@@ -291,10 +291,10 @@ public class PickActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onMediaClick(Album album, Item item, int adapterPosition) {
+    public void onMediaClick(Album album, MediaItem mediaItem, int adapterPosition) {
         Intent intent = new Intent(this, AlbumPreviewActivity.class);
         intent.putExtra(AlbumPreviewActivity.EXTRA_ALBUM, album);
-        intent.putExtra(AlbumPreviewActivity.EXTRA_ITEM, item);
+        intent.putExtra(AlbumPreviewActivity.EXTRA_ITEM, mediaItem);
         intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
         startActivityForResult(intent, REQUEST_CODE_PREVIEW);
     }

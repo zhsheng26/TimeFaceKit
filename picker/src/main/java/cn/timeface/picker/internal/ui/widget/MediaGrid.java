@@ -26,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timeface.picker.R;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 
 public class MediaGrid extends SquareFrameLayout implements View.OnClickListener {
@@ -36,7 +36,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     private ImageView mGifTag;
     private TextView mVideoDuration;
 
-    private Item mMedia;
+    private MediaItem mMedia;
     private PreBindInfo mPreBindInfo;
     private OnMediaGridClickListener mListener;
 
@@ -77,15 +77,15 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
         mPreBindInfo = info;
     }
 
-    public void bindMedia(Item item) {
-        mMedia = item;
+    public void bindMedia(MediaItem mediaItem) {
+        mMedia = mediaItem;
         setGifTag();
         initCheckView();
         setImage();
         setVideoDuration();
     }
 
-    public Item getMedia() {
+    public MediaItem getMedia() {
         return mMedia;
     }
 
@@ -138,9 +138,9 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
 
     public interface OnMediaGridClickListener {
 
-        void onThumbnailClicked(ImageView thumbnail, Item item, RecyclerView.ViewHolder holder);
+        void onThumbnailClicked(ImageView thumbnail, MediaItem mediaItem, RecyclerView.ViewHolder holder);
 
-        void onCheckViewClicked(CheckView checkView, Item item, RecyclerView.ViewHolder holder);
+        void onCheckViewClicked(CheckView checkView, MediaItem mediaItem, RecyclerView.ViewHolder holder);
     }
 
     public static class PreBindInfo {

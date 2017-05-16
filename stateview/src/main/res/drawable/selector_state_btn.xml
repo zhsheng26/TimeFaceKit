@@ -2,20 +2,20 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="true">
+    <mediaItem android:state_pressed="true">
         <shape>
             <!-- 实心 -->
             <solid android:color="@color/error_view_retry_button_background_hover"/>
             <!-- 圆角 -->
             <corners android:radius="20dp" />
         </shape>
-    </item>
-    <item>
+    </mediaItem>
+    <mediaItem>
         <shape>
             <!-- 实心 -->
             <solid android:color="@color/error_view_retry_button_background"/>
             <!-- 圆角 -->
             <corners android:radius="20dp" />
         </shape>
-    </item>
+    </mediaItem>
 </selector>

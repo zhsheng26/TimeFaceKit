@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.timeface.picker.R;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 import cn.timeface.picker.internal.utils.PhotoMetadataUtils;
 
@@ -38,10 +38,10 @@ public class PreviewItemFragment extends Fragment {
 
     private static final String ARGS_ITEM = "args_item";
 
-    public static PreviewItemFragment newInstance(Item item) {
+    public static PreviewItemFragment newInstance(MediaItem mediaItem) {
         PreviewItemFragment fragment = new PreviewItemFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(ARGS_ITEM, item);
+        bundle.putParcelable(ARGS_ITEM, mediaItem);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -54,19 +54,19 @@ public class PreviewItemFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final Item item = getArguments().getParcelable(ARGS_ITEM);
-        if (item == null) {
+        final MediaItem mediaItem = getArguments().getParcelable(ARGS_ITEM);
+        if (mediaItem == null) {
             return;
         }
 
         View videoPlayButton = view.findViewById(R.id.video_play_button);
-        if (item.isVideo()) {
+        if (mediaItem.isVideo()) {
             videoPlayButton.setVisibility(View.VISIBLE);
             videoPlayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(item.uri, "video/*");
+                    intent.setDataAndType(mediaItem.uri, "video/*");
                     try {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
@@ -81,13 +81,13 @@ public class PreviewItemFragment extends Fragment {
         ImageViewTouch image = (ImageViewTouch) view.findViewById(R.id.image_view);
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
 
-        Point size = PhotoMetadataUtils.getBitmapSize(item.getContentUri(), getActivity());
-        if (item.isGif()) {
+        Point size = PhotoMetadataUtils.getBitmapSize(mediaItem.getContentUri(), getActivity());
+        if (mediaItem.isGif()) {
             SelectionSpec.getInstance().imageEngine.loadGifImage(getContext(), size.x, size.y, image,
-                    item.getContentUri());
+                    mediaItem.getContentUri());
         } else {
             SelectionSpec.getInstance().imageEngine.loadImage(getContext(), size.x, size.y, image,
-                    item.getContentUri());
+                    mediaItem.getContentUri());
         }
     }
 

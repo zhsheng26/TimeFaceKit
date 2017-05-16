@@ -19,13 +19,13 @@ import android.content.Context;
 
 import cn.timeface.picker.MimeType;
 import cn.timeface.picker.SelectionCreator;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.IncapableCause;
 
 import java.util.Set;
 
 /**
- * Filter for choosing a {@link Item}. You can add multiple Filters through
+ * Filter for choosing a {@link MediaItem}. You can add multiple Filters through
  * {@link SelectionCreator#addFilter(Filter)}.
  */
 @SuppressWarnings("unused")
@@ -49,18 +49,18 @@ public abstract class Filter {
     protected abstract Set<MimeType> constraintTypes();
 
     /**
-     * Invoked for filtering each item.
+     * Invoked for filtering each mediaItem.
      *
      * @return null if selectable, {@link IncapableCause} if not selectable.
      */
-    public abstract IncapableCause filter(Context context, Item item);
+    public abstract IncapableCause filter(Context context, MediaItem mediaItem);
 
     /**
-     * Whether an {@link Item} need filtering.
+     * Whether an {@link MediaItem} need filtering.
      */
-    protected boolean needFiltering(Context context, Item item) {
+    protected boolean needFiltering(Context context, MediaItem mediaItem) {
         for (MimeType type : constraintTypes()) {
-            if (type.checkType(context.getContentResolver(), item.getContentUri())) {
+            if (type.checkType(context.getContentResolver(), mediaItem.getContentUri())) {
                 return true;
             }
         }

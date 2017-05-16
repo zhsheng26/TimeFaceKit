@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 
 import com.timeface.picker.R;
 import cn.timeface.picker.internal.entity.Album;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 import cn.timeface.picker.internal.model.AlbumMediaCollection;
 import cn.timeface.picker.internal.model.SelectedItemCollection;
@@ -146,10 +146,10 @@ public class MediaSelectionFragment extends Fragment implements
     }
 
     @Override
-    public void onMediaClick(Album album, Item item, int adapterPosition) {
+    public void onMediaClick(Album album, MediaItem mediaItem, int adapterPosition) {
         if (mOnMediaClickListener != null) {
             mOnMediaClickListener.onMediaClick((Album) getArguments().getParcelable(EXTRA_ALBUM),
-                    item, adapterPosition);
+                    mediaItem, adapterPosition);
         }
     }
 

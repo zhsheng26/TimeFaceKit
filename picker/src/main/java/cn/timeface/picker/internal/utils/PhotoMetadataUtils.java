@@ -31,7 +31,7 @@ import android.util.Log;
 import cn.timeface.picker.MimeType;
 import com.timeface.picker.R;
 import cn.timeface.picker.filter.Filter;
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 import cn.timeface.picker.internal.entity.IncapableCause;
 
@@ -122,14 +122,14 @@ public final class PhotoMetadataUtils {
         return uri.getPath();
     }
 
-    public static IncapableCause isAcceptable(Context context, Item item) {
-        if (!isSelectableType(context, item)) {
+    public static IncapableCause isAcceptable(Context context, MediaItem mediaItem) {
+        if (!isSelectableType(context, mediaItem)) {
             return new IncapableCause(context.getString(R.string.error_file_type));
         }
 
         if (SelectionSpec.getInstance().filters != null) {
             for (Filter filter : SelectionSpec.getInstance().filters) {
-                IncapableCause incapableCause = filter.filter(context, item);
+                IncapableCause incapableCause = filter.filter(context, mediaItem);
                 if (incapableCause != null) {
                     return incapableCause;
                 }
@@ -138,14 +138,14 @@ public final class PhotoMetadataUtils {
         return null;
     }
 
-    private static boolean isSelectableType(Context context, Item item) {
+    private static boolean isSelectableType(Context context, MediaItem mediaItem) {
         if (context == null) {
             return false;
         }
 
         ContentResolver resolver = context.getContentResolver();
         for (MimeType type : SelectionSpec.getInstance().mimeTypeSet) {
-            if (type.checkType(resolver, item.getContentUri())) {
+            if (type.checkType(resolver, mediaItem.getContentUri())) {
                 return true;
             }
         }

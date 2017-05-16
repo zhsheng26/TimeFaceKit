@@ -18,7 +18,7 @@ package cn.timeface.picker.internal.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import cn.timeface.picker.internal.entity.Item;
+import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.model.SelectedItemCollection;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class SelectedPreviewActivity extends BasePreviewActivity {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getIntent().getBundleExtra(EXTRA_DEFAULT_BUNDLE);
-        List<Item> selected = bundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
+        List<MediaItem> selected = bundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
         mAdapter.addAll(selected);
         mAdapter.notifyDataSetChanged();
         if (mSpec.countable) {
