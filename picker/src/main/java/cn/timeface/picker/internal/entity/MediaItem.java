@@ -26,7 +26,7 @@ import android.support.annotation.Nullable;
 
 import cn.timeface.picker.MimeType;
 
-public class MediaItem implements Parcelable {
+public class MediaItem implements Parcelable, IMediaItem {
     public static final Creator<MediaItem> CREATOR = new Creator<MediaItem>() {
         @Override
         @Nullable
@@ -41,12 +41,12 @@ public class MediaItem implements Parcelable {
     };
     public static final long ITEM_ID_CAPTURE = -1;
     public static final String ITEM_DISPLAY_NAME_CAPTURE = "Capture";
-    public final long id;
-    public final String mimeType;
-    public final Uri uri;
-    public final long size;
-    public final long duration; // only for video, in ms
-    public final long date;
+    private final long id;
+    private final String mimeType;
+    private final Uri uri;
+    private final long size;
+    private final long duration; // only for video, in ms
+    private final long date;
 
     private MediaItem(long id, String mimeType, long date, long size, long duration) {
         this.id = id;
@@ -97,6 +97,7 @@ public class MediaItem implements Parcelable {
         dest.writeLong(duration);
     }
 
+    @Override
     public Uri getContentUri() {
         return uri;
     }
@@ -149,5 +150,30 @@ public class MediaItem implements Parcelable {
         result = 31 * result + Long.valueOf(date).hashCode();
         result = 31 * result + Long.valueOf(duration).hashCode();
         return result;
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    @Override
+    public long getDate() {
+        return date;
+    }
+
+    @Override
+    public long getDuration() {
+        return duration;
+    }
+
+    @Override
+    public long getSize() {
+        return size;
     }
 }

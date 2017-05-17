@@ -66,7 +66,7 @@ public class PreviewItemFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(mediaItem.uri, "video/*");
+                    intent.setDataAndType(mediaItem.getContentUri(), "video/*");
                     try {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {

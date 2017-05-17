@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timeface.picker.R;
+
 import cn.timeface.picker.internal.entity.MediaItem;
 import cn.timeface.picker.internal.entity.SelectionSpec;
 
@@ -122,7 +123,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     private void setVideoDuration() {
         if (mMedia.isVideo()) {
             mVideoDuration.setVisibility(VISIBLE);
-            mVideoDuration.setText(DateUtils.formatElapsedTime(mMedia.duration / 1000));
+            mVideoDuration.setText(DateUtils.formatElapsedTime(mMedia.getDuration() / 1000));
         } else {
             mVideoDuration.setVisibility(GONE);
         }

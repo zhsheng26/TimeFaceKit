@@ -191,7 +191,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
     protected void updateSize(MediaItem mediaItem) {
         if (mediaItem.isGif()) {
             mSize.setVisibility(View.VISIBLE);
-            mSize.setText(PhotoMetadataUtils.getSizeInMB(mediaItem.size) + "M");
+            mSize.setText(PhotoMetadataUtils.getSizeInMB(mediaItem.getSize()) + "M");
         } else {
             mSize.setVisibility(View.GONE);
         }

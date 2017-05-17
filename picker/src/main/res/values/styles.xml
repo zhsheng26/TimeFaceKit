@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2017 Zhihu Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,22 +18,23 @@
     //====================================== Theme Zhihu ===========================================
 
     <style name="Matisse.Zhihu" parent="Theme.AppCompat.Light.NoActionBar">
-        <mediaItem name="colorPrimary">@color/zhihu_primary</mediaItem>
-        <mediaItem name="colorPrimaryDark">@color/zhihu_primary_dark</mediaItem>
-        <mediaItem name="toolbar">@style/Toolbar.Zhihu</mediaItem>
-        <mediaItem name="album.dropdown.title.color">@color/zhihu_album_dropdown_title_text</mediaItem>
-        <mediaItem name="album.dropdown.count.color">@color/zhihu_album_dropdown_count_text</mediaItem>
-        <mediaItem name="album.element.color">@android:color/white</mediaItem>
-        <mediaItem name="album.thumbnail.placeholder">@color/zhihu_album_dropdown_thumbnail_placeholder</mediaItem>
-        <mediaItem name="album.emptyView">@drawable/ic_empty_zhihu</mediaItem>
-        <mediaItem name="album.emptyView.textColor">@color/zhihu_album_empty_view</mediaItem>
-        <mediaItem name="mediaItem.placeholder">@color/zhihu_item_placeholder</mediaItem>
-        <mediaItem name="page.bg">@color/zhihu_page_bg</mediaItem>
-        <mediaItem name="bottomToolbar.bg">@color/zhihu_bottom_toolbar_bg</mediaItem>
-        <mediaItem name="bottomToolbar.preview.textColor">@color/zhihu_bottom_toolbar_preview</mediaItem>
-        <mediaItem name="bottomToolbar.apply.textColor">@color/zhihu_bottom_toolbar_apply</mediaItem>
-        <mediaItem name="listPopupWindowStyle">@style/Popup.Zhihu</mediaItem>
-        <mediaItem name="capture.textColor">@color/zhihu_capture</mediaItem>
+        <item name="colorPrimary">@color/zhihu_primary</item>
+        <item name="colorPrimaryDark">@color/zhihu_primary_dark</item>
+        <item name="toolbar">@style/Toolbar.Zhihu</item>
+        <item name="album.dropdown.title.color">@color/zhihu_album_dropdown_title_text</item>
+        <item name="album.dropdown.count.color">@color/zhihu_album_dropdown_count_text</item>
+        <item name="album.element.color">@android:color/white</item>
+        <item name="album.thumbnail.placeholder">@color/zhihu_album_dropdown_thumbnail_placeholder
+        </item>
+        <item name="album.emptyView">@drawable/ic_empty_zhihu</item>
+        <item name="album.emptyView.textColor">@color/zhihu_album_empty_view</item>
+        <item name="mediaItem.placeholder">@color/zhihu_item_placeholder</item>
+        <item name="page.bg">@color/zhihu_page_bg</item>
+        <item name="bottomToolbar.bg">@color/zhihu_bottom_toolbar_bg</item>
+        <item name="bottomToolbar.preview.textColor">@color/zhihu_bottom_toolbar_preview</item>
+        <item name="bottomToolbar.apply.textColor">@color/zhihu_bottom_toolbar_apply</item>
+        <item name="listPopupWindowStyle">@style/Popup.Zhihu</item>
+        <item name="capture.textColor">@color/zhihu_capture</item>
     </style>
 
     <style name="Toolbar.Zhihu" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -42,29 +42,35 @@
     </style>
 
     <style name="Popup.Zhihu" parent="Widget.AppCompat.Light.ListPopupWindow">
-        <mediaItem name="android:popupBackground">@color/zhihu_album_popup_bg</mediaItem>
+        <item name="android:popupBackground">@color/zhihu_album_popup_bg</item>
     </style>
 
     //===================================== Theme Dracula ==========================================
 
     <style name="Matisse.Dracula" parent="Theme.AppCompat.NoActionBar">
-        <mediaItem name="colorPrimary">@color/dracula_primary</mediaItem>
-        <mediaItem name="colorPrimaryDark">@color/dracula_primary_dark</mediaItem>
-        <mediaItem name="toolbar">@style/Toolbar.Dracula</mediaItem>
-        <mediaItem name="album.dropdown.title.color">@color/dracula_album_dropdown_title_text</mediaItem>
-        <mediaItem name="album.dropdown.count.color">@color/dracula_album_dropdown_count_text</mediaItem>
-        <mediaItem name="album.element.color">@android:color/white</mediaItem>
-        <mediaItem name="album.thumbnail.placeholder">@color/dracula_album_dropdown_thumbnail_placeholder</mediaItem>
-        <mediaItem name="album.emptyView">@drawable/ic_empty_dracula</mediaItem>
-        <mediaItem name="album.emptyView.textColor">@color/dracula_album_empty_view</mediaItem>
-        <mediaItem name="mediaItem.placeholder">@color/dracula_item_placeholder</mediaItem>
-        <mediaItem name="page.bg">@color/dracula_page_bg</mediaItem>
-        <mediaItem name="bottomToolbar.bg">@color/dracula_bottom_toolbar_bg</mediaItem>
-        <mediaItem name="bottomToolbar.preview.textColor">@color/dracula_bottom_toolbar_preview</mediaItem>
-        <mediaItem name="bottomToolbar.apply.textColor">@color/dracula_bottom_toolbar_apply</mediaItem>
-        <mediaItem name="android:listPopupWindowStyle">@style/Popup.Dracula</mediaItem>
-        <mediaItem name="listPopupWindowStyle">@style/Popup.Dracula</mediaItem>
-        <mediaItem name="capture.textColor">@color/dracula_capture</mediaItem>
+        <item name="colorPrimary">@color/dracula_primary</item>
+        <item name="colorPrimaryDark">@color/dracula_primary_dark</item>
+        <item name="toolbar">@style/Toolbar.Dracula</item>
+        <item name="album.dropdown.title.color">@color/dracula_album_dropdown_title_text
+        </item>
+        <item name="album.dropdown.count.color">@color/dracula_album_dropdown_count_text
+        </item>
+        <item name="album.element.color">@android:color/white</item>
+        <item name="album.thumbnail.placeholder">
+            @color/dracula_album_dropdown_thumbnail_placeholder
+        </item>
+        <item name="album.emptyView">@drawable/ic_empty_dracula</item>
+        <item name="album.emptyView.textColor">@color/dracula_album_empty_view</item>
+        <item name="mediaItem.placeholder">@color/dracula_item_placeholder</item>
+        <item name="page.bg">@color/dracula_page_bg</item>
+        <item name="bottomToolbar.bg">@color/dracula_bottom_toolbar_bg</item>
+        <item name="bottomToolbar.preview.textColor">@color/dracula_bottom_toolbar_preview
+        </item>
+        <item name="bottomToolbar.apply.textColor">@color/dracula_bottom_toolbar_apply
+        </item>
+        <item name="android:listPopupWindowStyle">@style/Popup.Dracula</item>
+        <item name="listPopupWindowStyle">@style/Popup.Dracula</item>
+        <item name="capture.textColor">@color/dracula_capture</item>
     </style>
 
     <style name="Toolbar.Dracula" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -72,7 +78,7 @@
     </style>
 
     <style name="Popup.Dracula" parent="Widget.AppCompat.ListPopupWindow">
-        <mediaItem name="android:popupBackground">@color/dracula_album_popup_bg</mediaItem>
+        <item name="android:popupBackground">@color/dracula_album_popup_bg</item>
     </style>
 
 </resources>
