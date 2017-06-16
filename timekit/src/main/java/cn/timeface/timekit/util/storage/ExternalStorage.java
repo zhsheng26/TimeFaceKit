@@ -184,8 +184,7 @@ class ExternalStorage {
             StatFs sf = new StatFs(directoryPath);
             long blockSize = sf.getBlockSize();
             long availCount = sf.getAvailableBlocks();
-            long availCountByte = availCount * blockSize;
-            return availCountByte;
+			return availCount * blockSize;
         } catch (Exception e) {
             e.printStackTrace();
         }
