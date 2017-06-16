@@ -5,10 +5,10 @@ package cn.timeface.timekit.support;
  */
 
 public class NetResponse<T>{
-    public String status;
-    public int errorCode;
-    public String info;
-    T data;
+    private String status;
+    private int errorCode;
+    private String info;
+    private T data;
 
     public T getData() {
         return data;

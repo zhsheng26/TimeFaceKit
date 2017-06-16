@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-
     public <T> T getApiStores(String baseUrl, Class<T> cls) {
         return getApiRetrofit(baseUrl).create(cls);
     }

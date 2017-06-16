@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'me.tatarka.retrolambda'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -12,7 +12,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "API_URL", '"http://stg3.v5time.net/tfmobile/"'
+            buildConfigField "String", "SHARE_ROOT_URL", '"http://h5.stg1.v5time.net/"'
+            buildConfigField("boolean", "LOG_DEBUG", "true")
+            buildConfigField("boolean", "IN_MOCK", "false")
+            buildConfigField("String", "SERVER_API_VERSION", '"20"')
+        }
         release {
+            buildConfigField "String", "API_URL", '"http://stg3.v5time.net/tfmobile/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -24,7 +32,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support.constraint:constraint-layout:$rootProject.constraintlayoutVersion"
     testCompile 'junit:junit:4.12'
+    compile project(':timekit')
 }
