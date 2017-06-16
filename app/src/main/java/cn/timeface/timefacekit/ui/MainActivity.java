@@ -1,7 +1,8 @@
-package cn.timeface.timefacekit;
+package cn.timeface.timefacekit.ui;
 
 import android.os.Bundle;
 
+import cn.timeface.timefacekit.R;
 import cn.timeface.timekit.activity.TfBaseActivity;
 
 public class MainActivity extends TfBaseActivity {

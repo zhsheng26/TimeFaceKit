@@ -20,6 +20,7 @@ android {
             buildConfigField("String", "SERVER_API_VERSION", '"20"')
         }
         release {
+            buildConfigField("boolean", "LOG_DEBUG", "true")
             buildConfigField "String", "API_URL", '"http://stg3.v5time.net/tfmobile/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
