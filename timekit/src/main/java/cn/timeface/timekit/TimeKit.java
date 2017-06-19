@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
+import cn.timeface.timekit.support.DeviceUuidFactory;
 import cn.timeface.timekit.util.log.LogUtil;
 import cn.timeface.timekit.util.storage.Remember;
 import cn.timeface.timekit.util.storage.StorageType;
@@ -24,6 +25,7 @@ public final class TimeKit {
         Remember.init(context, BuildConfig.APPLICATION_ID + "_preferences");
         StorageUtil.init(context, null);
         ScreenUtil.init(context);
+        DeviceUuidFactory.init(context);
         String path = StorageUtil.getDirectoryByDirType(StorageType.TYPE_LOG);
         LogUtil.init(path, Log.ERROR);
     }

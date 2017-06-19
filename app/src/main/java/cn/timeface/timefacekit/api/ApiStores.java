@@ -1,13 +1,18 @@
 package cn.timeface.timefacekit.api;
 
 
-import java.util.Map;
+import java.util.List;
 
 import cn.timeface.timefacekit.BuildConfig;
+import cn.timeface.timefacekit.api.entity.GroupAlbumImageItem;
+import cn.timeface.timefacekit.api.entity.LoginResponse;
+import cn.timeface.timekit.support.NetResponse;
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
-import retrofit2.http.Url;
+import retrofit2.http.Query;
 
 /**
  * Created by zhangsheng on 2017/6/16.
@@ -19,11 +24,25 @@ public interface ApiStores {
      */
     String BASE_URL = BuildConfig.API_URL;
 
-    String IMAGE_BASE_URL = "http://img1.timeface.cn/";
-    String APP_DOWNLOAD_URL = "http://www.timeface.cn/app.html";
+    /**
+     * 手机基本信息注册
+     */
+    @POST("auth/firstRun?platform=2")
+    Observable<NetResponse> firstRun(@Query("deviceName") String deviceName,
+                                     @Query("osVersion") String osVersion,
+                                     @Query("clientVersion") String clientVersion,
+                                     @Query("screen") String screen);
 
-    @POST
-    Observable<Object> superRequest(@Url String url,
-                                    @QueryMap Map<String, String> params);
+    /**
+     * 用户登录
+     */
+    @FormUrlEncoded
+    @POST("auth/userLogin")
+    Observable<LoginResponse> login(@Field("account") String account,
+                                    @Field("password") String password);
+
+    @GET("album/detail")
+    Observable<NetResponse<List<GroupAlbumImageItem>>> getGroupAlbumDetail(@Query("albumId") String albumId);
+
 
 }
