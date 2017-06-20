@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import cn.timeface.timekit.R;
+import cn.timeface.timekit.support.tfmvp.TfMvpView;
 import cn.timeface.timekit.ui.dialog.DialogFactory;
 import cn.timeface.timekit.ui.dialog.DialogImpl;
 import cn.timeface.timekit.util.sys.NetworkUtil;
@@ -21,7 +22,7 @@ import io.reactivex.disposables.Disposable;
  * Created by zhangsheng on 2017/5/15.
  */
 
-public class TfBaseActivity extends AppCompatActivity {
+public class TfBaseActivity extends AppCompatActivity implements TfMvpView {
     protected AppCompatActivity activity;
     private Toast toast;
     private CompositeDisposable mCompositeDisposable;
