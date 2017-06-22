@@ -1,5 +1,6 @@
 package cn.timeface.timefacekit.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,13 +15,12 @@ import cn.timeface.timefacekit.R;
 import cn.timeface.timefacekit.api.ApiService;
 import cn.timeface.timefacekit.api.ApiStores;
 import cn.timeface.timefacekit.support.FastData;
+import cn.timeface.timefacekit.ui.material.TypesetPhotoActivity;
 import cn.timeface.timekit.activity.TfBaseActivity;
-import cn.timeface.timekit.support.NetResponse;
 import cn.timeface.timekit.util.encode.AES;
 import cn.timeface.timekit.util.sys.DeviceUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -44,6 +44,10 @@ public class MainActivity extends TfBaseActivity {
         String userId = FastData.getString("userId", "");
         Timber.v("userId = " + userId);
         btnLogin.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(userId)) {
+                startActivity(new Intent(activity, TypesetPhotoActivity.class));
+                return;
+            }
             String name = etName.getText().toString();
             String pw = etPassword.getText().toString();
             if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pw)) {
