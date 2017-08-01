@@ -22,6 +22,7 @@
             android:name=".ui.material.TypesetPhotoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionbarTransparent" />
+        <activity android:name=".ui.aboutuser.LoginActivity"></activity>
     </application>
 
 </manifest>

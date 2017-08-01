@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -55,7 +57,16 @@ public class MainActivity extends TfBaseActivity {
             }
 
         });
+    }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 
     private void firstRun() {
