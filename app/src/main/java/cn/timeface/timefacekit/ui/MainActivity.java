@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -17,7 +15,7 @@ import cn.timeface.timefacekit.R;
 import cn.timeface.timefacekit.api.ApiService;
 import cn.timeface.timefacekit.api.ApiStores;
 import cn.timeface.timefacekit.support.FastData;
-import cn.timeface.timefacekit.ui.material.TypesetPhotoActivity;
+import cn.timeface.timefacekit.ui.aboutuser.LoginActivity;
 import cn.timeface.timekit.activity.TfBaseActivity;
 import cn.timeface.timekit.util.encode.AES;
 import cn.timeface.timekit.util.sys.DeviceUtil;
@@ -47,7 +45,7 @@ public class MainActivity extends TfBaseActivity {
         Timber.v("userId = " + userId);
         btnLogin.setOnClickListener(v -> {
             if (!TextUtils.isEmpty(userId)) {
-                startActivity(new Intent(activity, TypesetPhotoActivity.class));
+                startActivity(new Intent(activity, LoginActivity.class));
                 return;
             }
             String name = etName.getText().toString();
@@ -57,16 +55,6 @@ public class MainActivity extends TfBaseActivity {
             }
 
         });
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
     }
 
     private void firstRun() {

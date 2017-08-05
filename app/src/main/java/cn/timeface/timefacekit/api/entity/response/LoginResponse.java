@@ -1,5 +1,6 @@
-package cn.timeface.timefacekit.api.entity;
+package cn.timeface.timefacekit.api.entity.response;
 
+import cn.timeface.timefacekit.api.entity.UserObj;
 import cn.timeface.timekit.support.NetResponse;
 
 /**

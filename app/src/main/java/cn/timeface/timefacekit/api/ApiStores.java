@@ -1,16 +1,12 @@
 package cn.timeface.timefacekit.api;
 
 
-import java.util.List;
-
 import cn.timeface.timefacekit.BuildConfig;
-import cn.timeface.timefacekit.api.entity.GroupAlbumImageItem;
-import cn.timeface.timefacekit.api.entity.LoginResponse;
+import cn.timeface.timefacekit.api.entity.response.LoginResponse;
 import cn.timeface.timekit.support.NetResponse;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -40,9 +36,6 @@ public interface ApiStores {
     @POST("auth/userLogin")
     Observable<LoginResponse> login(@Field("account") String account,
                                     @Field("password") String password);
-
-    @GET("album/detail")
-    Observable<NetResponse<List<GroupAlbumImageItem>>> getGroupAlbumDetail(@Query("albumId") String albumId);
 
 
 }
