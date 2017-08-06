@@ -5,4 +5,5 @@
     <color name="colorAccent">#40c4ff</color>
     <color name="main_menu_text_color_f">#ff1d89ff</color>
     <color name="main_menu_text_color_n">#ffa1a1a1</color>
+    <color name="text_hint_color">#ff999999</color>
 </resources>
