@@ -3,6 +3,7 @@ package com.watertransport;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
@@ -19,10 +20,6 @@ import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
 
 public class MainActivity extends TfBaseActivity {
-    @BindView(R.id.tv_menu)
-    TextView tvMenu;
-    @BindView(R.id.toolbar)
-    RelativeLayout toolbar;
     @BindView(R.id.fl_container)
     FrameLayout flContainer;
     @BindView(R.id.rb_homepage)

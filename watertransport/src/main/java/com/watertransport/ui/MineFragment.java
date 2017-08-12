@@ -5,17 +5,48 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.watertransport.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.timeface.timekit.fragment.TfBaseFragment;
-import timber.log.Timber;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by zhangsheng on 2017/8/5.
  */
 
 public class MineFragment extends TfBaseFragment {
+    @BindView(R.id.iv_profile_image)
+    CircleImageView ivProfileImage;
+    @BindView(R.id.tv_user_name)
+    TextView tvUserName;
+    @BindView(R.id.tv_send_ordered_count)
+    TextView tvSendOrderedCount;
+    @BindView(R.id.tv_send_ordering_count)
+    TextView tvSendOrderingCount;
+    @BindView(R.id.layout_order_info)
+    LinearLayout layoutOrderInfo;
+    @BindView(R.id.iv_m1)
+    ImageView ivM1;
+    @BindView(R.id.layout_mine_order)
+    RelativeLayout layoutMineOrder;
+    @BindView(R.id.iv_m2)
+    ImageView ivM2;
+    @BindView(R.id.layout_base_info)
+    RelativeLayout layoutBaseInfo;
+    @BindView(R.id.iv_m3)
+    ImageView ivM3;
+    @BindView(R.id.layout_setting)
+    RelativeLayout layoutSetting;
+    Unbinder unbinder;
+
     public static MineFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -28,7 +59,9 @@ public class MineFragment extends TfBaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -42,5 +75,11 @@ public class MineFragment extends TfBaseFragment {
         if (this.getView() != null) {
             this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
