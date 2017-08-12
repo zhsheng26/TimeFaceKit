@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.watertransport.R;
 import com.watertransport.support.WtConstant;
+import com.watertransport.ui.loginregister.ForgetPwActivity;
 import com.watertransport.ui.loginregister.RegisterActivity;
 
 import butterknife.BindView;
@@ -23,9 +24,17 @@ public class SelectRoleActivity extends TfBaseActivity {
     Button btnCargoHost;
     @BindView(R.id.guideline)
     Guideline guideline;
+    private boolean forRegister;
 
-    public static void start(Context context) {
+    /**
+     * 选择用户身份，然后进入注册或忘记密码
+     *
+     * @param context
+     * @param forRegister
+     */
+    public static void start(Context context, boolean forRegister) {
         Intent starter = new Intent(context, SelectRoleActivity.class);
+        starter.putExtra("forRegister", forRegister);
         context.startActivity(starter);
     }
 
@@ -34,6 +43,7 @@ public class SelectRoleActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_role);
         ButterKnife.bind(this);
+        forRegister = getIntent().getBooleanExtra("forRegister", true);
     }
 
     @OnClick({R.id.btn_boat_owner, R.id.btn_cargo_host})
@@ -44,6 +54,10 @@ public class SelectRoleActivity extends TfBaseActivity {
                 role = WtConstant.USER_ROLE_CARGO;
                 break;
         }
-        RegisterActivity.start(activity, role);
+        if (forRegister) {
+            RegisterActivity.start(activity, role);
+        } else {
+            ForgetPwActivity.start(activity, role);
+        }
     }
 }

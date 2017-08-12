@@ -68,10 +68,8 @@ public class LoginActivity extends TfBaseActivity {
         });
 
         btnSubmit.setOnClickListener(view -> attemptLogin());
-        tvGoForget.setOnClickListener(view -> {
-
-        });
-        tvRegister.setOnClickListener(view -> SelectRoleActivity.start(activity));
+        tvGoForget.setOnClickListener(view -> SelectRoleActivity.start(activity, false));
+        tvRegister.setOnClickListener(view -> SelectRoleActivity.start(activity, true));
 
     }
 

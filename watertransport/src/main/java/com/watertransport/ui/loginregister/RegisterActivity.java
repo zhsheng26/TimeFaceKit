@@ -66,9 +66,9 @@ public class RegisterActivity extends TfBaseActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         int user_role = getIntent().getIntExtra("user_role", WtConstant.USER_ROLE_BOAT);
-        boolean showBoat = user_role == WtConstant.USER_ROLE_BOAT;
-        getSupportActionBar().setTitle(showBoat ? "船主注册" : "货主注册");
-        UiUtil.showView(layoutBoatRegister, showBoat);
-        UiUtil.showView(layoutCargoRegister, !showBoat);
+        boolean isBoat = user_role == WtConstant.USER_ROLE_BOAT;
+        getSupportActionBar().setTitle(isBoat ? "船主注册" : "货主注册");
+        UiUtil.showView(layoutBoatRegister, isBoat);
+        UiUtil.showView(layoutCargoRegister, !isBoat);
     }
 }
