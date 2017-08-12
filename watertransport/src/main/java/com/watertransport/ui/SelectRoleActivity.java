@@ -3,9 +3,9 @@ package com.watertransport.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.Guideline;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.watertransport.R;
 import com.watertransport.support.WtConstant;
@@ -18,12 +18,13 @@ import butterknife.OnClick;
 import cn.timeface.timekit.activity.TfBaseActivity;
 
 public class SelectRoleActivity extends TfBaseActivity {
-    @BindView(R.id.btn_boat_owner)
-    Button btnBoatHost;
-    @BindView(R.id.btn_cargo_host)
-    Button btnCargoHost;
-    @BindView(R.id.guideline)
-    Guideline guideline;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.rl_boat_owner)
+    RelativeLayout rlBoatOwner;
+    @BindView(R.id.rl_cargo_owner)
+    RelativeLayout rlCargoOwner;
     private boolean forRegister;
 
     /**
@@ -43,14 +44,15 @@ public class SelectRoleActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_role);
         ButterKnife.bind(this);
+        getSupportActionBar().setTitle("您是？");
         forRegister = getIntent().getBooleanExtra("forRegister", true);
     }
 
-    @OnClick({R.id.btn_boat_owner, R.id.btn_cargo_host})
+    @OnClick({R.id.rl_boat_owner, R.id.rl_cargo_owner})
     public void clickSelect(View v) {
         int role = WtConstant.USER_ROLE_BOAT;
         switch (v.getId()) {
-            case R.id.btn_cargo_host:
+            case R.id.rl_cargo_owner:
                 role = WtConstant.USER_ROLE_CARGO;
                 break;
         }
