@@ -2,24 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_main"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -34,9 +20,9 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:scrollbars="none"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="40dp">
+        android:paddingTop="40dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/ll_login_view"
@@ -44,65 +30,123 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_logo" />
 
-                <AutoCompleteTextView
+            <TextView
+                android:id="@+id/tv_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:text="@string/app_name"
+                android:textColor="@android:color/black"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/tv_slogan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:text="祝您一路畅通" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+
+                <EditText
                     android:id="@+id/tv_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_user_account"
+                    android:drawablePadding="@dimen/normal_margin"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:padding="12dp"
+                    android:singleLine="true"
+                    android:textColorHint="#ffbbbbbb"
+                    android:textSize="14sp" />
 
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E6E6E6"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:padding="@dimen/normal_margin"/>
+
 
                 <EditText
                     android:id="@+id/tv_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_password"
+                    android:drawablePadding="@dimen/normal_margin"
                     android:hint="@string/prompt_password"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/prompt_password"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:padding="12dp"
+                    android:singleLine="true"
+                    android:textColorHint="#ffbbbbbb"
+                    android:textSize="14sp" />
 
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_go_forget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|end"
-                android:padding="@dimen/normal_margin"
-                android:text="忘记密码?" />
+            </LinearLayout>
 
 
-            <Button
-                android:id="@+id/btn_submit"
-                style="?android:textAppearanceMedium"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:background="@drawable/selector_common_btn_bg"
-                android:text="@string/action_sign_in"
-                android:textColor="@android:color/white" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:padding="@dimen/normal_margin"
-                android:text="没有账号去注册" />
+                <Button
+                    android:id="@+id/btn_submit"
+                    style="?android:textAppearanceMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/normal_margin"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/selector_common_btn_bg"
+                    android:text="@string/action_sign_in"
+                    android:textColor="@android:color/white" />
+
+
+                <TextView
+                    android:id="@+id/tv_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_submit"
+                    android:layout_gravity="right"
+                    android:padding="@dimen/normal_margin"
+                    android:text="注册"
+                    android:textColor="#4991E3" />
+
+                <TextView
+                    android:id="@+id/tv_go_forget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/btn_submit"
+                    android:layout_gravity="right|end"
+                    android:padding="@dimen/normal_margin"
+                    android:text="忘记密码?" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
     </ScrollView>

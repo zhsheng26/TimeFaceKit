@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/layout_cargo_register"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:background="@color/divider_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center"
+            android:text="公司名称"
+            android:textColor="@color/text_black_title"
+            android:textSize="16dp" />
+
+        <cn.timeface.timekit.ui.edittext.XEditText
+            android:id="@+id/ed_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="@dimen/text_size_title2"
+            app:x_clearDrawable="@drawable/ic_delete" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:background="@color/divider_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center"
+            android:text="公司地址"
+            android:textColor="@color/text_black_title"
+            android:textSize="16dp" />
+
+        <cn.timeface.timekit.ui.edittext.XEditText
+            android:id="@+id/ed_company_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="@dimen/text_size_title2"
+            app:x_clearDrawable="@drawable/ic_delete" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:background="@color/divider_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center"
+            android:text="详细地址"
+            android:textColor="@color/text_black_title"
+            android:textSize="16dp" />
+
+        <cn.timeface.timekit.ui.edittext.XEditText
+            android:id="@+id/ed_detail_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="12sp"
+            app:x_clearDrawable="@drawable/ic_delete" />
+    </LinearLayout>
+</LinearLayout>

@@ -3,11 +3,10 @@ package com.watertransport.ui.loginregister;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -24,24 +23,29 @@ import cn.timeface.timekit.activity.TfBaseActivity;
 
 public class LoginActivity extends TfBaseActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+
     @BindView(R.id.login_progress)
     ProgressBar loginProgress;
+    @BindView(R.id.iv_header)
+    ImageView ivHeader;
+    @BindView(R.id.tv_app_name)
+    TextView tvAppName;
+    @BindView(R.id.tv_slogan)
+    TextView tvSlogan;
     @BindView(R.id.tv_account)
-    AutoCompleteTextView tvAccount;
+    EditText tvAccount;
     @BindView(R.id.tv_password)
     EditText tvPassword;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
+    @BindView(R.id.tv_register)
+    TextView tvRegister;
+    @BindView(R.id.tv_go_forget)
+    TextView tvGoForget;
     @BindView(R.id.ll_login_view)
     LinearLayout llLoginView;
     @BindView(R.id.login_form)
     ScrollView loginForm;
-    @BindView(R.id.tv_go_forget)
-    TextView tvGoForget;
-    @BindView(R.id.tv_register)
-    TextView tvRegister;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, LoginActivity.class);
