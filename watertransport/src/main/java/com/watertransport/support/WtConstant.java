@@ -5,7 +5,7 @@ package com.watertransport.support;
  */
 
 public interface WtConstant {
-    int USER_ROLE_BOAT = 1;
+    int USER_ROLE_BOAT = 3;
     int USER_ROLE_CARGO = 2;
     int BOAT_PAGE_1 = 11;
     int BOAT_PAGE_2 = 12;

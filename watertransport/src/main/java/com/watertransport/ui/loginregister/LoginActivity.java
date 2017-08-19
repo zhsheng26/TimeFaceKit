@@ -3,6 +3,7 @@ package com.watertransport.ui.loginregister;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +15,17 @@ import android.widget.TextView;
 
 import com.watertransport.MainActivity;
 import com.watertransport.R;
+import com.watertransport.api.ApiService;
+import com.watertransport.api.ApiStores;
+import com.watertransport.support.FastData;
 import com.watertransport.ui.SelectRoleActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
+import cn.timeface.timekit.support.SchedulersCompat;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 public class LoginActivity extends TfBaseActivity {
@@ -46,6 +53,7 @@ public class LoginActivity extends TfBaseActivity {
     LinearLayout llLoginView;
     @BindView(R.id.login_form)
     ScrollView loginForm;
+    private ApiStores apiStores;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, LoginActivity.class);
@@ -58,7 +66,7 @@ public class LoginActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        apiStores = ApiService.getInstance().getApi();
         tvPassword.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.tv_password || id == EditorInfo.IME_NULL) {
                 attemptLogin();
@@ -74,9 +82,34 @@ public class LoginActivity extends TfBaseActivity {
     }
 
     private void attemptLogin() {
+        String accountName = tvAccount.getText().toString();
         String password = tvPassword.getText().toString();
+        if (TextUtils.isEmpty(accountName)) {
+            showToast("请输入手机号");
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            showToast("请输入密码");
+        }
 
-        MainActivity.start(activity);
+        Disposable disposable = apiStores.login(accountName.trim(), password.trim())
+                .compose(SchedulersCompat.applyIoSchedulers())
+                .subscribe(netResponse -> {
+                    if (netResponse.isResult()) {
+                        String userId = netResponse.getUserId();
+                        FastData.saveUserId(userId);
+                        FastData.saveToken(netResponse.getToken());
+                        MainActivity.start(activity);
+                    } else {
+                        showToast(netResponse.getMessage());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showToast("抱歉，出错了");
+                    }
+                });
+        addSubscription(disposable);
     }
 
 }

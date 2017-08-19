@@ -1,6 +1,7 @@
 package cn.timeface.timekit.support;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 /**
  * Created by zhangsheng on 2017/3/5.
@@ -39,16 +41,26 @@ public class ApiClient {
                 Request.Builder req = chain.request().newBuilder();
                 for (Map.Entry<String, String> entry : getHttpHeaders().entrySet()) {
                     req.addHeader(entry.getKey(), entry.getValue());
+                    Log.i("HEADER", entry.getKey() + " : " + entry.getValue());
                 }
-                return chain.proceed(req.build());
+                Response response = chain.proceed(req.build());
+                boolean gzip = response.headers().get("Data-Type") != null && response.headers().get("Data-Type").equals("gzip");
+                if (gzip) {
+                    return response.newBuilder().removeHeader("Data-Type").addHeader("Content-Encoding", "gzip").build();
+                } else {
+                    return response.newBuilder().build();
+                }
             }
         });
 
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            httpClientBuilder.addInterceptor(loggingInterceptor);
-        }
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Timber.tag("Http").i(message);
+            }
+        });
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClientBuilder.addInterceptor(loggingInterceptor);
         OkHttpClient okHttpClient = httpClientBuilder.build();
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)

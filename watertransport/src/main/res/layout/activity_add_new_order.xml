@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:orientation="vertical"
+    tools:context="com.watertransport.ui.AddNewOrderActivity">
+
+    <include layout="@layout/layout_app_bar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_margin">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="@dimen/large_margin"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:text="货物信息"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物种类"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_cargo_kind"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:hint="请输入"
+                    android:maxLines="1"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物重量"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_cargo_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:hint="请输入"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物运输单价"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_cargo_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:hint="请输入"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="装载起始地"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_cargo_start_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:hint="请输入"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卸载目的地"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_cargo_destination"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:hint="请输入"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:id="@+id/ll_cargo_start_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="起运时间"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <TextView
+                    android:id="@+id/et_cargo_start_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:src="@drawable/ic_select_time" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:id="@+id/ll_cargo_arrive_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运达时间"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <TextView
+                    android:id="@+id/et_cargo_arrive_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:src="@drawable/ic_select_time" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_extra_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="left"
+                    android:hint="请输入"
+                    android:paddingBottom="@dimen/normal_margin"
+                    android:paddingTop="@dimen/normal_margin"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_margin">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="@dimen/large_margin"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:text="业务联系人"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系人"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_contact_user"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:hint="请输入"
+                    android:maxLines="1"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height_size"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话"
+                    android:textColor="@color/text_action"
+                    android:textSize="@dimen/text_size_title2" />
+
+                <EditText
+                    android:id="@+id/et_contact_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="right"
+                    android:hint="请输入"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:textColorHint="@color/text_hint_color"
+                    android:textSize="@dimen/text_size_title2" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

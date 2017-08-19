@@ -12,8 +12,16 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtil {
+    public static boolean isMobileNum(String num) {
+        String numberPatt = "^((13[0-9])|(14[5,7])|(17[0-9])|(15[^4,\\D])|(18[[0-9],\\D]))\\d{8}$";
+        Pattern p = Pattern.compile(numberPatt);
+        Matcher m = p.matcher(num);
+        return m.matches();
+    }
 
     public static String getPercentString(float percent) {
         return String.format(Locale.US, "%d%%", (int) (percent * 100));

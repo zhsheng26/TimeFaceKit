@@ -4,10 +4,11 @@ package cn.timeface.timekit.support;
  * Created by zhangsheng on 2016/12/28.
  */
 
-public class NetResponse<T>{
+public class NetResponse<T> {
     private String status;
+    private boolean result;
     private int errorCode;
-    private String info;
+    private String message;
     private T data;
 
     public T getData() {
@@ -18,7 +19,7 @@ public class NetResponse<T>{
         this.data = data;
     }
 
-    public boolean success(){
+    public boolean success() {
         return "1".equals(status);
     }
 
@@ -38,12 +39,19 @@ public class NetResponse<T>{
         this.errorCode = errorCode;
     }
 
-    public String getInfo() {
-        return info;
+    public String getMessage() {
+        return message;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setMessage(String info) {
+        this.message = info;
     }
 
+    public boolean isResult() {
+        return result;
+    }
+
+    public void setResult(boolean result) {
+        this.result = result;
+    }
 }

@@ -22,4 +22,12 @@ public class FastData extends Remember {
     public static int getUserRole() {
         return getInt("userRole", 1);
     }
+
+    public static void saveUserId(String userId) {
+        putString("userId", userId);
+    }
+
+    public static void saveToken(String token) {
+        putString("token", token);
+    }
 }

@@ -33,7 +33,7 @@ public class HomePageFragment extends TfBaseFragment {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     Unbinder unbinder;
-    String[] tabTitle = new String[2];
+    String[] tabTitle = new String[3];
 
     public static HomePageFragment newInstance() {
 

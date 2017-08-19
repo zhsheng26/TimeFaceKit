@@ -13,15 +13,14 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "API_URL", '"http://stg3.v5time.net/tfmobile/"'
-            buildConfigField "String", "SHARE_ROOT_URL", '"http://h5.stg1.v5time.net/"'
+            buildConfigField "String", "API_URL", '"http://59.110.141.52:8080/water_transport/app/"'
             buildConfigField("boolean", "LOG_DEBUG", "true")
             buildConfigField("boolean", "IN_MOCK", "false")
-            buildConfigField("String", "SERVER_API_VERSION", '"20"')
+            buildConfigField("String", "SERVER_API_VERSION", '"0"')
         }
         release {
             buildConfigField("boolean", "LOG_DEBUG", "true")
-            buildConfigField "String", "API_URL", '"http://stg3.v5time.net/tfmobile/"'
+            buildConfigField "String", "API_URL", '"http://59.110.141.52:8080/water_transport/app/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -43,7 +42,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-5'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3-alpha-5'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.jakewharton.timber:timber:4.5.1'
 }

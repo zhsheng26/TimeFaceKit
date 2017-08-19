@@ -18,11 +18,9 @@ public class WtApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Timber.plant(new Timber.DebugTree());
         if (shouldInit()) {
             TimeKit.init(this);
-        }
-        if (BuildConfig.DEBUG || BuildConfig.LOG_DEBUG) {
-            Timber.plant(new Timber.DebugTree());
         }
     }
 
