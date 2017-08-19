@@ -96,19 +96,13 @@ public class LoginActivity extends TfBaseActivity {
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(netResponse -> {
                     if (netResponse.isResult()) {
-                        String userId = netResponse.getUserId();
-                        FastData.saveUserId(userId);
+                        FastData.saveUserInfo(netResponse.getPage().getList().get(0));
                         FastData.saveToken(netResponse.getToken());
                         MainActivity.start(activity);
                     } else {
                         showToast(netResponse.getMessage());
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        showToast("抱歉，出错了");
-                    }
-                });
+                }, throwable -> showToast("抱歉，出错了"));
         addSubscription(disposable);
     }
 

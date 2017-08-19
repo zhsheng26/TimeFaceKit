@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.watertransport.R;
+import com.watertransport.ui.mine.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,6 +68,7 @@ public class MineFragment extends TfBaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        layoutSetting.setOnClickListener(v -> SettingActivity.start(getActivity()));
     }
 
     @Override
@@ -82,4 +84,6 @@ public class MineFragment extends TfBaseFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 }

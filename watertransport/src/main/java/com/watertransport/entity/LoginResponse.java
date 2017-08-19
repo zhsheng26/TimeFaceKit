@@ -18,7 +18,7 @@ public class LoginResponse {
     private String message;
     private String token;
     private String userId;
-    private String page;
+    private PageInfo<UserObj> page;
 
     public boolean isResult() {
         return result;
@@ -52,11 +52,11 @@ public class LoginResponse {
         this.userId = userId;
     }
 
-    public String getPage() {
+    public PageInfo<UserObj> getPage() {
         return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(PageInfo<UserObj> page) {
         this.page = page;
     }
 }

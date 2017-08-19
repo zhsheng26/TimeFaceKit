@@ -19,5 +19,6 @@ public class AddNewOrderActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_order);
         getSupportActionBar().setTitle("新增运单信息");
+
     }
 }

@@ -36,6 +36,7 @@
             android:name=".ui.loginregister.SetPwActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.AddNewOrderActivity" />
+        <activity android:name=".ui.mine.SettingActivity"></activity>
     </application>
 
 </manifest>

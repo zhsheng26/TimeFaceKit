@@ -9,25 +9,53 @@ import cn.timeface.timekit.util.storage.Remember;
  */
 
 public class FastData extends Remember {
+
+    public static final String USER_ID = "userId";
+    public static final String USER_ROLE = "userRole";
+    public static final String REAL_NAME = "realName";
+    public static final String LOGIN_NAME = "loginName";
+    public static final String TOKEN = "token";
+
     public static void saveUserInfo(UserObj userObj) {
-        putString("userId", userObj.getUserId());
-        putString("nickName", userObj.getUserName());
-        putString("avatar", userObj.getAvatar());
+        if (userObj == null) {
+            putString(USER_ID, "");
+            putInt(USER_ROLE, 0);
+            putString(REAL_NAME, "");
+            putString(LOGIN_NAME, "");
+            putString(TOKEN, "");
+            return;
+        }
+        putString(USER_ID, userObj.getId());
+        putInt(USER_ROLE, Integer.parseInt(userObj.getUserType()));
+        putString(REAL_NAME, userObj.getName());
+        putString(LOGIN_NAME, userObj.getLoginName());
     }
 
     public static String getUserId() {
-        return getString("userId", "");
+        return getString(USER_ID, "");
     }
 
     public static int getUserRole() {
-        return getInt("userRole", 1);
+        return getInt(USER_ROLE, WtConstant.USER_ROLE_BOAT);
+    }
+
+    public static String getRealName() {
+        return getString(REAL_NAME, "");
+    }
+
+    public static String getLoginName() {
+        return getString(LOGIN_NAME, "");
+    }
+
+    public static String getToken() {
+        return getString(TOKEN, "");
     }
 
     public static void saveUserId(String userId) {
-        putString("userId", userId);
+        putString(USER_ID, userId);
     }
 
     public static void saveToken(String token) {
-        putString("token", token);
+        putString(TOKEN, token);
     }
 }
