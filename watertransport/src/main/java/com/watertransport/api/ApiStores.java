@@ -57,4 +57,20 @@ public interface ApiStores {
                                           @Query("name") String name,
                                           @Query("companyName") String companyName,
                                           @Query("addrees") String addrees);
+
+    /*
+    * http://59.110.141.52:8080/water_transport/app/supply/add?cargoId=20&cargoName=煤炭&transporterName=合肥长江海运科技有限公司
+&loadTerminal=马鞍山&unloadTerminal=巢湖&tonnage=1000000&tonnageCost=20&statue=0&remarks=黄花树下不见不散&userId=25
+    * */
+    @GET("supply/add")
+    Observable<NetResponse> add(@Query("cargoId") String cargoId,
+                                @Query("cargoName") String cargoName,
+                                @Query("transporterName") String transporterName,
+                                @Query("loadTerminal") String loadTerminal,
+                                @Query("unloadTerminal") String unloadTerminal,
+                                @Query("tonnage") String tonnage,
+                                @Query("tonnageCost") String tonnageCost,
+                                @Query("statue") int statue,
+                                @Query("remarks") String remarks,
+                                @Query("userId") String userId);
 }
