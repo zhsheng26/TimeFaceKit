@@ -15,6 +15,8 @@ public class FastData extends Remember {
     public static final String REAL_NAME = "realName";
     public static final String LOGIN_NAME = "loginName";
     public static final String TOKEN = "token";
+    public static final String MOBILE = "mobile";
+    private static int phone;
 
     public static void saveUserInfo(UserObj userObj) {
         if (userObj == null) {
@@ -23,12 +25,14 @@ public class FastData extends Remember {
             putString(REAL_NAME, "");
             putString(LOGIN_NAME, "");
             putString(TOKEN, "");
+            putString(MOBILE, "");
             return;
         }
         putString(USER_ID, userObj.getId());
         putInt(USER_ROLE, Integer.parseInt(userObj.getUserType()));
         putString(REAL_NAME, userObj.getName());
         putString(LOGIN_NAME, userObj.getLoginName());
+        putString(MOBILE, userObj.getMobile());
     }
 
     public static String getUserId() {
@@ -57,5 +61,9 @@ public class FastData extends Remember {
 
     public static void saveToken(String token) {
         putString(TOKEN, token);
+    }
+
+    public static String getPhone() {
+        return getString(MOBILE, "");
     }
 }

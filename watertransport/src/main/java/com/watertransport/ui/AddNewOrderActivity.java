@@ -1,9 +1,11 @@
 package com.watertransport.ui;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -13,10 +15,18 @@ import android.widget.TextView;
 import com.watertransport.R;
 import com.watertransport.api.ApiService;
 import com.watertransport.api.ApiStores;
+import com.watertransport.support.FastData;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
+import cn.timeface.timekit.support.NetResponse;
+import cn.timeface.timekit.support.SchedulersCompat;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class AddNewOrderActivity extends TfBaseActivity {
 
@@ -60,6 +70,23 @@ public class AddNewOrderActivity extends TfBaseActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setTitle("新增运单信息");
         apiStores = ApiService.getInstance().getApi();
+        llCargoArriveTime.setOnClickListener(v -> selectDate(etCargoArriveTime));
+        llCargoStartTime.setOnClickListener(v -> selectDate(etCargoStartTime));
+        etContactPhone.setText(FastData.getPhone());
+        etContactUser.setText(FastData.getRealName());
+    }
+
+    private void selectDate(TextView showDate) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, monthOfYear, dayOfMonth) -> {
+            String strDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth);
+            calendar.set(year1, monthOfYear, dayOfMonth);
+            showDate.setText(strDate);
+        }, year, month, day);
+        datePickerDialog.show();
     }
 
     @Override
@@ -77,6 +104,67 @@ public class AddNewOrderActivity extends TfBaseActivity {
     }
 
     private void publishOrder() {
+        String cargoKind = etCargoKind.getText().toString();
+        String cargoWeight = etCargoWeight.getText().toString();
+        String price = etCargoPrice.getText().toString();
+        String startAddress = etCargoStartAddress.getText().toString();
+        String destination = etCargoDestination.getText().toString();
+        String startDate = etCargoStartTime.getText().toString();
+        String arriveTime = etCargoArriveTime.getText().toString();
+        String extraInfo = etExtraInfo.getText().toString();
+        String phone = etContactPhone.getText().toString();
+        String contactUse = etContactUser.getText().toString();
+        if (TextUtils.isEmpty(cargoKind)) {
+            showToast("请输入货物种类");
+            return;
+        }
+        if (TextUtils.isEmpty(cargoWeight)) {
+            showToast("请输入货物重量");
+            return;
+        }
+        if (TextUtils.isEmpty(price)) {
+            showToast("请输入单价");
+            return;
+        }
+        if (TextUtils.isEmpty(startAddress)) {
+            showToast("请输入装载起始地");
+            return;
+        }
+        if (TextUtils.isEmpty(destination)) {
+            showToast("请输入装载目的地");
+            return;
+        }
+        if (TextUtils.isEmpty(startDate)) {
+            showToast("起运时间");
+            return;
+        }
+        if (TextUtils.isEmpty(arriveTime)) {
+            showToast("运达时间");
+            return;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            showToast("请输入联系人手机号码");
+            return;
+        }
+        if (TextUtils.isEmpty(contactUse)) {
+            showToast("请输入联系人姓名");
+            return;
+        }
+        Disposable subscribe = apiStores.add("", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
+                .compose(SchedulersCompat.applyIoSchedulers())
+                .subscribe(new Consumer<NetResponse>() {
+                    @Override
+                    public void accept(NetResponse netResponse) throws Exception {
+                        if (netResponse.isResult()) {
+                            showToast("保存成功");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
 
+                    }
+                });
+        addSubscription(subscribe);
     }
 }
