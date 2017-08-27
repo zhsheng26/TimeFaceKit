@@ -12,4 +12,8 @@ public interface WtConstant {
     int CARGO_PAGE_1 = 21;
     int CARGO_PAGE_2 = 22;
     int CARGO_PAGE_3 = 23;
+
+    int PAGE_STATE_PUBLISHING = 1;
+    int PAGE_STATE_NO_PUBLISH = 0;
+    int PAGE_STATE_CLOSED = 2;
 }

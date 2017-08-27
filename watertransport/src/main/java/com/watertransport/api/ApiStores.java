@@ -2,7 +2,9 @@ package com.watertransport.api;
 
 
 import com.watertransport.BuildConfig;
+import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.entity.LoginResponse;
+import com.watertransport.entity.PageInfo;
 
 import cn.timeface.timekit.support.NetResponse;
 import io.reactivex.Observable;
@@ -69,4 +71,10 @@ public interface ApiStores {
                                 @Query("statue") int statue,
                                 @Query("remarks") String remarks,
                                 @Query("userId") String userId);
+
+    @GET("supply/list")
+    Observable<NetResponse<PageInfo<CargoOrderObj>>> list(@Query("pageNo") int pageNo,
+                                                          @Query("pageSize") int pageSize,
+                                                          @Query("statue") int statue,
+                                                          @Query("userId") String userId);
 }

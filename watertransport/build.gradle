@@ -40,10 +40,11 @@ dependencies {
     //没有使用特殊Header，可以不加这行
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-5'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3-alpha-5'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.jakewharton.timber:timber:4.5.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 }

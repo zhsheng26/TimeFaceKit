@@ -23,10 +23,10 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
-import cn.timeface.timekit.support.NetResponse;
 import cn.timeface.timekit.support.SchedulersCompat;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Action;
+import timber.log.Timber;
 
 public class AddNewOrderActivity extends TfBaseActivity {
 
@@ -150,21 +150,16 @@ public class AddNewOrderActivity extends TfBaseActivity {
             showToast("请输入联系人姓名");
             return;
         }
+        showLoading();
         Disposable subscribe = apiStores.add("", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
                 .compose(SchedulersCompat.applyIoSchedulers())
-                .subscribe(new Consumer<NetResponse>() {
-                    @Override
-                    public void accept(NetResponse netResponse) throws Exception {
-                        if (netResponse.isResult()) {
-                            showToast("保存成功");
-                        }
+                .doAfterTerminate(this::hideLoading)
+                .subscribe(netResponse -> {
+                    if (netResponse.isResult()) {
+                        showToast(netResponse.getMessage());
+                        finish();
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
+                }, Timber::e);
         addSubscription(subscribe);
     }
 }

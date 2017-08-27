@@ -9,14 +9,14 @@ public class NetResponse<T> {
     private boolean result;
     private int errorCode;
     private String message;
-    private T data;
+    private T page;
 
     public T getData() {
-        return data;
+        return page;
     }
 
     public void setData(T data) {
-        this.data = data;
+        this.page = data;
     }
 
     public boolean success() {

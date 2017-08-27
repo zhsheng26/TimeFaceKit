@@ -100,6 +100,7 @@ public class HomePageFragment extends TfBaseFragment {
             }
         });
         viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(3);
         tvMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +113,7 @@ public class HomePageFragment extends TfBaseFragment {
 
             }
         });
+
     }
 
     private class PagerAdapter extends FragmentPagerAdapter {
