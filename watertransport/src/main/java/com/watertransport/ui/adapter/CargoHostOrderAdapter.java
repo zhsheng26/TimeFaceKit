@@ -7,6 +7,8 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.watertransport.R;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.timeface.timekit.support.listener.OnItemClickListener;
 
 /**
  * Created by zhangsheng on 2017/8/6.
@@ -27,7 +30,10 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
 
 
     private final int pageState;
+
+
     private List<CargoOrderObj> listData = new ArrayList<>(5);
+    private OnItemClickListener<View, CargoOrderObj> onItemClickListener;
 
     public CargoHostOrderAdapter(int pageState) {
         this.pageState = pageState;
@@ -45,27 +51,37 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         CargoOrderObj cargoOrderObj = listData.get(position);
+        CargoHostViewHolder cargoHostViewHolder = (CargoHostViewHolder) holder;
+        cargoHostViewHolder.tvRoute.setText(cargoOrderObj.getLoadTerminal() + "-" + cargoOrderObj.getUnloadTerminal());
+        cargoHostViewHolder.tvDate.setText(cargoOrderObj.getCreateDate());
+        cargoHostViewHolder.tvCargoWeight.setText(cargoOrderObj.getCargoName() + "、" + cargoOrderObj.getTonnage());
+        String tonnageCost = cargoOrderObj.getTonnageCost();
+        String text = tonnageCost + "元/吨";
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder(text);
+        int indexOf = text.indexOf(tonnageCost);
+        stringBuilder.setSpan(new ForegroundColorSpan(holder.itemView.getContext().getResources().getColor(R.color.text_light)), indexOf, indexOf + tonnageCost.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        stringBuilder.setSpan(new RelativeSizeSpan(1.5f), indexOf, indexOf + tonnageCost.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        cargoHostViewHolder.tvCargoPrice.setText(stringBuilder);
         int itemViewType = getItemViewType(position);
         switch (itemViewType) {
+            case WtConstant.PAGE_STATE_PUBLISHING:
+                cargoHostViewHolder.rlPublishing.setVisibility(View.VISIBLE);
+                cargoHostViewHolder.viewSplit.setVisibility(View.GONE);
+                break;
             case WtConstant.PAGE_STATE_NO_PUBLISH:
-                CargoHostViewHolder cargoHostViewHolder = (CargoHostViewHolder) holder;
-                cargoHostViewHolder.tvRoute.setText(cargoOrderObj.getLoadTerminal() + "-" + cargoOrderObj.getUnloadTerminal());
-                cargoHostViewHolder.tvDate.setText(cargoOrderObj.getCreateDate());
-                cargoHostViewHolder.tvCargoWeight.setText(cargoOrderObj.getCargoName() + "、" + cargoOrderObj.getTonnage());
-                String tonnageCost = cargoOrderObj.getTonnageCost();
-                String text = tonnageCost + "元/吨";
-                SpannableStringBuilder stringBuilder = new SpannableStringBuilder(text);
-                int indexOf = text.indexOf(tonnageCost);
-                stringBuilder.setSpan(new ForegroundColorSpan(holder.itemView.getContext().getResources().getColor(R.color.text_light)), indexOf, indexOf + tonnageCost.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                stringBuilder.setSpan(new RelativeSizeSpan(1.5f), indexOf, indexOf + tonnageCost.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                cargoHostViewHolder.tvCargoPrice.setText(stringBuilder);
+                cargoHostViewHolder.viewSplit.setVisibility(View.VISIBLE);
+                cargoHostViewHolder.rlNoPublish.setVisibility(View.VISIBLE);
+                break;
+            case WtConstant.PAGE_STATE_CLOSED:
+                cargoHostViewHolder.viewSplit.setVisibility(View.VISIBLE);
+                cargoHostViewHolder.rlClosed.setVisibility(View.VISIBLE);
                 break;
         }
 
 
     }
 
-    class CargoHostViewHolder extends RecyclerView.ViewHolder {
+    class CargoHostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tv_route)
         TextView tvRoute;
         @BindView(R.id.tv_date)
@@ -74,11 +90,47 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
         TextView tvCargoWeight;
         @BindView(R.id.tv_cargo_price)
         TextView tvCargoPrice;
+        @BindView(R.id.view_split)
+        View viewSplit;
+        @BindView(R.id.btn_to_close)
+        Button btnToClose;
+        @BindView(R.id.btn_edit_publishing)
+        Button btnEditPublishing;
+        @BindView(R.id.rl_publishing)
+        RelativeLayout rlPublishing;
+        @BindView(R.id.btn_publish)
+        Button btnPublish;
+        @BindView(R.id.btn_edit)
+        Button btnEdit;
+        @BindView(R.id.rl_no_publish)
+        RelativeLayout rlNoPublish;
+        @BindView(R.id.rl_closed)
+        RelativeLayout rlClosed;
+        private CargoOrderObj cargoOrderObj;
 
         public CargoHostViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            btnEdit.setOnClickListener(this);
+            btnPublish.setOnClickListener(this);
+            btnToClose.setOnClickListener(this);
+            btnEditPublishing.setOnClickListener(this);
         }
+
+        public void setData(CargoOrderObj cargoOrderObj) {
+            this.cargoOrderObj = cargoOrderObj;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(v, cargoOrderObj, getAdapterPosition(), null);
+            }
+        }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<View, CargoOrderObj> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override

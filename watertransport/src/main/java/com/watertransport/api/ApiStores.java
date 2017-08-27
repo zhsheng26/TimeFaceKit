@@ -77,4 +77,10 @@ public interface ApiStores {
                                                           @Query("pageSize") int pageSize,
                                                           @Query("statue") int statue,
                                                           @Query("userId") String userId);
+
+    //status=1发布status=2关闭
+    @GET("supply/updateStatue")
+    Observable<NetResponse> updateStatue(@Query("id") int id,
+                                         @Query("userId") int userId,
+                                         @Query("statue") int statue);
 }

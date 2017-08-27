@@ -32,7 +32,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:orientation="horizontal">
@@ -41,8 +41,8 @@
             android:id="@+id/tv_cargo_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="黄沙、30吨"
             android:layout_alignParentBottom="true"
+            android:text="黄沙、30吨"
             android:textColor="@color/text_light"
             android:textSize="14sp" />
 
@@ -50,9 +50,9 @@
             android:id="@+id/tv_cargo_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
             android:textColor="@color/text_hint_color"
             android:textSize="14sp" />
 
@@ -63,6 +63,85 @@
             android:layout_toLeftOf="@id/tv_cargo_price"
             android:text="¥"
             android:textColor="@color/text_light"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_split"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/divider_line"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_publishing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+
+        <Button
+            android:id="@+id/btn_to_close"
+            android:layout_width="70dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_action_bg"
+            android:text="关闭"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_edit_publishing"
+            android:layout_width="70dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="@dimen/large_margin"
+            android:layout_toLeftOf="@id/btn_to_close"
+            android:background="@drawable/selector_action_bg"
+            android:text="编辑"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_no_publish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+
+        <Button
+            android:id="@+id/btn_publish"
+            android:layout_width="70dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_action_bg"
+            android:text="发布"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="70dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="@dimen/large_margin"
+            android:layout_toLeftOf="@id/btn_publish"
+            android:background="@drawable/selector_action_bg"
+            android:text="编辑"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_closed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/normal_margin"
+            android:text="已关闭"
+            android:textColor="@color/text_hint_color"
             android:textSize="14sp" />
     </RelativeLayout>
 </LinearLayout>

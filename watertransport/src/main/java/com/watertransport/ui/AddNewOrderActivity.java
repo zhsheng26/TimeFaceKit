@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.watertransport.R;
 import com.watertransport.api.ApiService;
 import com.watertransport.api.ApiStores;
+import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.support.FastData;
 
 import java.util.Calendar;
@@ -25,7 +26,6 @@ import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
 import cn.timeface.timekit.support.SchedulersCompat;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import timber.log.Timber;
 
 public class AddNewOrderActivity extends TfBaseActivity {
@@ -63,6 +63,12 @@ public class AddNewOrderActivity extends TfBaseActivity {
         context.startActivity(starter);
     }
 
+    public static void start(Context context, CargoOrderObj cargoOrderObj) {
+        Intent starter = new Intent(context, AddNewOrderActivity.class);
+        starter.putExtra("cargoOrderObj", cargoOrderObj);
+        context.startActivity(starter);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +78,16 @@ public class AddNewOrderActivity extends TfBaseActivity {
         apiStores = ApiService.getInstance().getApi();
         llCargoArriveTime.setOnClickListener(v -> selectDate(etCargoArriveTime));
         llCargoStartTime.setOnClickListener(v -> selectDate(etCargoStartTime));
+
         etContactPhone.setText(FastData.getPhone());
         etContactUser.setText(FastData.getRealName());
+        CargoOrderObj cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
+        if (cargoOrderObj == null) return;
+        etCargoKind.setText(cargoOrderObj.getCargoName());
+        etCargoWeight.setText(cargoOrderObj.getTonnage());
+        etCargoPrice.setText(cargoOrderObj.getTonnageCost());
+        etCargoStartAddress.setText(cargoOrderObj.getLoadTerminal());
+        etCargoDestination.setText(cargoOrderObj.getUnloadTerminal());
     }
 
     private void selectDate(TextView showDate) {
@@ -162,4 +176,5 @@ public class AddNewOrderActivity extends TfBaseActivity {
                 }, Timber::e);
         addSubscription(subscribe);
     }
+
 }

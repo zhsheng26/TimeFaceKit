@@ -86,6 +86,14 @@ public class ListContentFragment extends TfBaseFragment {
         cargoHostOrderAdapter = new CargoHostOrderAdapter(pageState);
         rvContent.setAdapter(cargoHostOrderAdapter);
         apiStores = ApiService.getInstance().getApi();
+        cargoHostOrderAdapter.setOnItemClickListener((view, cargoOrderObj, position, bundle) -> {
+            int id = view.getId();
+            if (id == R.id.btn_edit) {
+                AddNewOrderActivity.start(getContext(), cargoOrderObj);
+            } else if (id == R.id.btn_publish) {
+                publishOrder(cargoOrderObj);
+            }
+        });
         return content;
     }
 
@@ -106,7 +114,6 @@ public class ListContentFragment extends TfBaseFragment {
                 break;
             case WtConstant.CARGO_PAGE_2:
                 pageState = WtConstant.PAGE_STATE_NO_PUBLISH;
-
                 break;
             case WtConstant.CARGO_PAGE_3:
                 pageState = WtConstant.PAGE_STATE_CLOSED;
@@ -151,6 +158,10 @@ public class ListContentFragment extends TfBaseFragment {
                     showToast("网络不通");
                 });
         addSubscription(disposable);
+
+    }
+
+    private void publishOrder(CargoOrderObj cargoOrderObj) {
 
     }
 }

@@ -1,10 +1,13 @@
 package com.watertransport.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by zhangsheng on 2017/8/27.
  */
 
-public class CargoOrderObj {
+public class CargoOrderObj extends BaseObj implements Parcelable {
 
     /**
      * page :
@@ -249,4 +252,79 @@ public class CargoOrderObj {
     public void setAddrees(String addrees) {
         this.addrees = addrees;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.page);
+        dest.writeString(this.createBy);
+        dest.writeString(this.createDate);
+        dest.writeString(this.updateBy);
+        dest.writeString(this.updateDate);
+        dest.writeString(this.delFlag);
+        dest.writeString(this.id);
+        dest.writeString(this.cargoId);
+        dest.writeString(this.cargoName);
+        dest.writeString(this.transporterId);
+        dest.writeString(this.transporterName);
+        dest.writeString(this.loadTerminal);
+        dest.writeString(this.unloadTerminal);
+        dest.writeString(this.tonnage);
+        dest.writeString(this.tonnageCost);
+        dest.writeString(this.statue);
+        dest.writeString(this.remarks);
+        dest.writeString(this.userId);
+        dest.writeString(this.loginName);
+        dest.writeString(this.realName);
+        dest.writeString(this.companyName);
+        dest.writeString(this.mobile);
+        dest.writeString(this.phone);
+        dest.writeString(this.addrees);
+    }
+
+    public CargoOrderObj() {
+    }
+
+    protected CargoOrderObj(Parcel in) {
+        this.page = in.readString();
+        this.createBy = in.readString();
+        this.createDate = in.readString();
+        this.updateBy = in.readString();
+        this.updateDate = in.readString();
+        this.delFlag = in.readString();
+        this.id = in.readString();
+        this.cargoId = in.readString();
+        this.cargoName = in.readString();
+        this.transporterId = in.readString();
+        this.transporterName = in.readString();
+        this.loadTerminal = in.readString();
+        this.unloadTerminal = in.readString();
+        this.tonnage = in.readString();
+        this.tonnageCost = in.readString();
+        this.statue = in.readString();
+        this.remarks = in.readString();
+        this.userId = in.readString();
+        this.loginName = in.readString();
+        this.realName = in.readString();
+        this.companyName = in.readString();
+        this.mobile = in.readString();
+        this.phone = in.readString();
+        this.addrees = in.readString();
+    }
+
+    public static final Parcelable.Creator<CargoOrderObj> CREATOR = new Parcelable.Creator<CargoOrderObj>() {
+        @Override
+        public CargoOrderObj createFromParcel(Parcel source) {
+            return new CargoOrderObj(source);
+        }
+
+        @Override
+        public CargoOrderObj[] newArray(int size) {
+            return new CargoOrderObj[size];
+        }
+    };
 }
