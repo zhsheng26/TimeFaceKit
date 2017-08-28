@@ -72,8 +72,7 @@
         android:layout_height="1px"
         android:layout_marginBottom="12dp"
         android:layout_marginTop="12dp"
-        android:background="@color/divider_line"
-        android:visibility="gone" />
+        android:background="@color/divider_line" />
 
     <RelativeLayout
         android:id="@+id/rl_publishing"

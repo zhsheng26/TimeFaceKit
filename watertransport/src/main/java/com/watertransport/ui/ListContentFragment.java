@@ -20,8 +20,12 @@ import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.entity.PageInfo;
 import com.watertransport.support.FastData;
 import com.watertransport.support.WtConstant;
+import com.watertransport.support.event.UpdateListEvent;
 import com.watertransport.ui.adapter.CargoHostOrderAdapter;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -29,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.timeface.timekit.fragment.TfBaseFragment;
+import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.support.SchedulersCompat;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
@@ -38,7 +43,7 @@ import timber.log.Timber;
  * Created by zhangsheng on 2017/8/6.
  */
 
-public class ListContentFragment extends TfBaseFragment {
+public class ListContentFragment extends TfBaseFragment implements IEventBus {
 
 
     @BindView(R.id.rv_content)
@@ -88,14 +93,17 @@ public class ListContentFragment extends TfBaseFragment {
         apiStores = ApiService.getInstance().getApi();
         cargoHostOrderAdapter.setOnItemClickListener((view, cargoOrderObj, position, bundle) -> {
             int id = view.getId();
-            if (id == R.id.btn_edit) {
+            if (id == R.id.btn_edit || id == R.id.btn_edit_publishing) {
                 AddNewOrderActivity.start(getContext(), cargoOrderObj);
             } else if (id == R.id.btn_publish) {
                 publishOrder(cargoOrderObj);
+            } else if (id == R.id.btn_to_close) {
+                closeOrder(cargoOrderObj);
             }
         });
         return content;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -119,6 +127,7 @@ public class ListContentFragment extends TfBaseFragment {
                 pageState = WtConstant.PAGE_STATE_CLOSED;
                 break;
         }
+        cargoHostOrderAdapter.setPageState(pageState);
         getCargoOrder(pageState, true);
     }
 
@@ -137,7 +146,7 @@ public class ListContentFragment extends TfBaseFragment {
                         currentPageNo++;
                         PageInfo<CargoOrderObj> data = pageInfoNetResponse.getData();
                         List<CargoOrderObj> orderObjs = data.getList();
-                        if (orderObjs == null || orderObjs.size() == 0) {
+                        if (orderObjs == null) {
                             refreshLayout.finishRefresh();
                             refreshLayout.finishLoadmore();
                             return;
@@ -162,6 +171,36 @@ public class ListContentFragment extends TfBaseFragment {
     }
 
     private void publishOrder(CargoOrderObj cargoOrderObj) {
-
+        Disposable disposable = apiStores.updateStatue(cargoOrderObj.getId(), FastData.getUserId(), 1)
+                .compose(SchedulersCompat.applyIoSchedulers())
+                .subscribe(netResponse -> {
+                    showToast(netResponse.getMessage());
+                    if (netResponse.isResult()) {
+                        refreshLayout.autoRefresh();
+                        EventBus.getDefault().post(new UpdateListEvent(pageState));
+                    }
+                }, Timber::e);
+        addSubscription(disposable);
     }
+
+    private void closeOrder(CargoOrderObj cargoOrderObj) {
+        Disposable disposable = apiStores.updateStatue(cargoOrderObj.getId(), FastData.getUserId(), 2)
+                .compose(SchedulersCompat.applyIoSchedulers())
+                .subscribe(netResponse -> {
+                    showToast(netResponse.getMessage());
+                    if (netResponse.isResult()) {
+                        refreshLayout.autoRefresh();
+                        EventBus.getDefault().post(new UpdateListEvent(pageState));
+                    }
+                }, Timber::e);
+        addSubscription(disposable);
+    }
+
+    @Subscribe
+    public void onEvent(UpdateListEvent event) {
+        if (event.getPageState() != pageState) {
+            getCargoOrder(pageState, true);
+        }
+    }
+
 }

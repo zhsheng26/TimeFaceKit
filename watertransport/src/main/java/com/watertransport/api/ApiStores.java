@@ -80,7 +80,7 @@ public interface ApiStores {
 
     //status=1发布status=2关闭
     @GET("supply/updateStatue")
-    Observable<NetResponse> updateStatue(@Query("id") int id,
-                                         @Query("userId") int userId,
+    Observable<NetResponse> updateStatue(@Query("id") String id,
+                                         @Query("userId") String userId,
                                          @Query("statue") int statue);
 }

@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
+import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.util.sys.NetworkUtil;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -37,6 +40,22 @@ public class TfBaseFragment extends Fragment {
 
     public void addSubscription(Disposable disposable) {
         getCompositeDisposable().add(disposable);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (this instanceof IEventBus) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        if (this instanceof IEventBus) {
+            EventBus.getDefault().unregister(this);
+        }
+        super.onStop();
     }
 
     @Override

@@ -29,7 +29,7 @@ import cn.timeface.timekit.support.listener.OnItemClickListener;
 public class CargoHostOrderAdapter extends RecyclerView.Adapter {
 
 
-    private final int pageState;
+    private int pageState;
 
 
     private List<CargoOrderObj> listData = new ArrayList<>(5);
@@ -41,17 +41,14 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == WtConstant.PAGE_STATE_NO_PUBLISH) {
-            return new CargoHostViewHolder(View.inflate(parent.getContext(), R.layout.item_cargo_order, null));
-        } else {
-            return null;
-        }
+        return new CargoHostViewHolder(View.inflate(parent.getContext(), R.layout.item_cargo_order, null));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         CargoOrderObj cargoOrderObj = listData.get(position);
         CargoHostViewHolder cargoHostViewHolder = (CargoHostViewHolder) holder;
+        cargoHostViewHolder.setData(cargoOrderObj);
         cargoHostViewHolder.tvRoute.setText(cargoOrderObj.getLoadTerminal() + "-" + cargoOrderObj.getUnloadTerminal());
         cargoHostViewHolder.tvDate.setText(cargoOrderObj.getCreateDate());
         cargoHostViewHolder.tvCargoWeight.setText(cargoOrderObj.getCargoName() + "、" + cargoOrderObj.getTonnage());
@@ -66,19 +63,20 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
         switch (itemViewType) {
             case WtConstant.PAGE_STATE_PUBLISHING:
                 cargoHostViewHolder.rlPublishing.setVisibility(View.VISIBLE);
-                cargoHostViewHolder.viewSplit.setVisibility(View.GONE);
                 break;
             case WtConstant.PAGE_STATE_NO_PUBLISH:
-                cargoHostViewHolder.viewSplit.setVisibility(View.VISIBLE);
                 cargoHostViewHolder.rlNoPublish.setVisibility(View.VISIBLE);
                 break;
             case WtConstant.PAGE_STATE_CLOSED:
-                cargoHostViewHolder.viewSplit.setVisibility(View.VISIBLE);
                 cargoHostViewHolder.rlClosed.setVisibility(View.VISIBLE);
                 break;
         }
 
 
+    }
+
+    public void setPageState(int pageState) {
+        this.pageState = pageState;
     }
 
     class CargoHostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

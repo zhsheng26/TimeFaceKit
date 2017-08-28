@@ -10,7 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cn.timeface.timekit.R;
+import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.support.tfmvp.TfMvpView;
 import cn.timeface.timekit.ui.dialog.DialogFactory;
 import cn.timeface.timekit.ui.dialog.DialogImpl;
@@ -32,6 +35,9 @@ public class TfBaseActivity extends AppCompatActivity implements TfMvpView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+        if (this instanceof IEventBus) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
@@ -74,8 +80,11 @@ public class TfBaseActivity extends AppCompatActivity implements TfMvpView {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mCompositeDisposable != null) mCompositeDisposable.dispose();
+        if (this instanceof IEventBus) {
+            EventBus.getDefault().unregister(this);
+        }
+        super.onDestroy();
     }
 
     public void showLoading() {

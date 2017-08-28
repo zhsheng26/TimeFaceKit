@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.watertransport.api.ApiService;
 import com.watertransport.api.ApiStores;
 import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.support.FastData;
+import com.watertransport.support.WtConstant;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -56,6 +58,10 @@ public class AddNewOrderActivity extends TfBaseActivity {
     EditText etContactUser;
     @BindView(R.id.et_contact_phone)
     EditText etContactPhone;
+    @BindView(R.id.ll_boat_time)
+    LinearLayout llBoatTime;
+    @BindView(R.id.ll_cargo_contacts)
+    LinearLayout llCargoContacts;
     private ApiStores apiStores;
 
     public static void start(Context context) {
@@ -74,15 +80,25 @@ public class AddNewOrderActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_order);
         ButterKnife.bind(this);
-        getSupportActionBar().setTitle("新增运单信息");
+
         apiStores = ApiService.getInstance().getApi();
         llCargoArriveTime.setOnClickListener(v -> selectDate(etCargoArriveTime));
         llCargoStartTime.setOnClickListener(v -> selectDate(etCargoStartTime));
-
+        int userRole = FastData.getUserRole();
+        if (userRole == WtConstant.USER_ROLE_CARGO) {
+            llBoatTime.setVisibility(View.GONE);
+        } else {
+            llCargoContacts.setVisibility(View.GONE);
+        }
         etContactPhone.setText(FastData.getPhone());
         etContactUser.setText(FastData.getRealName());
         CargoOrderObj cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
-        if (cargoOrderObj == null) return;
+        if (cargoOrderObj == null) {
+            getSupportActionBar().setTitle("新增运单信息");
+            return;
+        } else {
+            getSupportActionBar().setTitle("编辑运单");
+        }
         etCargoKind.setText(cargoOrderObj.getCargoName());
         etCargoWeight.setText(cargoOrderObj.getTonnage());
         etCargoPrice.setText(cargoOrderObj.getTonnageCost());
