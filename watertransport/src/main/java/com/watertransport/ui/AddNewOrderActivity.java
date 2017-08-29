@@ -19,6 +19,9 @@ import com.watertransport.api.ApiStores;
 import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.support.FastData;
 import com.watertransport.support.WtConstant;
+import com.watertransport.support.event.UpdateListEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -63,6 +66,8 @@ public class AddNewOrderActivity extends TfBaseActivity {
     @BindView(R.id.ll_cargo_contacts)
     LinearLayout llCargoContacts;
     private ApiStores apiStores;
+    private int userRole;
+    private CargoOrderObj cargoOrderObj;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, AddNewOrderActivity.class);
@@ -84,7 +89,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
         apiStores = ApiService.getInstance().getApi();
         llCargoArriveTime.setOnClickListener(v -> selectDate(etCargoArriveTime));
         llCargoStartTime.setOnClickListener(v -> selectDate(etCargoStartTime));
-        int userRole = FastData.getUserRole();
+        userRole = FastData.getUserRole();
         if (userRole == WtConstant.USER_ROLE_CARGO) {
             llBoatTime.setVisibility(View.GONE);
         } else {
@@ -92,7 +97,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
         }
         etContactPhone.setText(FastData.getPhone());
         etContactUser.setText(FastData.getRealName());
-        CargoOrderObj cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
+        cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
         if (cargoOrderObj == null) {
             getSupportActionBar().setTitle("新增运单信息");
             return;
@@ -164,33 +169,53 @@ public class AddNewOrderActivity extends TfBaseActivity {
             showToast("请输入装载目的地");
             return;
         }
-        if (TextUtils.isEmpty(startDate)) {
-            showToast("起运时间");
-            return;
+        userRole = FastData.getUserRole();
+        if (userRole == WtConstant.USER_ROLE_CARGO) {
+            if (TextUtils.isEmpty(phone)) {
+                showToast("请输入联系人手机号码");
+                return;
+            }
+            if (TextUtils.isEmpty(contactUse)) {
+                showToast("请输入联系人姓名");
+                return;
+            }
+        } else {
+            if (TextUtils.isEmpty(startDate)) {
+                showToast("起运时间");
+                return;
+            }
+            if (TextUtils.isEmpty(arriveTime)) {
+                showToast("运达时间");
+                return;
+            }
         }
-        if (TextUtils.isEmpty(arriveTime)) {
-            showToast("运达时间");
-            return;
-        }
-        if (TextUtils.isEmpty(phone)) {
-            showToast("请输入联系人手机号码");
-            return;
-        }
-        if (TextUtils.isEmpty(contactUse)) {
-            showToast("请输入联系人姓名");
-            return;
-        }
+
         showLoading();
-        Disposable subscribe = apiStores.add("", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
-                .compose(SchedulersCompat.applyIoSchedulers())
-                .doAfterTerminate(this::hideLoading)
-                .subscribe(netResponse -> {
-                    if (netResponse.isResult()) {
-                        showToast(netResponse.getMessage());
-                        finish();
-                    }
-                }, Timber::e);
-        addSubscription(subscribe);
+        if (cargoOrderObj == null) {
+            Disposable subscribe = apiStores.cargoAdd("", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
+                    .compose(SchedulersCompat.applyIoSchedulers())
+                    .doAfterTerminate(this::hideLoading)
+                    .subscribe(netResponse -> {
+                        if (netResponse.isResult()) {
+                            showToast(netResponse.getMessage());
+                            EventBus.getDefault().post(new UpdateListEvent(-1));
+                            finish();
+                        }
+                    }, Timber::e);
+            addSubscription(subscribe);
+        } else {
+            Disposable subscribe = apiStores.cargoUpdate(cargoOrderObj.getId(), "", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
+                    .compose(SchedulersCompat.applyIoSchedulers())
+                    .doAfterTerminate(this::hideLoading)
+                    .subscribe(netResponse -> {
+                        if (netResponse.isResult()) {
+                            showToast(netResponse.getMessage());
+                            EventBus.getDefault().post(new UpdateListEvent(-1));
+                            finish();
+                        }
+                    }, Timber::e);
+            addSubscription(subscribe);
+        }
     }
 
 }

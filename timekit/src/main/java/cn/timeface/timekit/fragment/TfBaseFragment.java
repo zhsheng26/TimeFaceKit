@@ -51,17 +51,12 @@ public class TfBaseFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
+    public void onDestroy() {
         if (this instanceof IEventBus) {
             EventBus.getDefault().unregister(this);
         }
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
         if (mCompositeDisposable != null) mCompositeDisposable.dispose();
+        super.onDestroy();
     }
 
     public void showLoading() {
