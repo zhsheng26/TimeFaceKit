@@ -99,6 +99,7 @@ public class LoginActivity extends TfBaseActivity {
                         FastData.saveUserInfo(netResponse.getPage().getList().get(0));
                         FastData.saveToken(netResponse.getToken());
                         MainActivity.start(activity);
+                        finish();
                     } else {
                         showToast(netResponse.getMessage());
                     }

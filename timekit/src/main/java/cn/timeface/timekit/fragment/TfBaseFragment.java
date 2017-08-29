@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,10 +22,12 @@ public class TfBaseFragment extends Fragment {
     private Toast toast;
     private CompositeDisposable mCompositeDisposable;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (this instanceof IEventBus) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     public CompositeDisposable getCompositeDisposable() {
@@ -40,14 +39,6 @@ public class TfBaseFragment extends Fragment {
 
     public void addSubscription(Disposable disposable) {
         getCompositeDisposable().add(disposable);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (this instanceof IEventBus) {
-            EventBus.getDefault().register(this);
-        }
     }
 
     @Override

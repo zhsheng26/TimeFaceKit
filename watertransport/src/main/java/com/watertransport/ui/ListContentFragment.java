@@ -199,6 +199,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
     @Subscribe
     public void onEvent(UpdateListEvent event) {
         if (event.getPageState() != pageState) {
+            currentPageNo = 1;
             getCargoOrder(pageState, true);
         }
     }
