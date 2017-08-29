@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,6 +36,7 @@ import butterknife.Unbinder;
 import cn.timeface.timekit.fragment.TfBaseFragment;
 import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.support.SchedulersCompat;
+import cn.timeface.timekit.util.UiUtil;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
@@ -51,6 +53,8 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     Unbinder unbinder;
+    @BindView(R.id.tv_no_content)
+    TextView tvNoContent;
     private ApiStores apiStores;
     private int pageState = WtConstant.PAGE_STATE_NO_PUBLISH;
     private int currentPageNo = 1;
@@ -88,6 +92,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                 .color(Color.TRANSPARENT)
                 .sizeResId(R.dimen.normal_margin)
                 .build());
+        rvContent.setLayoutManager(new LinearLayoutManager(getContext()));
         cargoHostOrderAdapter = new CargoHostOrderAdapter(pageState);
         rvContent.setAdapter(cargoHostOrderAdapter);
         apiStores = ApiService.getInstance().getApi();
@@ -99,6 +104,8 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                 publishOrder(cargoOrderObj);
             } else if (id == R.id.btn_to_close) {
                 closeOrder(cargoOrderObj);
+            } else {
+                AddNewOrderActivity.startForDetail(getContext(), cargoOrderObj);
             }
         });
         return content;
@@ -109,7 +116,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         currentPageNo = 1;
-        rvContent.setLayoutManager(new LinearLayoutManager(getContext()));
+
         int pageType = getArguments().getInt("pageType");
         switch (pageType) {
             case WtConstant.BOAT_PAGE_1:
@@ -128,7 +135,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                 break;
         }
         cargoHostOrderAdapter.setPageState(pageState);
-        getCargoOrder(pageState, true);
+        refreshLayout.autoRefresh();
     }
 
     @Override
@@ -152,9 +159,11 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                             return;
                         }
                         if (refresh) {
+                            UiUtil.showView(tvNoContent, orderObjs.size() == 0);
                             cargoHostOrderAdapter.setNewData(orderObjs);
                             refreshLayout.finishRefresh();
                         } else {
+                            tvNoContent.setVisibility(View.GONE);
                             cargoHostOrderAdapter.addData(orderObjs);
                             refreshLayout.finishLoadmore();
                         }

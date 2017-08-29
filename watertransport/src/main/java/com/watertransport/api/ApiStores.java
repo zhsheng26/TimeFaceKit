@@ -4,6 +4,7 @@ package com.watertransport.api;
 import com.watertransport.BuildConfig;
 import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.entity.LoginResponse;
+import com.watertransport.entity.MsgObj;
 import com.watertransport.entity.PageInfo;
 
 import cn.timeface.timekit.support.NetResponse;
@@ -98,4 +99,10 @@ public interface ApiStores {
     Observable<NetResponse> updateStatue(@Query("id") String id,
                                          @Query("userId") String userId,
                                          @Query("statue") int statue);
+
+    @GET("userAnnounce/list")
+    Observable<NetResponse<PageInfo<MsgObj>>> userMsgList(@Query("pageNo") int pageNo,
+                                                          @Query("pageSize") int pageSize);
+
+
 }

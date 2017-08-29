@@ -113,6 +113,7 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
             btnPublish.setOnClickListener(this);
             btnToClose.setOnClickListener(this);
             btnEditPublishing.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         public void setData(CargoOrderObj cargoOrderObj) {

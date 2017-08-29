@@ -68,6 +68,14 @@ public class AddNewOrderActivity extends TfBaseActivity {
     private ApiStores apiStores;
     private int userRole;
     private CargoOrderObj cargoOrderObj;
+    private boolean detail;
+
+    public static void startForDetail(Context context, CargoOrderObj cargoOrderObj) {
+        Intent starter = new Intent(context, AddNewOrderActivity.class);
+        starter.putExtra("detail", true);
+        starter.putExtra("cargoOrderObj", cargoOrderObj);
+        context.startActivity(starter);
+    }
 
     public static void start(Context context) {
         Intent starter = new Intent(context, AddNewOrderActivity.class);
@@ -85,7 +93,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_order);
         ButterKnife.bind(this);
-
+        detail = getIntent().getBooleanExtra("detail", false);
         apiStores = ApiService.getInstance().getApi();
         llCargoArriveTime.setOnClickListener(v -> selectDate(etCargoArriveTime));
         llCargoStartTime.setOnClickListener(v -> selectDate(etCargoStartTime));
@@ -103,12 +111,24 @@ public class AddNewOrderActivity extends TfBaseActivity {
             return;
         } else {
             getSupportActionBar().setTitle("编辑运单");
+            if (detail) getSupportActionBar().setTitle("订单详情");
         }
         etCargoKind.setText(cargoOrderObj.getCargoName());
         etCargoWeight.setText(cargoOrderObj.getTonnage());
         etCargoPrice.setText(cargoOrderObj.getTonnageCost());
         etCargoStartAddress.setText(cargoOrderObj.getLoadTerminal());
         etCargoDestination.setText(cargoOrderObj.getUnloadTerminal());
+
+        etCargoKind.setEnabled(!detail);
+        etCargoWeight.setEnabled(!detail);
+        etCargoPrice.setEnabled(!detail);
+        etCargoStartAddress.setEnabled(!detail);
+        etCargoDestination.setEnabled(!detail);
+        etContactUser.setEnabled(!detail);
+        etContactPhone.setEnabled(!detail);
+        etCargoStartTime.setEnabled(!detail);
+        etCargoArriveTime.setEnabled(!detail);
+        etExtraInfo.setEnabled(!detail);
     }
 
     private void selectDate(TextView showDate) {
@@ -126,7 +146,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.save, menu);
+        if (!detail) getMenuInflater().inflate(R.menu.save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
