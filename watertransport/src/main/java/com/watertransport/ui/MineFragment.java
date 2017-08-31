@@ -11,12 +11,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.watertransport.R;
+import com.watertransport.support.FastData;
+import com.watertransport.support.WtConstant;
 import com.watertransport.ui.mine.SettingActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.timeface.timekit.fragment.TfBaseFragment;
+import cn.timeface.timekit.util.UiUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -68,7 +71,23 @@ public class MineFragment extends TfBaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvUserName.setText(FastData.getLoginName());
+        int userRole = FastData.getUserRole();
+        UiUtil.showView(layoutOrderInfo, userRole == WtConstant.USER_ROLE_CARGO);
+        layoutOrderInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        layoutBaseInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         layoutSetting.setOnClickListener(v -> SettingActivity.start(getActivity()));
+
     }
 
     @Override
