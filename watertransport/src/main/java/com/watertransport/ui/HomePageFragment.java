@@ -36,7 +36,7 @@ public class HomePageFragment extends TfBaseFragment {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     Unbinder unbinder;
-    String[] tabTitle = new String[3];
+    ArrayList<String> tabTitle = new ArrayList<>();
     @BindView(R.id.tv_menu)
     TextView tvMenu;
     @BindView(R.id.toolbar)
@@ -67,15 +67,15 @@ public class HomePageFragment extends TfBaseFragment {
         PagerAdapter adapter = new PagerAdapter(getChildFragmentManager());
         int userRole = FastData.getUserRole();
         if (userRole == WtConstant.USER_ROLE_BOAT) {
-            tabTitle[0] = "货运公\\货主发布的运单";
-            tabTitle[1] = "个人装载运单";
+            tabTitle.add("货运公司\\货主发布的运单");
+            tabTitle.add("个人装载运单");
             tvMenu.setText("+ 记录运单");
             adapter.addFragment(ListContentFragment.newInstance(WtConstant.BOAT_PAGE_1));
             adapter.addFragment(ListContentFragment.newInstance(WtConstant.BOAT_PAGE_2));
         } else {
-            tabTitle[0] = "发布中";
-            tabTitle[1] = "未发布";
-            tabTitle[2] = "已关闭";
+            tabTitle.add("发布中");
+            tabTitle.add("未发布");
+            tabTitle.add("已关闭");
             tvMenu.setText("+ 新增");
             adapter.addFragment(ListContentFragment.newInstance(WtConstant.CARGO_PAGE_1));
             adapter.addFragment(ListContentFragment.newInstance(WtConstant.CARGO_PAGE_2));
@@ -100,13 +100,12 @@ public class HomePageFragment extends TfBaseFragment {
             }
         });
         viewPager.setCurrentItem(0);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(tabTitle.size());
         tvMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (userRole == WtConstant.USER_ROLE_BOAT) {
                     //记录运单
-                } else {
                     //新增运单
                     AddNewOrderActivity.start(getActivity());
                 }
@@ -134,12 +133,12 @@ public class HomePageFragment extends TfBaseFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return tabTitle[position];
+            return tabTitle.get(position);
         }
 
         @Override
         public int getCount() {
-            return tabTitle.length;
+            return tabTitle.size();
         }
     }
 

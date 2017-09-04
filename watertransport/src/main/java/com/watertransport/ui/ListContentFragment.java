@@ -173,6 +173,8 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                     }
                 }, throwable -> {
                     Timber.e(throwable);
+                    refreshLayout.finishRefresh();
+                    refreshLayout.finishLoadmore();
                     showToast("网络不通");
                 });
         addSubscription(disposable);

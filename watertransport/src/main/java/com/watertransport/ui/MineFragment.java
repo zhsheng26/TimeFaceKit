@@ -74,18 +74,14 @@ public class MineFragment extends TfBaseFragment {
         tvUserName.setText(FastData.getLoginName());
         int userRole = FastData.getUserRole();
         UiUtil.showView(layoutOrderInfo, userRole == WtConstant.USER_ROLE_CARGO);
-        layoutOrderInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        layoutOrderInfo.setOnClickListener(v -> {
+            if (userRole == WtConstant.USER_ROLE_CARGO) {
+                CargoOwnerOrderActivity.start(getActivity());
+            } else {
+                BoatHostOrderActivity.start(getActivity());
             }
         });
-        layoutBaseInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        layoutBaseInfo.setOnClickListener(v -> UserInfoActivity.start(getActivity()));
         layoutSetting.setOnClickListener(v -> SettingActivity.start(getActivity()));
 
     }

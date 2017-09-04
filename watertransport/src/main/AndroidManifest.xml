@@ -36,7 +36,11 @@
             android:name=".ui.loginregister.SetPwActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.AddNewOrderActivity" />
-        <activity android:name=".ui.mine.SettingActivity"></activity>
+        <activity android:name=".ui.mine.SettingActivity" />
+        <activity android:name=".ui.UserInfoActivity" />
+        <activity android:name=".ui.BoatHostOrderActivity" />
+        <activity android:name=".ui.CargoOwnerOrderActivity" />
+        <activity android:name=".ui.OrderDetailActivity"></activity>
     </application>
 
 </manifest>

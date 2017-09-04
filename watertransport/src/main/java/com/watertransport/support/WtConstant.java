@@ -16,4 +16,8 @@ public interface WtConstant {
     int PAGE_STATE_PUBLISHING = 1;
     int PAGE_STATE_NO_PUBLISH = 0;
     int PAGE_STATE_CLOSED = 2;
+
+    String BOAT_ORDER_ALL = "全部";
+    String BOAT_ORDER_HAS = "已结算";
+    String BOAT_ORDER_NO = "未结算";
 }

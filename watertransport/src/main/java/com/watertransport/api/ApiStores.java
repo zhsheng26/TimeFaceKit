@@ -2,6 +2,7 @@ package com.watertransport.api;
 
 
 import com.watertransport.BuildConfig;
+import com.watertransport.entity.BoatHostOrderObj;
 import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.entity.LoginResponse;
 import com.watertransport.entity.MsgObj;
@@ -104,5 +105,37 @@ public interface ApiStores {
     Observable<NetResponse<PageInfo<MsgObj>>> userMsgList(@Query("pageNo") int pageNo,
                                                           @Query("pageSize") int pageSize);
 
+    /**
+     * http://59.110.141.52:8080/water_transport/app/shiperOrder/add?sbipuserId=1&goodsId=2&goodsName=铁
+     * &transporter=张三丰&mobile=15600022222&orderId=&loadTime=2017-08-01 00:00:00&unloadTime=2017-08-03 00:00:00
+     * &loadCity=铜陵&loadTerminal=岱山码头&unloadCity=巢湖&unloadTerminal=散兵码头&tonnage=1200
+     * &settlementTime=2017-08-02 00:00:00&transportCost=20&settlementMoney=24000&orderStatue=0&userId=25
+     */
+    @GET("shiperOrder/add")
+    Observable<NetResponse> boatAddOrder(@Query("goodsId") String cargoId,
+                                         @Query("goodsName") String cargoName,
+                                         @Query("transporter") String transporterName,
+                                         @Query("mobile") String mobile,
+                                         @Query("loadTime") String loadTime,
+                                         @Query("unloadTime") String unloadTime,
+                                         @Query("loadCity") String loadCity,
+                                         @Query("unloadCity") String unloadCity,
+                                         @Query("loadTerminal") String loadTerminal,
+                                         @Query("unloadTerminal") String unloadTerminal,
+                                         @Query("tonnage") String tonnage,
+                                         @Query("tonnageCost") String tonnageCost,
+                                         @Query("settlementTime") String settlementTime,
+                                         @Query("transportCost") String transportCost,
+                                         @Query("settlementMoney") String settlementMoney,
+                                         @Query("orderStatue") String orderStatue,
+                                         @Query("remarks") String remarks,
+                                         @Query("userId") String userId);
+
+    //    http://59.110.141.52:8080/water_transport/app/shiperOrder/list?userId=&orderStatue=&pageNo=1&pageSize=10
+    @GET("shiperOrder/list")
+    Observable<NetResponse<PageInfo<BoatHostOrderObj>>> boatOrderList(@Query("userId") String userId,
+                                                                      @Query("orderStatue") int orderStatue,
+                                                                      @Query("pageNo") int pageNo,
+                                                                      @Query("pageSize") int pageSize);
 
 }
