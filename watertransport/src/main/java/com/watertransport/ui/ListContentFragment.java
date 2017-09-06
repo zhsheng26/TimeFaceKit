@@ -105,7 +105,8 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
             } else if (id == R.id.btn_to_close) {
                 closeOrder(cargoOrderObj);
             } else {
-                AddNewOrderActivity.startForDetail(getContext(), cargoOrderObj);
+//                AddNewOrderActivity.startForDetail(getContext(), cargoOrderObj);
+                OrderDetailActivity.start(getContext(), cargoOrderObj);
             }
         });
         return content;

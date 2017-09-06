@@ -85,7 +85,7 @@ public class LoginActivity extends TfBaseActivity {
         String accountName = tvAccount.getText().toString();
         String password = tvPassword.getText().toString();
         if (TextUtils.isEmpty(accountName)) {
-            showToast("请输入手机号");
+            showToast("请输入用户名或手机号");
             return;
         }
         if (TextUtils.isEmpty(password)) {

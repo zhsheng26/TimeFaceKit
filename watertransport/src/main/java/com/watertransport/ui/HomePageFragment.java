@@ -67,8 +67,8 @@ public class HomePageFragment extends TfBaseFragment {
         PagerAdapter adapter = new PagerAdapter(getChildFragmentManager());
         int userRole = FastData.getUserRole();
         if (userRole == WtConstant.USER_ROLE_BOAT) {
-            tabTitle.add("货运公司\\货主发布的运单");
-            tabTitle.add("个人装载运单");
+            tabTitle.add("最新发布运单");
+            tabTitle.add("我的运单");
             tvMenu.setText("+ 记录运单");
             adapter.addFragment(ListContentFragment.newInstance(WtConstant.BOAT_PAGE_1));
             adapter.addFragment(ListContentFragment.newInstance(WtConstant.BOAT_PAGE_2));

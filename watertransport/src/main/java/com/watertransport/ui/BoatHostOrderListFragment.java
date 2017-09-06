@@ -45,7 +45,7 @@ public class BoatHostOrderListFragment extends BaseListFragment {
         } else {
             orderState = 2;//已结算
         }
-        reqData(true);
+        refreshLayout.autoRefresh();
     }
 
     @Override
@@ -56,12 +56,12 @@ public class BoatHostOrderListFragment extends BaseListFragment {
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
-        reqData(true);
+        reqData(false);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        reqData(false);
+        reqData(true);
     }
 
     private void reqData(boolean refresh) {
@@ -70,11 +70,15 @@ public class BoatHostOrderListFragment extends BaseListFragment {
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(pageInfoNetResponse -> {
                     if (pageInfoNetResponse.isResult()) {
-                        currentPageNo += 1;
                         List<BoatHostOrderObj> hostOrderObjs = pageInfoNetResponse.getData().getList();
                         if (refresh) {
-                            hostOrderAdapter.setData(hostOrderObjs);
                             refreshLayout.finishRefresh();
+                            if (hostOrderObjs == null || hostOrderObjs.size() == 0) {
+                                tvNoContent.setVisibility(View.VISIBLE);
+                            } else {
+                                currentPageNo += 1;
+                                hostOrderAdapter.setData(hostOrderObjs);
+                            }
                         } else {
                             hostOrderAdapter.addData(hostOrderObjs);
                             refreshLayout.finishLoadmore();

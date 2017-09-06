@@ -40,7 +40,7 @@ public class BoatHostOrderActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boat_hoster_order);
         ButterKnife.bind(this);
-        setTitle("我的订单");
+        setTitle("我的运单");
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         tabTitle.add(WtConstant.BOAT_ORDER_ALL);
         tabTitle.add(WtConstant.BOAT_ORDER_HAS);
