@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_main"
     android:orientation="vertical"
     tools:context="com.watertransport.ui.UserInfoActivity">
 
@@ -17,7 +17,368 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:text="个人信息"
+                    android:textColor="@android:color/black" />
+
+                <LinearLayout
+                    android:id="@+id/ll_user_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="头像" />
+
+                    <ImageView
+                        android:id="@+id/iv_header"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:src="@drawable/ic_logo" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="用户名" />
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_user_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="手机号" />
+
+                    <TextView
+                        android:id="@+id/tv_user_mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_user_real_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="真实姓名" />
+
+                    <TextView
+                        android:id="@+id/tv_user_realName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_boat_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:text="船信息"
+                    android:textColor="@android:color/black" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_boat_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="船号" />
+
+                    <TextView
+                        android:id="@+id/tv_boat_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_boat_host_verify"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="船主证" />
+
+                    <TextView
+                        android:id="@+id/tv_boat_host_verify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_boat_ton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="船载吨位" />
+
+                    <TextView
+                        android:id="@+id/tv_boat_ton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_boat_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="所在地" />
+
+                    <TextView
+                        android:id="@+id/tv_boat_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_boat_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="所属公司" />
+
+                    <TextView
+                        android:id="@+id/tv_boat_company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:textColor="@color/text_hint_color"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_right_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/divider_line" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

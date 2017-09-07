@@ -2,6 +2,7 @@ package com.watertransport.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -62,12 +63,14 @@ public class OrderDetailActivity extends TfBaseActivity {
         tvCargoWeight.setText(String.format("%s吨", orderObj.getTonnage()));
         tvCargoPrice.setText(String.format("%s元/吨", orderObj.getTonnageCost()));
         tvContacts.setText(String.format("联系人：%s", orderObj.getRealName()));
-        tvContacts.setText(String.format("手机号码：%s", orderObj.getMobile()));
-        tvContacts.setText(String.format("固定电话：%s", orderObj.getPhone()));
+        tvPhone.setText(String.format("手机号码：%s", orderObj.getMobile()));
+        tvMobile.setText(String.format("固定电话：%s", orderObj.getPhone()));
         ivCallPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + orderObj.getMobile()));
+                startActivity(intent);
             }
         });
 

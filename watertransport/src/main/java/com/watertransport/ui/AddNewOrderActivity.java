@@ -131,6 +131,12 @@ public class AddNewOrderActivity extends TfBaseActivity {
         etExtraInfo.setEnabled(!detail);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        etCargoKind.requestFocus();
+    }
+
     private void selectDate(TextView showDate) {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);

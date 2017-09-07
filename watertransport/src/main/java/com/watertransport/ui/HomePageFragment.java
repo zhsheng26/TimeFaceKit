@@ -104,12 +104,7 @@ public class HomePageFragment extends TfBaseFragment {
         tvMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userRole == WtConstant.USER_ROLE_BOAT) {
-                    //记录运单
-                    //新增运单
-                    AddNewOrderActivity.start(getActivity());
-                }
-
+                AddNewOrderActivity.start(getActivity());
             }
         });
 
