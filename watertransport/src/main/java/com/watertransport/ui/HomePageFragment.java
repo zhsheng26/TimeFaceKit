@@ -71,7 +71,7 @@ public class HomePageFragment extends TfBaseFragment {
             tabTitle.add("我的运单");
             tvMenu.setText("+ 记录运单");
             adapter.addFragment(ListContentFragment.newInstance(WtConstant.BOAT_PAGE_1));
-            adapter.addFragment(ListContentFragment.newInstance(WtConstant.BOAT_PAGE_2));
+            adapter.addFragment(BoatHostOrderListFragment.newInstance(WtConstant.BOAT_ORDER_ALL));
         } else {
             tabTitle.add("发布中");
             tabTitle.add("未发布");

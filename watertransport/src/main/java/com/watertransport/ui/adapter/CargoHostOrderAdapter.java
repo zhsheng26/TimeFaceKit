@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.watertransport.R;
 import com.watertransport.entity.CargoOrderObj;
+import com.watertransport.support.FastData;
 import com.watertransport.support.WtConstant;
 
 import java.util.ArrayList;
@@ -62,7 +63,9 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
         int itemViewType = getItemViewType(position);
         switch (itemViewType) {
             case WtConstant.PAGE_STATE_PUBLISHING:
-                cargoHostViewHolder.rlPublishing.setVisibility(View.VISIBLE);
+                if (FastData.getUserRole() == WtConstant.USER_ROLE_CARGO) {//因为船主也可以查看发布中的，但是不能编辑和关闭
+                    cargoHostViewHolder.rlPublishing.setVisibility(View.VISIBLE);
+                }
                 break;
             case WtConstant.PAGE_STATE_NO_PUBLISH:
                 cargoHostViewHolder.rlNoPublish.setVisibility(View.VISIBLE);

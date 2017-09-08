@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.timeface.timekit.support.listener.OnItemClickListener;
 
 /**
  * Created by zhangsheng on 2017/9/3.
@@ -26,6 +27,7 @@ import butterknife.ButterKnife;
 public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdapter.BoatViewHolder> {
 
     private List<BoatHostOrderObj> hostOrderObj = new ArrayList<>();
+    private OnItemClickListener<View, BoatHostOrderObj> onItemClickListener;
 
     public void setData(List<BoatHostOrderObj> hostOrderObjs) {
         hostOrderObj.clear();
@@ -36,6 +38,14 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
     public void addData(List<BoatHostOrderObj> boatHostOrderObjs) {
         hostOrderObj.addAll(boatHostOrderObjs);
         notifyDataSetChanged();
+    }
+
+    public void remove(BoatHostOrderObj boatHostOrderObj) {
+        if (hostOrderObj.contains(boatHostOrderObj)) {
+            int indexOf = hostOrderObj.indexOf(boatHostOrderObj);
+            hostOrderObj.remove(indexOf);
+            notifyItemRemoved(indexOf);
+        }
     }
 
     @Override
@@ -65,12 +75,16 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
         }
     }
 
+    public void setOnItemClickListener(OnItemClickListener<View, BoatHostOrderObj> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @Override
     public int getItemCount() {
         return hostOrderObj.size();
     }
 
-    class BoatViewHolder extends RecyclerView.ViewHolder {
+    class BoatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tv_route)
         TextView tvRoute;
         @BindView(R.id.tv_date)
@@ -91,11 +105,24 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
         TextView btnEdit;
         @BindView(R.id.rl_no_end)
         RelativeLayout rlNoEnd;
+        BoatHostOrderObj hostOrderObj;
 
         public BoatViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+            btnToClose.setOnClickListener(this);
+        }
 
+        public void setData(BoatHostOrderObj hostOrderObj) {
+            this.hostOrderObj = hostOrderObj;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(v, hostOrderObj, getAdapterPosition(), null);
+            }
         }
     }
 }

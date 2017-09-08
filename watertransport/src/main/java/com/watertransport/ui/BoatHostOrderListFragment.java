@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.watertransport.R;
 import com.watertransport.entity.BoatHostOrderObj;
 import com.watertransport.support.FastData;
 import com.watertransport.support.WtConstant;
@@ -14,6 +15,7 @@ import com.watertransport.ui.adapter.BoatHostOrderAdapter;
 import java.util.List;
 
 import cn.timeface.timekit.support.SchedulersCompat;
+import cn.timeface.timekit.support.listener.OnItemClickListener;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
@@ -21,7 +23,7 @@ import timber.log.Timber;
  * Created by zhangsheng on 2017/9/3.
  */
 
-public class BoatHostOrderListFragment extends BaseListFragment {
+public class BoatHostOrderListFragment extends BaseListFragment implements OnItemClickListener<View, BoatHostOrderObj> {
 
     private BoatHostOrderAdapter hostOrderAdapter;
     private int orderState = 0;
@@ -51,6 +53,7 @@ public class BoatHostOrderListFragment extends BaseListFragment {
     @Override
     protected RecyclerView.Adapter getAdapter() {
         hostOrderAdapter = new BoatHostOrderAdapter();
+        hostOrderAdapter.setOnItemClickListener(this);
         return hostOrderAdapter;
     }
 
@@ -83,6 +86,26 @@ public class BoatHostOrderListFragment extends BaseListFragment {
                             hostOrderAdapter.addData(hostOrderObjs);
                             refreshLayout.finishLoadmore();
                         }
+                    }
+                }, Timber::d);
+        addSubscription(disposable);
+    }
+
+    @Override
+    public void onItemClick(View view, BoatHostOrderObj boatHostOrderObj, int position, @Nullable Bundle bundle) {
+        if (view.getId() == R.id.btn_go_edit) {//去结算
+            endOrder(boatHostOrderObj);
+        } else {
+            AddNewOrderActivity.start(getContext(), boatHostOrderObj);
+        }
+    }
+
+    private void endOrder(BoatHostOrderObj boatHostOrderObj) {
+        Disposable disposable = apiStores.updateShipOderStatue(FastData.getUserId(), boatHostOrderObj.getId())
+                .compose(SchedulersCompat.applyIoSchedulers())
+                .subscribe(netResponse -> {
+                    if (netResponse.isResult()) {
+                        hostOrderAdapter.remove(boatHostOrderObj);
                     }
                 }, Timber::d);
         addSubscription(disposable);

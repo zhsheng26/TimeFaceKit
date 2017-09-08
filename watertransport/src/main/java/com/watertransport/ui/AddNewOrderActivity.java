@@ -29,8 +29,10 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
+import cn.timeface.timekit.support.NetResponse;
 import cn.timeface.timekit.support.SchedulersCompat;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 public class AddNewOrderActivity extends TfBaseActivity {
@@ -217,31 +219,74 @@ public class AddNewOrderActivity extends TfBaseActivity {
         }
 
         showLoading();
+
         if (cargoOrderObj == null) {
+
+            if (userRole == WtConstant.USER_ROLE_BOAT) {
+                Disposable subscribe1 = apiStores.boatAddOrder(FastData.getUserId(),
+                        "",
+                        cargoKind,
+                        etContactUser.getText().toString(),
+                        phone,
+                        startDate,
+                        arriveTime,
+                        "",
+                        "",
+                        startAddress,
+                        destination,
+                        cargoWeight,
+                        "",//结算时间
+                        price,
+                        "",//结算金额
+                        extraInfo,
+                        0,
+                        FastData.getUserId())
+                        .compose(SchedulersCompat.applyIoSchedulers())
+                        .subscribe(netResponseConsumer);
+                addSubscription(subscribe1);
+                return;
+            }
+
             Disposable subscribe = apiStores.cargoAdd("", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
                     .compose(SchedulersCompat.applyIoSchedulers())
                     .doAfterTerminate(this::hideLoading)
-                    .subscribe(netResponse -> {
-                        if (netResponse.isResult()) {
-                            showToast(netResponse.getMessage());
-                            EventBus.getDefault().post(new UpdateListEvent(-1));
-                            finish();
-                        }
-                    }, Timber::e);
+                    .subscribe(netResponseConsumer, Timber::e);
             addSubscription(subscribe);
         } else {
+            if (userRole == WtConstant.USER_ROLE_BOAT) {
+                apiStores.boatUpdateOrder(cargoOrderObj.getId(),
+                        "",
+                        cargoKind,
+                        etContactUser.getText().toString(),
+                        phone,
+                        startDate,
+                        arriveTime,
+                        "",
+                        "",
+                        startAddress,
+                        destination,
+                        cargoWeight,
+                        "",//结算时间
+                        price,
+                        "",//结算金额
+                        extraInfo)
+                        .compose(SchedulersCompat.applyIoSchedulers())
+                        .subscribe(netResponseConsumer);
+                return;
+            }
             Disposable subscribe = apiStores.cargoUpdate(cargoOrderObj.getId(), "", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
                     .compose(SchedulersCompat.applyIoSchedulers())
                     .doAfterTerminate(this::hideLoading)
-                    .subscribe(netResponse -> {
-                        if (netResponse.isResult()) {
-                            showToast(netResponse.getMessage());
-                            EventBus.getDefault().post(new UpdateListEvent(-1));
-                            finish();
-                        }
-                    }, Timber::e);
+                    .subscribe(netResponseConsumer, Timber::e);
             addSubscription(subscribe);
         }
     }
 
+    Consumer<NetResponse> netResponseConsumer = netResponse -> {
+        if (netResponse.isResult()) {
+            showToast(netResponse.getMessage());
+            EventBus.getDefault().post(new UpdateListEvent(-1));
+            finish();
+        }
+    };
 }

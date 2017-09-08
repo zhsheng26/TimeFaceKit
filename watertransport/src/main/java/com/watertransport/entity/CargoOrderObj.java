@@ -185,6 +185,10 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
         return statue;
     }
 
+    public int getOrderStatue() {
+        return 0;
+    }
+
     public void setStatue(String statue) {
         this.statue = statue;
     }
@@ -253,6 +257,9 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
         this.addrees = addrees;
     }
 
+    public CargoOrderObj() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -286,9 +293,6 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
         dest.writeString(this.addrees);
     }
 
-    public CargoOrderObj() {
-    }
-
     protected CargoOrderObj(Parcel in) {
         this.page = in.readString();
         this.createBy = in.readString();
@@ -316,7 +320,7 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
         this.addrees = in.readString();
     }
 
-    public static final Parcelable.Creator<CargoOrderObj> CREATOR = new Parcelable.Creator<CargoOrderObj>() {
+    public static final Creator<CargoOrderObj> CREATOR = new Creator<CargoOrderObj>() {
         @Override
         public CargoOrderObj createFromParcel(Parcel source) {
             return new CargoOrderObj(source);

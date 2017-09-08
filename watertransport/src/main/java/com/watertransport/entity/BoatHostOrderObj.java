@@ -1,10 +1,12 @@
 package com.watertransport.entity;
 
+import android.os.Parcel;
+
 /**
  * Created by zhangsheng on 2017/9/3.
  */
 
-public class BoatHostOrderObj {
+public class BoatHostOrderObj extends CargoOrderObj {
 
     /**
      * page :
@@ -42,95 +44,25 @@ public class BoatHostOrderObj {
      * sailorLicense :
      */
 
-    private String page;
-    private String createBy;
-    private String createDate;
-    private String updateBy;
-    private String updateDate;
-    private String delFlag;
-    private String id;
     private String sbipuserId;
     private String goodsId;
     private String goodsName;
     private String transporter;
-    private String mobile;
     private String orderId;
     private String loadTime;
     private String unloadTime;
     private String loadCity;
-    private String loadTerminal;
     private String unloadCity;
-    private String unloadTerminal;
-    private String tonnage;
     private String settlementTime;
     private String transportCost;
     private String settlementMoney;
     private int orderStatue;
-    private String userId;
-    private String loginName;
-    private String realName;
     private String belongs;
     private String shipCode;
     private String belongsCompany;
     private String shipLicense;
     private String wheelLicense;
     private String sailorLicense;
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getSbipuserId() {
         return sbipuserId;
@@ -162,14 +94,6 @@ public class BoatHostOrderObj {
 
     public void setTransporter(String transporter) {
         this.transporter = transporter;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
     }
 
     public String getOrderId() {
@@ -204,36 +128,12 @@ public class BoatHostOrderObj {
         this.loadCity = loadCity;
     }
 
-    public String getLoadTerminal() {
-        return loadTerminal;
-    }
-
-    public void setLoadTerminal(String loadTerminal) {
-        this.loadTerminal = loadTerminal;
-    }
-
     public String getUnloadCity() {
         return unloadCity;
     }
 
     public void setUnloadCity(String unloadCity) {
         this.unloadCity = unloadCity;
-    }
-
-    public String getUnloadTerminal() {
-        return unloadTerminal;
-    }
-
-    public void setUnloadTerminal(String unloadTerminal) {
-        this.unloadTerminal = unloadTerminal;
-    }
-
-    public String getTonnage() {
-        return tonnage;
-    }
-
-    public void setTonnage(String tonnage) {
-        this.tonnage = tonnage;
     }
 
     public String getSettlementTime() {
@@ -260,36 +160,13 @@ public class BoatHostOrderObj {
         this.settlementMoney = settlementMoney;
     }
 
+    @Override
     public int getOrderStatue() {
         return orderStatue;
     }
 
     public void setOrderStatue(int orderStatue) {
         this.orderStatue = orderStatue;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
     }
 
     public String getBelongs() {
@@ -339,4 +216,71 @@ public class BoatHostOrderObj {
     public void setSailorLicense(String sailorLicense) {
         this.sailorLicense = sailorLicense;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(this.sbipuserId);
+        dest.writeString(this.goodsId);
+        dest.writeString(this.goodsName);
+        dest.writeString(this.transporter);
+        dest.writeString(this.orderId);
+        dest.writeString(this.loadTime);
+        dest.writeString(this.unloadTime);
+        dest.writeString(this.loadCity);
+        dest.writeString(this.unloadCity);
+        dest.writeString(this.settlementTime);
+        dest.writeString(this.transportCost);
+        dest.writeString(this.settlementMoney);
+        dest.writeInt(this.orderStatue);
+        dest.writeString(this.belongs);
+        dest.writeString(this.shipCode);
+        dest.writeString(this.belongsCompany);
+        dest.writeString(this.shipLicense);
+        dest.writeString(this.wheelLicense);
+        dest.writeString(this.sailorLicense);
+    }
+
+    public BoatHostOrderObj() {
+    }
+
+    protected BoatHostOrderObj(Parcel in) {
+        super(in);
+        this.sbipuserId = in.readString();
+        this.goodsId = in.readString();
+        this.goodsName = in.readString();
+        this.transporter = in.readString();
+        this.orderId = in.readString();
+        this.loadTime = in.readString();
+        this.unloadTime = in.readString();
+        this.loadCity = in.readString();
+        this.unloadCity = in.readString();
+        this.settlementTime = in.readString();
+        this.transportCost = in.readString();
+        this.settlementMoney = in.readString();
+        this.orderStatue = in.readInt();
+        this.belongs = in.readString();
+        this.shipCode = in.readString();
+        this.belongsCompany = in.readString();
+        this.shipLicense = in.readString();
+        this.wheelLicense = in.readString();
+        this.sailorLicense = in.readString();
+    }
+
+    public static final Creator<BoatHostOrderObj> CREATOR = new Creator<BoatHostOrderObj>() {
+        @Override
+        public BoatHostOrderObj createFromParcel(Parcel source) {
+            return new BoatHostOrderObj(source);
+        }
+
+        @Override
+        public BoatHostOrderObj[] newArray(int size) {
+            return new BoatHostOrderObj[size];
+        }
+    };
 }

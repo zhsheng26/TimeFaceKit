@@ -121,7 +121,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
         int pageType = getArguments().getInt("pageType");
         switch (pageType) {
             case WtConstant.BOAT_PAGE_1:
-
+                pageState = WtConstant.PAGE_STATE_PUBLISHING;
                 break;
             case WtConstant.BOAT_PAGE_2:
                 break;
