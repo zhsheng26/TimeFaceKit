@@ -95,6 +95,11 @@ public interface ApiStores {
                                                           @Query("statue") int statue,
                                                           @Query("userId") String userId);
 
+    @GET("supply/list")
+    Observable<NetResponse<PageInfo<CargoOrderObj>>> boatHostLookList(@Query("pageNo") int pageNo,
+                                                                      @Query("pageSize") int pageSize,
+                                                                      @Query("statue") int statue);
+
     //status=1发布status=2关闭
     @GET("supply/updateStatue")
     Observable<NetResponse> updateStatue(@Query("id") String id,
@@ -106,10 +111,10 @@ public interface ApiStores {
                                                           @Query("pageSize") int pageSize);
 
     /**
-     http://59.110.141.52:8080/water_transport/app/shiperOrder/add?sbipuserId=1&goodsId=2&goodsName=铁
-     &transporter=张三丰&mobile=15600022222&orderId=&loadTime=2017-08-01 00:00:00&unloadTime=2017-08-03 00:00:00
-     &loadCity=铜陵&loadTerminal=岱山码头&unloadCity=巢湖&unloadTerminal=散兵码头&tonnage=1200
-      &settlementTime=2017-08-02 00:00:00&transportCost=20&settlementMoney=24000&orderStatue=0&userId=25
+     * http://59.110.141.52:8080/water_transport/app/shiperOrder/add?sbipuserId=1&goodsId=2&goodsName=铁
+     * &transporter=张三丰&mobile=15600022222&orderId=&loadTime=2017-08-01 00:00:00&unloadTime=2017-08-03 00:00:00
+     * &loadCity=铜陵&loadTerminal=岱山码头&unloadCity=巢湖&unloadTerminal=散兵码头&tonnage=1200
+     * &settlementTime=2017-08-02 00:00:00&transportCost=20&settlementMoney=24000&orderStatue=0&userId=25
      */
     @GET("shiperOrder/add")
     Observable<NetResponse> boatAddOrder(@Query("sbipuserId") String sbipuserId,

@@ -59,6 +59,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
     private int pageState = WtConstant.PAGE_STATE_NO_PUBLISH;
     private int currentPageNo = 1;
     private CargoHostOrderAdapter cargoHostOrderAdapter;
+    private int userRole;
 
     public static ListContentFragment newInstance(int pageType) {
 
@@ -135,6 +136,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                 pageState = WtConstant.PAGE_STATE_CLOSED;
                 break;
         }
+        userRole = FastData.getUserRole();
         cargoHostOrderAdapter.setPageState(pageState);
         refreshLayout.autoRefresh();
     }
@@ -146,7 +148,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
     }
 
     public void getCargoOrder(int state, boolean refresh) {
-        Disposable disposable = apiStores.list(currentPageNo, 20, state, FastData.getUserId())
+        Disposable disposable = apiStores.list(currentPageNo, 20, state, userRole == WtConstant.USER_ROLE_BOAT ? "" : FastData.getUserId())
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(pageInfoNetResponse -> {
                     boolean result = pageInfoNetResponse.isResult();

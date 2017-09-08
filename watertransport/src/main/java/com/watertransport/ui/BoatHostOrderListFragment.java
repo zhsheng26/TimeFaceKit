@@ -79,6 +79,7 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
                             if (hostOrderObjs == null || hostOrderObjs.size() == 0) {
                                 tvNoContent.setVisibility(View.VISIBLE);
                             } else {
+                                tvNoContent.setVisibility(View.GONE);
                                 currentPageNo += 1;
                                 hostOrderAdapter.setData(hostOrderObjs);
                             }

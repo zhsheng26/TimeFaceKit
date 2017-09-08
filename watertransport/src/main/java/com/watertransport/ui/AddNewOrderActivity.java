@@ -285,7 +285,6 @@ public class AddNewOrderActivity extends TfBaseActivity {
     Consumer<NetResponse> netResponseConsumer = netResponse -> {
         if (netResponse.isResult()) {
             showToast(netResponse.getMessage());
-            EventBus.getDefault().post(new UpdateListEvent(-1));
             finish();
         }
     };
