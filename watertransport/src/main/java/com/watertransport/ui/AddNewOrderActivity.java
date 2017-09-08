@@ -19,9 +19,6 @@ import com.watertransport.api.ApiStores;
 import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.support.FastData;
 import com.watertransport.support.WtConstant;
-import com.watertransport.support.event.UpdateListEvent;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.Locale;

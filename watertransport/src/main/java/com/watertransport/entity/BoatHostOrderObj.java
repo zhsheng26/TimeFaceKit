@@ -85,6 +85,17 @@ public class BoatHostOrderObj extends CargoOrderObj implements Parcelable {
         return goodsName;
     }
 
+    @Override
+    public String getCargoName() {
+        return goodsName;
+    }
+
+    @Override
+    public String getTonnageCost() {
+        return transportCost;
+    }
+
+
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
     }

@@ -58,14 +58,15 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
         BoatHostOrderObj boatHostOrderObj = hostOrderObj.get(position);
         holder.setData(boatHostOrderObj);
         holder.tvRoute.setText(boatHostOrderObj.getLoadTerminal() + "-" + boatHostOrderObj.getUnloadTerminal());
-        holder.tvDate.setText(boatHostOrderObj.getLoadTime());
-        holder.tvCargoWeight.setText(String.format("黄沙、%s吨", boatHostOrderObj.getTonnage()));
+        holder.tvDate.setText(boatHostOrderObj.getCreateDate());
+        holder.tvCargoWeight.setText(String.format("%s、%s吨", boatHostOrderObj.getGoodsName(), boatHostOrderObj.getTonnage()));
         String tonnageCost = boatHostOrderObj.getTransportCost();
         String text = tonnageCost + "元/吨";
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder(text);
         int indexOf = text.indexOf(tonnageCost);
         stringBuilder.setSpan(new ForegroundColorSpan(holder.itemView.getContext().getResources().getColor(R.color.text_light)), indexOf, indexOf + tonnageCost.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         stringBuilder.setSpan(new RelativeSizeSpan(1.5f), indexOf, indexOf + tonnageCost.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        holder.tvCargoPrice.setText(stringBuilder);
         int orderStatue = boatHostOrderObj.getOrderStatue();
         if (orderStatue == 0) {
             holder.rlNoEnd.setVisibility(View.VISIBLE);
