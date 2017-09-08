@@ -65,6 +65,8 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
             case WtConstant.PAGE_STATE_PUBLISHING:
                 if (FastData.getUserRole() == WtConstant.USER_ROLE_CARGO) {//因为船主也可以查看发布中的，但是不能编辑和关闭
                     cargoHostViewHolder.rlPublishing.setVisibility(View.VISIBLE);
+                } else {
+                    cargoHostViewHolder.viewSplit.setVisibility(View.GONE);
                 }
                 break;
             case WtConstant.PAGE_STATE_NO_PUBLISH:

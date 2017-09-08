@@ -56,6 +56,7 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
     @Override
     public void onBindViewHolder(BoatViewHolder holder, int position) {
         BoatHostOrderObj boatHostOrderObj = hostOrderObj.get(position);
+        holder.setData(boatHostOrderObj);
         holder.tvRoute.setText(boatHostOrderObj.getLoadTerminal() + "-" + boatHostOrderObj.getUnloadTerminal());
         holder.tvDate.setText(boatHostOrderObj.getLoadTime());
         holder.tvCargoWeight.setText(String.format("黄沙、%s吨", boatHostOrderObj.getTonnage()));

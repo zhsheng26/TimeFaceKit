@@ -1,12 +1,13 @@
 package com.watertransport.entity;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by zhangsheng on 2017/9/3.
  */
 
-public class BoatHostOrderObj extends CargoOrderObj {
+public class BoatHostOrderObj extends CargoOrderObj implements Parcelable {
 
     /**
      * page :
@@ -217,6 +218,9 @@ public class BoatHostOrderObj extends CargoOrderObj {
         this.sailorLicense = sailorLicense;
     }
 
+    public BoatHostOrderObj() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -244,9 +248,6 @@ public class BoatHostOrderObj extends CargoOrderObj {
         dest.writeString(this.shipLicense);
         dest.writeString(this.wheelLicense);
         dest.writeString(this.sailorLicense);
-    }
-
-    public BoatHostOrderObj() {
     }
 
     protected BoatHostOrderObj(Parcel in) {
