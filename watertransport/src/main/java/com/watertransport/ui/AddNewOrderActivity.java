@@ -99,8 +99,6 @@ public class AddNewOrderActivity extends TfBaseActivity {
         userRole = FastData.getUserRole();
         if (userRole == WtConstant.USER_ROLE_CARGO) {
             llBoatTime.setVisibility(View.GONE);
-        } else {
-            llCargoContacts.setVisibility(View.GONE);
         }
         etContactPhone.setText(FastData.getPhone());
         etContactUser.setText(FastData.getRealName());
@@ -195,16 +193,15 @@ public class AddNewOrderActivity extends TfBaseActivity {
             return;
         }
         userRole = FastData.getUserRole();
-        if (userRole == WtConstant.USER_ROLE_CARGO) {
-            if (TextUtils.isEmpty(phone)) {
-                showToast("请输入联系人手机号码");
-                return;
-            }
-            if (TextUtils.isEmpty(contactUse)) {
-                showToast("请输入联系人姓名");
-                return;
-            }
-        } else {
+        if (TextUtils.isEmpty(phone)) {
+            showToast("请输入联系人手机号码");
+            return;
+        }
+        if (TextUtils.isEmpty(contactUse)) {
+            showToast("请输入联系人姓名");
+            return;
+        }
+        if (userRole == WtConstant.USER_ROLE_BOAT) {
             if (TextUtils.isEmpty(startDate)) {
                 showToast("起运时间");
                 return;
