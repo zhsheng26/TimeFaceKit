@@ -11,6 +11,20 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        signingConfig {
+            try {
+                keyAlias 'china'
+                keyPassword project.hasProperty('KEY_PASSWORD') ? KEY_PASSWORD : ''
+                storeFile file('../shuilutong.jks')
+                storePassword project.hasProperty('STORE_PASSWORD') ? STORE_PASSWORD : ''
+                v2SigningEnabled false
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
     buildTypes {
         debug {
             buildConfigField "String", "API_URL", '"http://59.110.141.52:8080/water_transport/app/"'
@@ -25,6 +39,7 @@ android {
             zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signingConfig
         }
     }
     lintOptions {

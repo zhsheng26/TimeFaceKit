@@ -1,28 +1,3 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /Users/zhangsheng/Library/Android/sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
-
-# Add any project specific keep options here:
-
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
-
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
 -ignorewarnings
 -renamesourcefileattribute SourceFile
 -keepattributes SourceFile,LineNumberTable,*Annotation*,Signature
@@ -129,6 +104,7 @@
 -keep class * implements android.os.Parcelable {
     public static android.os.Parcelable$Creator *;
 }
+
 # Butterknife
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
@@ -163,20 +139,79 @@
     @retrofit.http.* <methods>;
 }
 -dontwarn retrofit2.Platform$Java8
+
+-dontwarn android.net.SSLCertificateSocketFactory
+-dontwarn android.app.Notification
+
 #gradle-retrolambda
 -dontwarn java.lang.invoke.*
-#Glide
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-    **[] $VALUES;
-    public *;
+
+# RxJava
+-dontwarn rx.**
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
 }
--dontwarn com.bumptech.glide.**
--keepnames class com.bumptech.glide.Glide
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+     long producerIndex;
+     long consumerIndex;
+ }
+ -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+     long producerNode;
+     long consumerNode;
+ }
+
+
+
+## ----------------------------------
+##      EventBus
+## ----------------------------------
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
 
 # Bugly
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 
--keepparameternames
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep public class * extends android.support.v4.view.ActionProvider {
+    public <init>(android.content.Context);
+}
+
+-keep class cn.timeface.timekit.support.NetResponse { *; }
 -keep class com.watertransport.entity.** { *; }
+
+#---------------------------------webview------------------------------------
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+   public *;
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+    public boolean *(android.webkit.WebView, java.lang.String);
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.webView, jav.lang.String);
+}
