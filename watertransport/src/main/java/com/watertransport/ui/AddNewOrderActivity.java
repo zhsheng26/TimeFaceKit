@@ -99,9 +99,9 @@ public class AddNewOrderActivity extends TfBaseActivity {
         userRole = FastData.getUserRole();
         if (userRole == WtConstant.USER_ROLE_CARGO) {
             llBoatTime.setVisibility(View.GONE);
+            etContactPhone.setText(FastData.getPhone());
+            etContactUser.setText(FastData.getRealName());
         }
-        etContactPhone.setText(FastData.getPhone());
-        etContactUser.setText(FastData.getRealName());
         cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
         if (cargoOrderObj == null) {
             getSupportActionBar().setTitle("新增运单信息");
