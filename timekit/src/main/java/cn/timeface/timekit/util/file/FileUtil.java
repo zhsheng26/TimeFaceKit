@@ -91,7 +91,7 @@ public class FileUtil {
 
     public static String formatFileSize(long size, SizeUnit unit) {
         if (size < 0) {
-            return TimeKit.getContext().getString(R.string.unknow_size);
+            return "未知大小";
         }
 
         final double KB = 1024;
