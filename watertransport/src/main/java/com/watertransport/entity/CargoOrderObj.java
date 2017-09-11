@@ -257,6 +257,16 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
         this.addrees = addrees;
     }
 
+    public String getTransporter() {
+        return "";
+    }
+    public String getUnloadTime() {
+        return "";
+    }
+
+    public String getLoadTime() {
+        return "";
+    }
     public CargoOrderObj() {
     }
 

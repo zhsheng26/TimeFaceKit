@@ -19,6 +19,9 @@ import com.watertransport.api.ApiStores;
 import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.support.FastData;
 import com.watertransport.support.WtConstant;
+import com.watertransport.support.event.UpdateListEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -97,12 +100,17 @@ public class AddNewOrderActivity extends TfBaseActivity {
         llCargoArriveTime.setOnClickListener(v -> selectDate(etCargoArriveTime));
         llCargoStartTime.setOnClickListener(v -> selectDate(etCargoStartTime));
         userRole = FastData.getUserRole();
+        cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
         if (userRole == WtConstant.USER_ROLE_CARGO) {
             llBoatTime.setVisibility(View.GONE);
             etContactPhone.setText(FastData.getPhone());
             etContactUser.setText(FastData.getRealName());
+        } else {
+            etContactPhone.setText(cargoOrderObj.getTransporter());
+            etContactUser.setText(cargoOrderObj.getMobile());
+            etCargoStartTime.setText(cargoOrderObj.getLoadTime());
+            etCargoArriveTime.setText(cargoOrderObj.getUnloadTime());
         }
-        cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
         if (cargoOrderObj == null) {
             getSupportActionBar().setTitle("新增运单信息");
             return;
@@ -211,11 +219,11 @@ public class AddNewOrderActivity extends TfBaseActivity {
         }
         if (userRole == WtConstant.USER_ROLE_BOAT) {
             if (TextUtils.isEmpty(startDate)) {
-                showToast("起运时间");
+                showToast("装货时间");
                 return;
             }
             if (TextUtils.isEmpty(arriveTime)) {
-                showToast("运达时间");
+                showToast("起货时间");
                 return;
             }
         }
@@ -286,6 +294,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
 
     Consumer<NetResponse> netResponseConsumer = netResponse -> {
         if (netResponse.isResult()) {
+            EventBus.getDefault().post(new UpdateListEvent(-1));
             showToast(netResponse.getMessage());
             finish();
         }

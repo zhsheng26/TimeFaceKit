@@ -113,7 +113,7 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-            btnToClose.setOnClickListener(this);
+            btnGoEdit.setOnClickListener(this);
         }
 
         public void setData(BoatHostOrderObj hostOrderObj) {

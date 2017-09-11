@@ -100,6 +100,7 @@ public class BoatHostOrderObj extends CargoOrderObj implements Parcelable {
         this.goodsName = goodsName;
     }
 
+    @Override
     public String getTransporter() {
         return transporter;
     }
@@ -116,6 +117,7 @@ public class BoatHostOrderObj extends CargoOrderObj implements Parcelable {
         this.orderId = orderId;
     }
 
+    @Override
     public String getLoadTime() {
         return loadTime;
     }
@@ -124,6 +126,7 @@ public class BoatHostOrderObj extends CargoOrderObj implements Parcelable {
         this.loadTime = loadTime;
     }
 
+    @Override
     public String getUnloadTime() {
         return unloadTime;
     }
