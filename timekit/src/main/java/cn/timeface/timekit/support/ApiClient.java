@@ -76,6 +76,7 @@ public class ApiClient {
         headers.put("LOC", "CN");
         headers.put("OUTFLAG", "JSON");
         headers.put("USERID", Remember.getString("userId", ""));
+        headers.put("token", Remember.getString("token", ""));
         headers.put("DEVICEID", DeviceUuidFactory.getDeviceUuid().toString());
         headers.put("VERSION", BuildConfig.VERSION_CODE + "");
         return headers;

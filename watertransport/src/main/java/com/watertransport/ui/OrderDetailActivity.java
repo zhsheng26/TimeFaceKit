@@ -42,6 +42,8 @@ public class OrderDetailActivity extends TfBaseActivity {
     TextView tvMobile;
     @BindView(R.id.iv_call_phone)
     ImageView ivCallPhone;
+    @BindView(R.id.tv_extra)
+    TextView tvExtra;
 
     public static void start(Context context, CargoOrderObj orderObj) {
         Intent starter = new Intent(context, OrderDetailActivity.class);
@@ -65,6 +67,7 @@ public class OrderDetailActivity extends TfBaseActivity {
         tvContacts.setText(String.format("联系人：%s", orderObj.getRealName()));
         tvPhone.setText(String.format("手机号码：%s", orderObj.getMobile()));
         tvMobile.setText(String.format("固定电话：%s", orderObj.getPhone()));
+        tvExtra.setText(String.format("备注：%s", orderObj.getRemarks()));
         ivCallPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

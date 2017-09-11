@@ -173,15 +173,23 @@ public class AddNewOrderActivity extends TfBaseActivity {
         String phone = etContactPhone.getText().toString();
         String contactUse = etContactUser.getText().toString();
         if (TextUtils.isEmpty(cargoKind)) {
-            showToast("请输入货物种类");
+            showToast("请输入货物名称");
             return;
         }
         if (TextUtils.isEmpty(cargoWeight)) {
-            showToast("请输入货物重量");
+            showToast("请输入货物总重");
             return;
         }
         if (TextUtils.isEmpty(price)) {
             showToast("请输入单价");
+            return;
+        }
+        if (!TextUtils.isDigitsOnly(price)) {
+            showToast("单价应该是数字");
+            return;
+        }
+        if (TextUtils.isDigitsOnly(cargoWeight)) {
+            showToast("重量应该是数字");
             return;
         }
         if (TextUtils.isEmpty(startAddress)) {

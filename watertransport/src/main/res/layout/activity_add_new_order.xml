@@ -53,7 +53,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="货物种类"
+                    android:text="运输货物名称"
                     android:textColor="@color/text_action"
                     android:textSize="@dimen/text_size_title2" />
 
@@ -90,7 +90,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="货物重量"
+                    android:text="运输货物总重"
                     android:textColor="@color/text_action"
                     android:textSize="@dimen/text_size_title2" />
 
@@ -103,7 +103,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/white"
                     android:gravity="right"
-                    android:hint="请输入"
+                    android:hint="请输入（吨）"
                     android:textColorHint="@color/text_hint_color"
                     android:textSize="@dimen/text_size_title2" />
             </LinearLayout>
@@ -139,7 +139,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/white"
                     android:gravity="right"
-                    android:hint="请输入"
+                    android:hint="请输入（吨／元）"
                     android:textColorHint="@color/text_hint_color"
                     android:textSize="@dimen/text_size_title2" />
             </LinearLayout>
@@ -162,7 +162,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="装载起始地"
+                    android:text="起货码头"
                     android:textColor="@color/text_action"
                     android:textSize="@dimen/text_size_title2" />
 
@@ -198,7 +198,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="卸载目的地"
+                    android:text="卸货码头"
                     android:textColor="@color/text_action"
                     android:textSize="@dimen/text_size_title2" />
 
