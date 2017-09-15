@@ -6,17 +6,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * author : YW.SUN Created on 2016/11/1
- * email : sunyw10@gmail.com
  * fix viewpager bug: viewpager查看图片缩放时会crash
  */
 
-public class ViewPagerFixed extends ViewPager {
-    public ViewPagerFixed(Context context) {
+public class ViewPagerFixOut extends ViewPager {
+    public ViewPagerFixOut(Context context) {
         super(context);
     }
 
-    public ViewPagerFixed(Context context, AttributeSet attrs) {
+    public ViewPagerFixOut(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
