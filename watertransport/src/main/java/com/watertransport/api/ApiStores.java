@@ -8,7 +8,7 @@ import com.watertransport.entity.LoginResponse;
 import com.watertransport.entity.MsgObj;
 import com.watertransport.entity.PageInfo;
 
-import cn.timeface.timekit.support.NetResponse;
+import cn.timeface.timekit.support.net.NetResponse;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
-import cn.timeface.timekit.support.DeviceUuidFactory;
+import cn.timeface.timekit.support.net.DeviceUuidFactory;
 import cn.timeface.timekit.util.log.LogUtil;
 import cn.timeface.timekit.util.storage.Remember;
 import cn.timeface.timekit.util.storage.StorageType;

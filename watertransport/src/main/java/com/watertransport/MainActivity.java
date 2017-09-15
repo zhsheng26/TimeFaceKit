@@ -3,13 +3,12 @@ package com.watertransport;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.watertransport.ui.HomePageFragment;
 import com.watertransport.ui.MineFragment;
@@ -29,6 +28,7 @@ public class MainActivity extends TfBaseActivity {
     @BindView(R.id.rb_mine)
     TextView rbMine;
     private int menuTag = 0;
+    private double lastPressedTime;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, MainActivity.class);
@@ -67,6 +67,13 @@ public class MainActivity extends TfBaseActivity {
         pagerAdapter.finishUpdate(flContainer);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isExit()) {
+            super.onBackPressed();
+        }
+    }
+
     private FragmentStatePagerAdapter pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
         @Override
@@ -87,5 +94,15 @@ public class MainActivity extends TfBaseActivity {
             return null;
         }
     };
+
+    private boolean isExit() {
+        if (0 == lastPressedTime
+                || System.currentTimeMillis() - lastPressedTime > 2000) {
+            lastPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "再次点击退出应用", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
 }

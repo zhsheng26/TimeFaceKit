@@ -36,6 +36,8 @@ import butterknife.Unbinder;
 import cn.timeface.timekit.fragment.TfBaseFragment;
 import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.support.SchedulersCompat;
+import cn.timeface.timekit.ui.dialog.DialogTip;
+import cn.timeface.timekit.ui.dialog.OnDialogListenerAdapter;
 import cn.timeface.timekit.util.UiUtil;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
@@ -102,11 +104,29 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
             if (id == R.id.btn_edit || id == R.id.btn_edit_publishing) {
                 AddNewOrderActivity.start(getContext(), cargoOrderObj);
             } else if (id == R.id.btn_publish) {
-                publishOrder(cargoOrderObj);
+                DialogTip.newInstance()
+                        .setOnTouchOutside(false)
+                        .setTipMsg("确认发布？")
+                        .setOnDialogListener(new OnDialogListenerAdapter() {
+                            @Override
+                            public void onPositiveSelect() {
+                                publishOrder(cargoOrderObj);
+                            }
+                        })
+                        .show(getChildFragmentManager());
+
             } else if (id == R.id.btn_to_close) {
-                closeOrder(cargoOrderObj);
+                DialogTip.newInstance()
+                        .setOnTouchOutside(false)
+                        .setTipMsg("确认关闭？")
+                        .setOnDialogListener(new OnDialogListenerAdapter() {
+                            @Override
+                            public void onPositiveSelect() {
+                                closeOrder(cargoOrderObj);
+                            }
+                        })
+                        .show(getChildFragmentManager());
             } else {
-//                AddNewOrderActivity.startForDetail(getContext(), cargoOrderObj);
                 OrderDetailActivity.start(getContext(), cargoOrderObj);
             }
         });
@@ -185,8 +205,10 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
     }
 
     private void publishOrder(CargoOrderObj cargoOrderObj) {
+        showLoading();
         Disposable disposable = apiStores.updateStatue(cargoOrderObj.getId(), FastData.getUserId(), 1)
                 .compose(SchedulersCompat.applyIoSchedulers())
+                .doAfterTerminate(this::hideLoading)
                 .subscribe(netResponse -> {
                     showToast(netResponse.getMessage());
                     if (netResponse.isResult()) {

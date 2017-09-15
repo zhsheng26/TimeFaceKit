@@ -15,8 +15,8 @@ import org.greenrobot.eventbus.EventBus;
 import cn.timeface.timekit.R;
 import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.support.tfmvp.TfMvpView;
+import cn.timeface.timekit.ui.dialog.BaseDialog;
 import cn.timeface.timekit.ui.dialog.DialogFactory;
-import cn.timeface.timekit.ui.dialog.DialogImpl;
 import cn.timeface.timekit.util.sys.NetworkUtil;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -29,7 +29,7 @@ public class TfBaseActivity extends AppCompatActivity implements TfMvpView {
     protected AppCompatActivity activity;
     private Toast toast;
     private CompositeDisposable mCompositeDisposable;
-    private DialogImpl progressDialog;
+    private BaseDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,9 +89,9 @@ public class TfBaseActivity extends AppCompatActivity implements TfMvpView {
 
     public void showLoading() {
         if (progressDialog == null) {
-            progressDialog = DialogFactory.createLoadingDialog(activity);
+            progressDialog = DialogFactory.createLoadingDialog();
         }
-        progressDialog.show();
+        progressDialog.show(getSupportFragmentManager());
     }
 
     public void hideLoading() {

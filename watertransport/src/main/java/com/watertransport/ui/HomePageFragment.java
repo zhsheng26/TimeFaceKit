@@ -101,12 +101,7 @@ public class HomePageFragment extends TfBaseFragment {
         });
         viewPager.setCurrentItem(0);
         viewPager.setOffscreenPageLimit(tabTitle.size());
-        tvMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddNewOrderActivity.start(getActivity());
-            }
-        });
+        tvMenu.setOnClickListener(v -> AddNewOrderActivity.start(getActivity()));
 
     }
 

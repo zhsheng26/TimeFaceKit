@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.timeface.timekit.fragment.TfBaseFragment;
-import cn.timeface.timekit.support.NetResponse;
+import cn.timeface.timekit.support.net.NetResponse;
 import cn.timeface.timekit.support.SchedulersCompat;
 import cn.timeface.timekit.util.UiUtil;
 import io.reactivex.disposables.Disposable;

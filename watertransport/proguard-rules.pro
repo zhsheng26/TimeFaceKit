@@ -201,7 +201,7 @@
     public <init>(android.content.Context);
 }
 
--keep class cn.timeface.timekit.support.NetResponse { *; }
+-keep class cn.timeface.timekit.support.net.NetResponse { *; }
 -keep class com.watertransport.entity.** { *; }
 
 #---------------------------------webview------------------------------------

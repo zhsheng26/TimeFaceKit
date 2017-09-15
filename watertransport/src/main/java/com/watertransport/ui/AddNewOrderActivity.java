@@ -29,7 +29,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
-import cn.timeface.timekit.support.NetResponse;
+import cn.timeface.timekit.support.net.NetResponse;
 import cn.timeface.timekit.support.SchedulersCompat;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;

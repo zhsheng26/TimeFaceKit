@@ -1,6 +1,6 @@
 package com.watertransport.api;
 
-import cn.timeface.timekit.support.ApiClient;
+import cn.timeface.timekit.support.net.ApiClient;
 
 /**
  * Created by zhangsheng on 2017/6/16.

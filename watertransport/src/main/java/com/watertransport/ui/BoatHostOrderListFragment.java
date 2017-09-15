@@ -10,10 +10,14 @@ import com.watertransport.R;
 import com.watertransport.entity.BoatHostOrderObj;
 import com.watertransport.support.FastData;
 import com.watertransport.support.WtConstant;
+import com.watertransport.support.event.UpdateListEvent;
 import com.watertransport.ui.adapter.BoatHostOrderAdapter;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
+import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.support.SchedulersCompat;
 import cn.timeface.timekit.support.listener.OnItemClickListener;
 import io.reactivex.disposables.Disposable;
@@ -23,7 +27,7 @@ import timber.log.Timber;
  * Created by zhangsheng on 2017/9/3.
  */
 
-public class BoatHostOrderListFragment extends BaseListFragment implements OnItemClickListener<View, BoatHostOrderObj> {
+public class BoatHostOrderListFragment extends BaseListFragment implements OnItemClickListener<View, BoatHostOrderObj>, IEventBus {
 
     private BoatHostOrderAdapter hostOrderAdapter;
     private int orderState = 0;
@@ -110,5 +114,11 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
                     }
                 }, Timber::d);
         addSubscription(disposable);
+    }
+
+
+    @Subscribe
+    public void onEvent(UpdateListEvent event) {
+        refreshLayout.autoRefresh();
     }
 }
