@@ -27,6 +27,7 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField "String", "BASE_URL", '"http://59.110.141.52:8080/water_transport/"'
             buildConfigField "String", "API_URL", '"http://59.110.141.52:8080/water_transport/app/"'
             buildConfigField("boolean", "LOG_DEBUG", "true")
             buildConfigField("boolean", "IN_MOCK", "false")
@@ -34,6 +35,7 @@ android {
         }
         release {
             buildConfigField("boolean", "LOG_DEBUG", "true")
+            buildConfigField "String", "BASE_URL", '"http://59.110.141.52:8080/water_transport/"'
             buildConfigField "String", "API_URL", '"http://59.110.141.52:8080/water_transport/app/"'
             minifyEnabled true
             zipAlignEnabled true

@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:hint="1-10位数字、字母或字符组成"
+            android:hint="手机号或者数字、字母组成"
             android:inputType="text"
             android:maxLength="10"
             android:textColorHint="@color/text_hint_color"

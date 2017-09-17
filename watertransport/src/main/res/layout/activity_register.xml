@@ -58,14 +58,31 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginRight="36dp"
                 android:layout_marginTop="@dimen/normal_margin"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/cb_read_contact"
+                    style="@style/CustomCheckboxTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我已阅读《水路通服务协议》"
-                    android:textColor="@color/text_hint_color" />
+                    android:checked="true" />
+
+                <TextView
+                    android:id="@+id/tv_confirm_agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已经阅读并同意"
+                    android:textColor="@color/text_hint_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_agreement_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务条款"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <Button

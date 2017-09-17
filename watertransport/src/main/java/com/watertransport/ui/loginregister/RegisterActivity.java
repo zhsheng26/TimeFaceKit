@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.watertransport.BuildConfig;
 import com.watertransport.R;
 import com.watertransport.api.ApiService;
 import com.watertransport.api.ApiStores;
@@ -19,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
 import cn.timeface.timekit.support.SchedulersCompat;
+import cn.timeface.timekit.ui.TfWebViewActivity;
 import cn.timeface.timekit.ui.edittext.XEditText;
 import cn.timeface.timekit.util.UiUtil;
 import cn.timeface.timekit.util.string.StringUtil;
@@ -60,6 +63,10 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
     LinearLayout layoutBoatRegister;
     @BindView(R.id.layout_cargo_register)
     LinearLayout layoutCargoRegister;
+    @BindView(R.id.tv_confirm_agreement)
+    TextView tvConfirmAgreement;
+    @BindView(R.id.tv_agreement_detail)
+    TextView tvAgreementDetail;
     private int user_role;
     private ApiStores apiStores;
 
@@ -81,6 +88,7 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
         UiUtil.showView(layoutCargoRegister, !isBoat);
         apiStores = ApiService.getInstance().getApi();
         btnSubmit.setOnClickListener(this);
+        tvAgreementDetail.setOnClickListener(v -> TfWebViewActivity.start(activity, "服务条款", BuildConfig.BASE_URL + "userManualAgreement.html"));
     }
 
     @Override
@@ -135,6 +143,10 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
         }
         if (pw.length() < 6) {
             showToast("密码太短，不安全");
+            return;
+        }
+        if (!cbReadContact.isChecked()) {
+            showToast("请阅读并同意服务条款");
             return;
         }
         Disposable subscribe = apiStores.registerBoat(userName.trim(),
