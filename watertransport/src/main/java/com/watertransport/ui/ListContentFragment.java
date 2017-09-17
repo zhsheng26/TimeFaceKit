@@ -126,7 +126,7 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                             }
                         })
                         .show(getChildFragmentManager());
-            } else if (id == R.id.btn_delete) {
+            } else if (id == R.id.btn_delete1 || id == R.id.btn_delete2 || id == R.id.btn_delete3) {
                 DialogTip.newInstance()
                         .setOnTouchOutside(false)
                         .setTipMsg("确认删除？")

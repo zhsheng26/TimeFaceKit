@@ -196,7 +196,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
             showToast("单价应该是数字");
             return;
         }
-        if (TextUtils.isDigitsOnly(cargoWeight)) {
+        if (!TextUtils.isDigitsOnly(cargoWeight)) {
             showToast("重量应该是数字");
             return;
         }

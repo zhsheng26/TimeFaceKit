@@ -105,8 +105,12 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
         Button btnPublish;
         @BindView(R.id.btn_edit)
         Button btnEdit;
-        @BindView(R.id.btn_delete)
-        Button btnDelete;
+        @BindView(R.id.btn_delete1)
+        Button btnDelete1;
+        @BindView(R.id.btn_delete2)
+        Button btnDelete2;
+        @BindView(R.id.btn_delete3)
+        Button btnDelete3;
         @BindView(R.id.rl_no_publish)
         RelativeLayout rlNoPublish;
         @BindView(R.id.rl_closed)
@@ -120,7 +124,9 @@ public class CargoHostOrderAdapter extends RecyclerView.Adapter {
             btnPublish.setOnClickListener(this);
             btnToClose.setOnClickListener(this);
             btnEditPublishing.setOnClickListener(this);
-            btnDelete.setOnClickListener(this);
+            btnDelete1.setOnClickListener(this);
+            btnDelete2.setOnClickListener(this);
+            btnDelete3.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 

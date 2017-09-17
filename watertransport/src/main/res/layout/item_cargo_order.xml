@@ -78,7 +78,7 @@
         android:id="@+id/rl_publishing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <Button
@@ -101,7 +101,7 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/btn_delete"
+            android:id="@+id/btn_delete1"
             android:layout_width="70dp"
             android:layout_height="32dp"
             android:layout_marginRight="@dimen/large_margin"
@@ -136,6 +136,16 @@
             android:background="@drawable/selector_action_bg"
             android:text="编辑"
             android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_delete2"
+            android:layout_width="70dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="@dimen/large_margin"
+            android:layout_toLeftOf="@id/btn_edit"
+            android:background="@drawable/selector_action_bg"
+            android:text="删除"
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -144,10 +154,22 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <Button
+            android:id="@+id/btn_delete3"
+            android:layout_width="70dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/margin_middle"
+            android:background="@drawable/selector_action_bg"
+            android:text="删除"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_toLeftOf="@id/btn_delete3"
             android:padding="@dimen/normal_margin"
             android:text="已关闭"
             android:textColor="@color/text_hint_color"
