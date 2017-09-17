@@ -82,10 +82,22 @@
 
 
         <TextView
-            android:id="@+id/btn_to_close"
+            android:id="@+id/btn_delete_has"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
+            android:background="@drawable/selector_gray_stroke_bg"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/text_hint_color"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/btn_to_close"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="@dimen/margin_middle"
+            android:layout_toLeftOf="@id/btn_delete_has"
             android:background="@drawable/selector_gray_stroke_bg"
             android:gravity="center"
             android:text="已结算"
@@ -100,12 +112,23 @@
         android:layout_height="wrap_content"
         android:visibility="visible">
 
+        <TextView
+            android:id="@+id/btn_delete_no"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_gray_stroke_bg"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/text_hint_color"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/btn_go_edit"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_middle"
+            android:layout_toLeftOf="@id/btn_delete_no"
             android:background="@drawable/selector_orange_bg"
             android:gravity="center"
             android:text="确认结算"
@@ -122,6 +145,8 @@
             android:text="运单未结算"
             android:textColor="@color/text_hint_color"
             android:textSize="12sp" />
+
+
     </RelativeLayout>
 
 </LinearLayout>

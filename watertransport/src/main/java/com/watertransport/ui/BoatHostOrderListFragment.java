@@ -13,6 +13,7 @@ import com.watertransport.support.WtConstant;
 import com.watertransport.support.event.UpdateListEvent;
 import com.watertransport.ui.adapter.BoatHostOrderAdapter;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
@@ -20,7 +21,11 @@ import java.util.List;
 import cn.timeface.timekit.support.IEventBus;
 import cn.timeface.timekit.support.SchedulersCompat;
 import cn.timeface.timekit.support.listener.OnItemClickListener;
+import cn.timeface.timekit.support.net.NetResponse;
+import cn.timeface.timekit.ui.dialog.DialogTip;
+import cn.timeface.timekit.ui.dialog.OnDialogListenerAdapter;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 /**
@@ -99,10 +104,45 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
     @Override
     public void onItemClick(View view, BoatHostOrderObj boatHostOrderObj, int position, @Nullable Bundle bundle) {
         if (view.getId() == R.id.btn_go_edit) {//去结算
-            endOrder(boatHostOrderObj);
+            DialogTip.newInstance()
+                    .setTipMsg("确定结算？")
+                    .setOnTouchOutside(false)
+                    .setOnDialogListener(new OnDialogListenerAdapter() {
+                        @Override
+                        public void onPositiveSelect() {
+                            endOrder(boatHostOrderObj);
+                        }
+                    })
+                    .show(getChildFragmentManager());
+        } else if (view.getId() == R.id.btn_delete_has || view.getId() == R.id.btn_delete_no) {//去结算
+            DialogTip.newInstance()
+                    .setTipMsg("确定删除？")
+                    .setOnTouchOutside(false)
+                    .setOnDialogListener(new OnDialogListenerAdapter() {
+                        @Override
+                        public void onPositiveSelect() {
+                            delete(boatHostOrderObj);
+                        }
+                    })
+                    .show(getChildFragmentManager());
         } else {
             AddNewOrderActivity.start(getContext(), boatHostOrderObj);
         }
+    }
+
+    private void delete(BoatHostOrderObj boatHostOrderObj) {
+        apiStores.shipDelete(FastData.getUserId(), boatHostOrderObj.getId())
+                .compose(SchedulersCompat.applyIoSchedulers())
+                .subscribe(new Consumer<NetResponse>() {
+                    @Override
+                    public void accept(NetResponse netResponse) throws Exception {
+                        showToast(netResponse.getMessage());
+                        if (netResponse.isResult()) {
+                            hostOrderAdapter.remove(boatHostOrderObj);
+                            EventBus.getDefault().post(new UpdateListEvent(orderState));
+                        }
+                    }
+                }, Timber::d);
     }
 
     private void endOrder(BoatHostOrderObj boatHostOrderObj) {
@@ -111,6 +151,7 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
                 .subscribe(netResponse -> {
                     if (netResponse.isResult()) {
                         hostOrderAdapter.remove(boatHostOrderObj);
+                        EventBus.getDefault().post(new UpdateListEvent(orderState));
                     }
                 }, Timber::d);
         addSubscription(disposable);
@@ -119,6 +160,8 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
 
     @Subscribe
     public void onEvent(UpdateListEvent event) {
-        refreshLayout.autoRefresh();
+        if (event.getPageState() != orderState) {
+            refreshLayout.autoRefresh();
+        }
     }
 }

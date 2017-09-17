@@ -105,6 +105,10 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
         TextView btnGoEdit;
         @BindView(R.id.btn_edit)
         TextView btnEdit;
+        @BindView(R.id.btn_delete_has)
+        TextView btnDeleteHas;
+        @BindView(R.id.btn_delete_no)
+        TextView btnDeleteNo;
         @BindView(R.id.rl_no_end)
         RelativeLayout rlNoEnd;
         BoatHostOrderObj hostOrderObj;
@@ -114,6 +118,8 @@ public class BoatHostOrderAdapter extends RecyclerView.Adapter<BoatHostOrderAdap
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
             btnGoEdit.setOnClickListener(this);
+            btnDeleteHas.setOnClickListener(this);
+            btnDeleteNo.setOnClickListener(this);
         }
 
         public void setData(BoatHostOrderObj hostOrderObj) {

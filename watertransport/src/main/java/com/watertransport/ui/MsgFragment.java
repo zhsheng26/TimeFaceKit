@@ -22,6 +22,7 @@ import com.watertransport.api.ApiService;
 import com.watertransport.api.ApiStores;
 import com.watertransport.entity.MsgObj;
 import com.watertransport.entity.PageInfo;
+import com.watertransport.support.FastData;
 import com.watertransport.ui.adapter.MsgAdapter;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -109,7 +110,7 @@ public class MsgFragment extends TfBaseFragment {
         if (refresh) {
             page_no = 1;
         }
-        Disposable disposable = apiStores.userMsgList(page_no, 20)
+        Disposable disposable = apiStores.userMsgList(page_no, 20, FastData.getUserId())
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(new Consumer<NetResponse<PageInfo<MsgObj>>>() {
                     @Override

@@ -78,7 +78,7 @@
         android:id="@+id/rl_publishing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <Button
@@ -98,6 +98,16 @@
             android:layout_toLeftOf="@id/btn_to_close"
             android:background="@drawable/selector_action_bg"
             android:text="编辑"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="70dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="@dimen/large_margin"
+            android:layout_toLeftOf="@id/btn_edit_publishing"
+            android:background="@drawable/selector_action_bg"
+            android:text="删除"
             android:textSize="12sp" />
     </RelativeLayout>
 

@@ -126,6 +126,9 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
             showToast("请输入船载吨位");
             return;
         }
+        if (!TextUtils.isDigitsOnly(boatCapacity) || Long.parseLong(boatCapacity) < 0) {
+            showToast("请输入正确的船载吨位");
+        }
         if (!StringUtil.isMobileNum(phone)) {
             showToast("手机号不正确");
             return;

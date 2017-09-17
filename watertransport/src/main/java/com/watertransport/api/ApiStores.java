@@ -108,7 +108,8 @@ public interface ApiStores {
 
     @GET("userAnnounce/list")
     Observable<NetResponse<PageInfo<MsgObj>>> userMsgList(@Query("pageNo") int pageNo,
-                                                          @Query("pageSize") int pageSize);
+                                                          @Query("pageSize") int pageSize,
+                                                          @Query("userId") String userId);
 
     /**
      * http://59.110.141.52:8080/water_transport/app/shiperOrder/add?sbipuserId=1&goodsId=2&goodsName=铁
@@ -165,4 +166,13 @@ public interface ApiStores {
     Observable<NetResponse> updateShipOderStatue(@Query("userId") String userId,
                                                  @Query("id") String id);
 
+    //
+    @GET("supply/delete")
+    Observable<NetResponse> delete(@Query("userId") String userId,
+                                   @Query("id") String id);
+
+    //
+    @GET("shiperOrder/delete")
+    Observable<NetResponse> shipDelete(@Query("userId") String userId,
+                                       @Query("id") String id);
 }

@@ -126,11 +126,35 @@ public class ListContentFragment extends TfBaseFragment implements IEventBus {
                             }
                         })
                         .show(getChildFragmentManager());
+            } else if (id == R.id.btn_delete) {
+                DialogTip.newInstance()
+                        .setOnTouchOutside(false)
+                        .setTipMsg("确认删除？")
+                        .setOnDialogListener(new OnDialogListenerAdapter() {
+                            @Override
+                            public void onPositiveSelect() {
+                                deleteOrder(cargoOrderObj);
+                            }
+                        })
+                        .show(getChildFragmentManager());
             } else {
                 OrderDetailActivity.start(getContext(), cargoOrderObj);
             }
         });
         return content;
+    }
+
+    private void deleteOrder(CargoOrderObj cargoOrderObj) {
+        Disposable disposable = apiStores.delete(FastData.getUserId(), cargoOrderObj.getId())
+                .compose(SchedulersCompat.applyIoSchedulers())
+                .subscribe(netResponse -> {
+                    showToast(netResponse.getMessage());
+                    if (netResponse.isResult()) {
+                        refreshLayout.autoRefresh();
+                        EventBus.getDefault().post(new UpdateListEvent(pageState));
+                    }
+                }, Timber::d);
+        addSubscription(disposable);
     }
 
 
