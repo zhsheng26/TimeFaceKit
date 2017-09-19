@@ -52,7 +52,7 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
     private String tonnage;
     private String tonnageCost;
     private String statue;
-    private String remarks;
+    private String remarks = "";
     private String userId;
     private String loginName;
     private String realName;
@@ -60,6 +60,7 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
     private String mobile;
     private String phone;
     private String addrees;
+    private String contactor;
 
     public String getPage() {
         return page;
@@ -260,6 +261,7 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
     public String getTransporter() {
         return "";
     }
+
     public String getUnloadTime() {
         return "";
     }
@@ -267,7 +269,16 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
     public String getLoadTime() {
         return "";
     }
+
     public CargoOrderObj() {
+    }
+
+    public String getContactor() {
+        return contactor;
+    }
+
+    public void setContactor(String contactor) {
+        this.contactor = contactor;
     }
 
     @Override
@@ -301,6 +312,7 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
         dest.writeString(this.mobile);
         dest.writeString(this.phone);
         dest.writeString(this.addrees);
+        dest.writeString(this.contactor);
     }
 
     protected CargoOrderObj(Parcel in) {
@@ -328,6 +340,7 @@ public class CargoOrderObj extends BaseObj implements Parcelable {
         this.mobile = in.readString();
         this.phone = in.readString();
         this.addrees = in.readString();
+        this.contactor = in.readString();
     }
 
     public static final Creator<CargoOrderObj> CREATOR = new Creator<CargoOrderObj>() {

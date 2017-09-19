@@ -29,8 +29,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
-import cn.timeface.timekit.support.net.NetResponse;
 import cn.timeface.timekit.support.SchedulersCompat;
+import cn.timeface.timekit.support.net.NetResponse;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import timber.log.Timber;
@@ -70,14 +70,6 @@ public class AddNewOrderActivity extends TfBaseActivity {
     private ApiStores apiStores;
     private int userRole;
     private CargoOrderObj cargoOrderObj;
-    private boolean detail;
-
-    public static void startForDetail(Context context, CargoOrderObj cargoOrderObj) {
-        Intent starter = new Intent(context, AddNewOrderActivity.class);
-        starter.putExtra("detail", true);
-        starter.putExtra("cargoOrderObj", cargoOrderObj);
-        context.startActivity(starter);
-    }
 
     public static void start(Context context) {
         Intent starter = new Intent(context, AddNewOrderActivity.class);
@@ -95,45 +87,35 @@ public class AddNewOrderActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_order);
         ButterKnife.bind(this);
-        detail = getIntent().getBooleanExtra("detail", false);
         apiStores = ApiService.getInstance().getApi();
         llCargoArriveTime.setOnClickListener(v -> selectDate(etCargoArriveTime));
         llCargoStartTime.setOnClickListener(v -> selectDate(etCargoStartTime));
         userRole = FastData.getUserRole();
         cargoOrderObj = getIntent().getParcelableExtra("cargoOrderObj");
-        if (userRole == WtConstant.USER_ROLE_CARGO) {
-            llBoatTime.setVisibility(View.GONE);
-            etContactPhone.setText(FastData.getPhone());
-            etContactUser.setText(FastData.getRealName());
-        } else {
-            etContactPhone.setText(cargoOrderObj.getTransporter());
-            etContactUser.setText(cargoOrderObj.getMobile());
-            etCargoStartTime.setText(cargoOrderObj.getLoadTime());
-            etCargoArriveTime.setText(cargoOrderObj.getUnloadTime());
-        }
         if (cargoOrderObj == null) {
             getSupportActionBar().setTitle("新增运单信息");
-            return;
+            if (userRole == WtConstant.USER_ROLE_CARGO) {
+                llBoatTime.setVisibility(View.GONE);
+                etContactPhone.setText(FastData.getPhone());
+                etContactUser.setText(FastData.getRealName());
+            }
         } else {
             getSupportActionBar().setTitle("编辑运单");
-            if (detail) getSupportActionBar().setTitle("订单详情");
+            if (userRole == WtConstant.USER_ROLE_CARGO) {
+                llBoatTime.setVisibility(View.GONE);
+            } else {
+                etCargoStartTime.setText(cargoOrderObj.getLoadTime());
+                etCargoArriveTime.setText(cargoOrderObj.getUnloadTime());
+            }
+            etContactUser.setText(TextUtils.isEmpty(cargoOrderObj.getContactor()) ? cargoOrderObj.getTransporter() : cargoOrderObj.getContactor());
+            etContactPhone.setText(cargoOrderObj.getMobile());
+            etCargoKind.setText(cargoOrderObj.getCargoName());
+            etCargoWeight.setText(cargoOrderObj.getTonnage());
+            etCargoPrice.setText(cargoOrderObj.getTonnageCost());
+            etCargoStartAddress.setText(cargoOrderObj.getLoadTerminal());
+            etCargoDestination.setText(cargoOrderObj.getUnloadTerminal());
+            etExtraInfo.setText(cargoOrderObj.getRemarks());
         }
-        etCargoKind.setText(cargoOrderObj.getCargoName());
-        etCargoWeight.setText(cargoOrderObj.getTonnage());
-        etCargoPrice.setText(cargoOrderObj.getTonnageCost());
-        etCargoStartAddress.setText(cargoOrderObj.getLoadTerminal());
-        etCargoDestination.setText(cargoOrderObj.getUnloadTerminal());
-
-        etCargoKind.setEnabled(!detail);
-        etCargoWeight.setEnabled(!detail);
-        etCargoPrice.setEnabled(!detail);
-        etCargoStartAddress.setEnabled(!detail);
-        etCargoDestination.setEnabled(!detail);
-        etContactUser.setEnabled(!detail);
-        etContactPhone.setEnabled(!detail);
-        etCargoStartTime.setEnabled(!detail);
-        etCargoArriveTime.setEnabled(!detail);
-        etExtraInfo.setEnabled(!detail);
     }
 
     @Override
@@ -157,7 +139,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!detail) getMenuInflater().inflate(R.menu.save, menu);
+        getMenuInflater().inflate(R.menu.save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -257,7 +239,18 @@ public class AddNewOrderActivity extends TfBaseActivity {
                 return;
             }
 
-            Disposable subscribe = apiStores.cargoAdd("", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
+            Disposable subscribe = apiStores.cargoAdd("",
+                    cargoKind,
+                    etContactUser.getText().toString(),
+                    startAddress,
+                    destination,
+                    cargoWeight,
+                    price,
+                    0,
+                    extraInfo,
+                    contactUse,
+                    phone,
+                    FastData.getUserId())
                     .compose(SchedulersCompat.applyIoSchedulers())
                     .doAfterTerminate(this::hideLoading)
                     .subscribe(netResponseConsumer, Timber::e);
@@ -284,7 +277,19 @@ public class AddNewOrderActivity extends TfBaseActivity {
                         .subscribe(netResponseConsumer);
                 return;
             }
-            Disposable subscribe = apiStores.cargoUpdate(cargoOrderObj.getId(), "", cargoKind, etContactUser.getText().toString(), startAddress, destination, cargoWeight, price, 0, extraInfo, FastData.getUserId())
+            Disposable subscribe = apiStores.cargoUpdate(cargoOrderObj.getId(),
+                    "",
+                    cargoKind,
+                    etContactUser.getText().toString(),
+                    startAddress,
+                    destination,
+                    cargoWeight,
+                    price,
+                    0,
+                    extraInfo,
+                    contactUse,
+                    phone,
+                    FastData.getUserId())
                     .compose(SchedulersCompat.applyIoSchedulers())
                     .doAfterTerminate(this::hideLoading)
                     .subscribe(netResponseConsumer, Timber::e);

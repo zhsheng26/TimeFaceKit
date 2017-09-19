@@ -72,6 +72,8 @@ public interface ApiStores {
                                      @Query("tonnageCost") String tonnageCost,
                                      @Query("statue") int statue,
                                      @Query("remarks") String remarks,
+                                     @Query("contactor") String contactor,
+                                     @Query("mobile") String mobile,
                                      @Query("userId") String userId);
 
     //http://59.110.141.52:8080/water_transport/app/supply/update?id=1&userId=1&cargoId=20&cargoName=煤炭&transporterName=合肥长江海运科技有限公司&loadTerminal=马鞍山&unloadTerminal=巢湖&tonnage=1000000&tonnageCost=20&statue=0&remarks=黄花树下不见不散&userId=25
@@ -87,6 +89,8 @@ public interface ApiStores {
                                         @Query("tonnageCost") String tonnageCost,
                                         @Query("statue") int statue,
                                         @Query("remarks") String remarks,
+                                        @Query("contactor") String contactor,
+                                        @Query("mobile") String mobile,
                                         @Query("userId") String userId);
 
     @GET("supply/list")
