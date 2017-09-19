@@ -35,7 +35,7 @@ import timber.log.Timber;
 public class BoatHostOrderListFragment extends BaseListFragment implements OnItemClickListener<View, BoatHostOrderObj>, IEventBus {
 
     private BoatHostOrderAdapter hostOrderAdapter;
-    private int orderState = 0;
+    private int orderState = -1;
 
     public static BoatHostOrderListFragment newInstance(String type) {
         Bundle args = new Bundle();
@@ -50,11 +50,11 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
         super.onViewCreated(view, savedInstanceState);
         String type = getArguments().getString("type");
         if (WtConstant.BOAT_ORDER_ALL.equals(type)) {
-            orderState = 0;//全部
+            orderState = -1;//全部
         } else if (WtConstant.BOAT_ORDER_NO.equals(type)) {
-            orderState = 1;//未结算
+            orderState = 0;//未结算
         } else {
-            orderState = 2;//已结算
+            orderState = 1;//已结算
         }
         refreshLayout.autoRefresh();
     }
@@ -78,7 +78,7 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
 
     private void reqData(boolean refresh) {
         if (refresh) currentPageNo = 1;
-        Disposable disposable = apiStores.boatOrderList(FastData.getUserId(), orderState, currentPageNo, 20)
+        Disposable disposable = apiStores.boatOrderList(FastData.getUserId(), orderState == -1 ? "" : String.valueOf(orderState), currentPageNo, 20)
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(pageInfoNetResponse -> {
                     if (pageInfoNetResponse.isResult()) {
@@ -150,7 +150,7 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(netResponse -> {
                     if (netResponse.isResult()) {
-                        hostOrderAdapter.remove(boatHostOrderObj);
+//                        hostOrderAdapter.remove(boatHostOrderObj);
                         EventBus.getDefault().post(new UpdateListEvent(orderState));
                     }
                 }, Timber::d);
@@ -160,7 +160,7 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
 
     @Subscribe
     public void onEvent(UpdateListEvent event) {
-        if (event.getPageState() != orderState) {
+        if (event.getPageState() != orderState || orderState == -1) {
             refreshLayout.autoRefresh();
         }
     }

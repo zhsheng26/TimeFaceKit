@@ -234,7 +234,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
                         0,
                         FastData.getUserId())
                         .compose(SchedulersCompat.applyIoSchedulers())
-                        .subscribe(netResponseConsumer);
+                        .subscribe(netResponseConsumer, Timber::e);
                 addSubscription(subscribe1);
                 return;
             }
@@ -274,7 +274,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
                         "",//结算金额
                         extraInfo)
                         .compose(SchedulersCompat.applyIoSchedulers())
-                        .subscribe(netResponseConsumer);
+                        .subscribe(netResponseConsumer, Timber::e);
                 return;
             }
             Disposable subscribe = apiStores.cargoUpdate(cargoOrderObj.getId(),

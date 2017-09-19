@@ -162,7 +162,7 @@ public interface ApiStores {
     //    http://59.110.141.52:8080/water_transport/app/shiperOrder/list?userId=&orderStatue=&pageNo=1&pageSize=10
     @GET("shiperOrder/list")
     Observable<NetResponse<PageInfo<BoatHostOrderObj>>> boatOrderList(@Query("userId") String userId,
-                                                                      @Query("orderStatue") int orderStatue,
+                                                                      @Query("orderStatue") String orderStatue,
                                                                       @Query("pageNo") int pageNo,
                                                                       @Query("pageSize") int pageSize);
 

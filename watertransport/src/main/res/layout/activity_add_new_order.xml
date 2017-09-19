@@ -399,7 +399,7 @@
                         android:layout_marginRight="@dimen/large_margin"
                         android:layout_weight="1"
                         android:background="@android:color/white"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="请输入"
                         android:maxLines="1"
                         android:paddingBottom="4dp"
