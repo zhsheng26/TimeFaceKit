@@ -7,6 +7,7 @@ import com.watertransport.entity.CargoOrderObj;
 import com.watertransport.entity.LoginResponse;
 import com.watertransport.entity.MsgObj;
 import com.watertransport.entity.PageInfo;
+import com.watertransport.entity.VerifyNumObj;
 
 import cn.timeface.timekit.support.net.NetResponse;
 import io.reactivex.Observable;
@@ -179,4 +180,23 @@ public interface ApiStores {
     @GET("shiperOrder/delete")
     Observable<NetResponse> shipDelete(@Query("userId") String userId,
                                        @Query("id") String id);
+
+    //    /water_transport/app/findBackPassword/sendDxyzm
+    @GET("findBackPassword/sendDxyzm")
+    Observable<NetResponse<PageInfo<VerifyNumObj>>> sendDxyzm(@Query("mobile") String mobile);
+
+    //    /app/updatePassword?id=46&password=admin
+    @GET("updatePassword")
+    Observable<NetResponse> updatePassword(@Query("mobile") String mobile,
+                                           @Query("password") String pw);
+
+    //   找回密码 /water_transport/app/findBackPassword/modifyPassword
+    @GET("findBackPassword/modifyPassword")
+    Observable<NetResponse> modifyPassword(@Query("loginName") String loginName,
+                                           @Query("password") String pw,
+                                           @Query("mobile") String mobile);
+
+    //    checkMobile?mobile=18725517633
+    @GET("userRegister/checkMobile")
+    Observable<NetResponse> checkMobile(@Query("mobile") String mobile);
 }
