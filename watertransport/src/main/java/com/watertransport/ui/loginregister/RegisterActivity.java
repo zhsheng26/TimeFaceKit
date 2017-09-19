@@ -173,6 +173,9 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
                         if (list == null || list.size() == 0) return;
                         VerifyNumObj verifyNumObj = list.get(0);
                         verifyNumObjYzm = verifyNumObj.getYzm();
+                        showToast("验证码获取成功");
+                    } else {
+                        showToast("验证码获取失败");
                     }
                 }, Timber::d);
         addSubscription(disposable);
@@ -232,6 +235,7 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
         }
         if (!TextUtils.isDigitsOnly(boatCapacity) || Long.parseLong(boatCapacity) < 0) {
             showToast("请输入正确的船载吨位");
+            return;
         }
 
         if (pw.length() < 6) {
@@ -242,7 +246,7 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
             showToast("请阅读并同意服务条款");
             return;
         }
-        Disposable subscribe = apiStores.registerBoat("",
+        Disposable subscribe = apiStores.registerBoat(
                 pw.trim(),
                 user_role,
                 phone.trim(),
@@ -309,7 +313,7 @@ public class RegisterActivity extends TfBaseActivity implements View.OnClickList
             showToast("请阅读并同意服务条款");
             return;
         }
-        Disposable subscribe = apiStores.registerCargo("",
+        Disposable subscribe = apiStores.registerCargo(
                 pw.trim(),
                 user_role,
                 phone.trim(),

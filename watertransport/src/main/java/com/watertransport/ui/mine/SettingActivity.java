@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.watertransport.R;
 import com.watertransport.support.FastData;
 import com.watertransport.ui.loginregister.LoginActivity;
+import com.watertransport.ui.loginregister.SetPwActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +44,7 @@ public class SettingActivity extends TfBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-        getSupportActionBar().setTitle("设置");
+        setTitle("设置");
         btnSubmit.setOnClickListener(v -> {
             FastData.saveUserInfo(null);
             Intent intent = new Intent();
@@ -52,5 +53,6 @@ public class SettingActivity extends TfBaseActivity {
             startActivity(intent);
             finish();
         });
+        layoutAlterPw.setOnClickListener(v -> SetPwActivity.start(activity));
     }
 }

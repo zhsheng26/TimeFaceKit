@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.watertransport.R;
 import com.watertransport.api.ApiService;
 import com.watertransport.api.ApiStores;
+import com.watertransport.support.FastData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +42,11 @@ public class SetPwActivity extends TfBaseActivity {
         context.startActivity(starter);
     }
 
+    public static void start(Context context) {
+        Intent starter = new Intent(context, SetPwActivity.class);
+        context.startActivity(starter);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +72,17 @@ public class SetPwActivity extends TfBaseActivity {
             showToast("两次密码不一致");
             return;
         }
-
-        Disposable subscribe = apiStores.modifyPassword(phone, pw, phone)
+        if (TextUtils.isEmpty(phone)) {
+            Disposable disposable = apiStores.updatePassword(FastData.getUserId(), pw)
+                    .compose(SchedulersCompat.applyIoSchedulers())
+                    .subscribe(netResponse -> {
+                        showToast(netResponse.getMessage());
+                        if (netResponse.isResult()) finish();
+                    }, Timber::d);
+            addSubscription(disposable);
+            return;
+        }
+        Disposable subscribe = apiStores.modifyPassword(pw, phone)
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(netResponse -> {
                     showToast(netResponse.getMessage());

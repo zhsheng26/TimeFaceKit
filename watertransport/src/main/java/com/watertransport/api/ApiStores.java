@@ -43,25 +43,25 @@ public interface ApiStores {
                                     @Query("password") String password);
 
     @GET("userRegister")
-    Observable<NetResponse> registerBoat(@Query("loginName") String loginName,
-                                         @Query("password") String password,
-                                         @Query("userType") int userType,
-                                         @Query("mobile") String mobile,
-                                         @Query("shipCode") String shipCode,
-                                         @Query("name") String name,
-                                         @Query("belongs") String belongs,
-                                         @Query("belongsCompany") String belongsCompany,
-                                         @Query("shipLicense") String shipLicense,
-                                         @Query("tonnage") String tonnage);
+    Observable<NetResponse> registerBoat(
+            @Query("password") String password,
+            @Query("userType") int userType,
+            @Query("mobile") String mobile,
+            @Query("shipCode") String shipCode,
+            @Query("name") String name,
+            @Query("belongs") String belongs,
+            @Query("belongsCompany") String belongsCompany,
+            @Query("shipLicense") String shipLicense,
+            @Query("tonnage") String tonnage);
 
     @GET("userRegister")
-    Observable<NetResponse> registerCargo(@Query("loginName") String loginName,
-                                          @Query("password") String password,
-                                          @Query("userType") int userType,
-                                          @Query("mobile") String mobile,
-                                          @Query("name") String name,
-                                          @Query("companyName") String companyName,
-                                          @Query("addrees") String addrees);
+    Observable<NetResponse> registerCargo(
+            @Query("password") String password,
+            @Query("userType") int userType,
+            @Query("mobile") String mobile,
+            @Query("name") String name,
+            @Query("companyName") String companyName,
+            @Query("addrees") String addrees);
 
     @GET("supply/add")
     Observable<NetResponse> cargoAdd(@Query("cargoId") String cargoId,
@@ -187,13 +187,12 @@ public interface ApiStores {
 
     //    /app/updatePassword?id=46&password=admin
     @GET("updatePassword")
-    Observable<NetResponse> updatePassword(@Query("mobile") String mobile,
+    Observable<NetResponse> updatePassword(@Query("id") String id,
                                            @Query("password") String pw);
 
     //   找回密码 /water_transport/app/findBackPassword/modifyPassword
     @GET("findBackPassword/modifyPassword")
-    Observable<NetResponse> modifyPassword(@Query("loginName") String loginName,
-                                           @Query("password") String pw,
+    Observable<NetResponse> modifyPassword(@Query("password") String pw,
                                            @Query("mobile") String mobile);
 
     //    checkMobile?mobile=18725517633

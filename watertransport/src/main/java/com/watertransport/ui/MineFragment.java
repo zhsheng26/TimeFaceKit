@@ -71,7 +71,7 @@ public class MineFragment extends TfBaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvUserName.setText(FastData.getLoginName());
+        tvUserName.setText(FastData.getRealName());
         int userRole = FastData.getUserRole();
         UiUtil.showView(layoutOrderInfo, false);
         layoutBaseInfo.setOnClickListener(v -> UserInfoActivity.start(getActivity()));
