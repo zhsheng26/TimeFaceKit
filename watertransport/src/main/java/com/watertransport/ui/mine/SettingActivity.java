@@ -2,9 +2,12 @@ package com.watertransport.ui.mine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.watertransport.BuildConfig;
@@ -35,6 +38,8 @@ public class SettingActivity extends TfBaseActivity {
     RelativeLayout layoutSuggest;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
+    @BindView(R.id.iv_call_phone)
+    ImageView ivCallPhone;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SettingActivity.class);
@@ -57,5 +62,13 @@ public class SettingActivity extends TfBaseActivity {
         });
         layoutAlterPw.setOnClickListener(v -> SetPwActivity.start(activity));
         layoutService.setOnClickListener(v -> TfWebViewActivity.start(activity, "服务条款", BuildConfig.BASE_URL + "userManualAgreement.html"));
+        ivCallPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + "18725518633"));
+                startActivity(intent);
+            }
+        });
     }
 }

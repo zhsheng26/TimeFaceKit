@@ -24,7 +24,7 @@ public class WtApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Timber.plant(new Timber.DebugTree());
+//        Timber.plant(new Timber.DebugTree());
         Context context = getApplicationContext();
 // 获取当前包名
         String packageName = context.getPackageName();
