@@ -138,7 +138,7 @@ public interface ApiStores {
                                          @Query("settlementTime") String settlementTime,
                                          @Query("transportCost") String transportCost,
                                          @Query("settlementMoney") String settlementMoney,
-                                         @Query("remarks") String remarks,
+                                         @Query("remark") String remarks,
                                          @Query("orderStatue") int orderStatue,
                                          @Query("userId") String userId);
 
@@ -158,7 +158,7 @@ public interface ApiStores {
                                             @Query("settlementTime") String settlementTime,
                                             @Query("transportCost") String transportCost,
                                             @Query("settlementMoney") String settlementMoney,
-                                            @Query("remarks") String remarks);
+                                            @Query("remark") String remarks);
 
     //    http://59.110.141.52:8080/water_transport/app/shiperOrder/list?userId=&orderStatue=&pageNo=1&pageSize=10
     @GET("shiperOrder/list")
