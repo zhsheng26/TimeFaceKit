@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,7 +65,7 @@ public class OrderDetailActivity extends TfBaseActivity {
         tvCargoName.setText(orderObj.getCargoName());
         tvCargoWeight.setText(String.format("%s吨", orderObj.getTonnage()));
         tvCargoPrice.setText(String.format("%s元/吨", orderObj.getTonnageCost()));
-        tvContacts.setText(String.format("联系人：%s", orderObj.getRealName()));
+        tvContacts.setText(String.format("联系人：%s", TextUtils.isEmpty(orderObj.getContactor()) ? orderObj.getTransporterName() : orderObj.getContactor()));
         tvPhone.setText(String.format("手机号码：%s", orderObj.getMobile()));
         tvMobile.setText(String.format("固定电话：%s", orderObj.getPhone()));
         tvExtra.setText(String.format("备注：%s", orderObj.getRemarks()));

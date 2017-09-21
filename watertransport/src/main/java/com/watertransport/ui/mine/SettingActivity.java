@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.watertransport.BuildConfig;
 import com.watertransport.R;
 import com.watertransport.support.FastData;
 import com.watertransport.ui.loginregister.LoginActivity;
@@ -15,6 +16,7 @@ import com.watertransport.ui.loginregister.SetPwActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
+import cn.timeface.timekit.ui.TfWebViewActivity;
 
 public class SettingActivity extends TfBaseActivity {
     @BindView(R.id.toolbar)
@@ -54,5 +56,6 @@ public class SettingActivity extends TfBaseActivity {
             finish();
         });
         layoutAlterPw.setOnClickListener(v -> SetPwActivity.start(activity));
+        layoutService.setOnClickListener(v -> TfWebViewActivity.start(activity, "服务条款", BuildConfig.BASE_URL + "userManualAgreement.html"));
     }
 }

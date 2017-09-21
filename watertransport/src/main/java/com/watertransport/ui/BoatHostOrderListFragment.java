@@ -16,6 +16,7 @@ import com.watertransport.ui.adapter.BoatHostOrderAdapter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.timeface.timekit.support.IEventBus;
@@ -86,6 +87,7 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
                         if (refresh) {
                             refreshLayout.finishRefresh();
                             if (hostOrderObjs == null || hostOrderObjs.size() == 0) {
+                                hostOrderAdapter.setData(new ArrayList<>());
                                 tvNoContent.setVisibility(View.VISIBLE);
                             } else {
                                 tvNoContent.setVisibility(View.GONE);
@@ -146,9 +148,10 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
     }
 
     private void endOrder(BoatHostOrderObj boatHostOrderObj) {
-        Disposable disposable = apiStores.updateShipOderStatue(FastData.getUserId(), boatHostOrderObj.getId())
+        Disposable disposable = apiStores.updateShipOderStatue(FastData.getUserId(), "1", boatHostOrderObj.getId())
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(netResponse -> {
+                    showToast(netResponse.getMessage());
                     if (netResponse.isResult()) {
 //                        hostOrderAdapter.remove(boatHostOrderObj);
                         EventBus.getDefault().post(new UpdateListEvent(orderState));
@@ -160,8 +163,6 @@ public class BoatHostOrderListFragment extends BaseListFragment implements OnIte
 
     @Subscribe
     public void onEvent(UpdateListEvent event) {
-        if (event.getPageState() != orderState || orderState == -1) {
-            refreshLayout.autoRefresh();
-        }
+        refreshLayout.autoRefresh();
     }
 }

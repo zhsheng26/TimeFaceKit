@@ -17,6 +17,7 @@ import com.watertransport.MainActivity;
 import com.watertransport.R;
 import com.watertransport.api.ApiService;
 import com.watertransport.api.ApiStores;
+import com.watertransport.entity.UserObj;
 import com.watertransport.support.FastData;
 import com.watertransport.ui.SelectRoleActivity;
 
@@ -25,7 +26,6 @@ import butterknife.ButterKnife;
 import cn.timeface.timekit.activity.TfBaseActivity;
 import cn.timeface.timekit.support.SchedulersCompat;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 
 public class LoginActivity extends TfBaseActivity {
@@ -96,7 +96,9 @@ public class LoginActivity extends TfBaseActivity {
                 .compose(SchedulersCompat.applyIoSchedulers())
                 .subscribe(netResponse -> {
                     if (netResponse.isResult()) {
-                        FastData.saveUserInfo(netResponse.getPage().getList().get(0));
+                        UserObj userObj = netResponse.getPage().getList().get(0);
+                        FastData.saveUserInfo(userObj);
+                        FastData.putUserJson(userObj);
                         FastData.saveToken(netResponse.getToken());
                         MainActivity.start(activity);
                         finish();

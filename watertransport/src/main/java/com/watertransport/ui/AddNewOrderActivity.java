@@ -107,7 +107,7 @@ public class AddNewOrderActivity extends TfBaseActivity {
                 etCargoStartTime.setText(cargoOrderObj.getLoadTime());
                 etCargoArriveTime.setText(cargoOrderObj.getUnloadTime());
             }
-            etContactUser.setText(TextUtils.isEmpty(cargoOrderObj.getContactor()) ? cargoOrderObj.getTransporter() : cargoOrderObj.getContactor());
+            etContactUser.setText(TextUtils.isEmpty(cargoOrderObj.getContactor()) ? cargoOrderObj.getTransporterName() : cargoOrderObj.getContactor());
             etContactPhone.setText(cargoOrderObj.getMobile());
             etCargoKind.setText(cargoOrderObj.getCargoName());
             etCargoWeight.setText(cargoOrderObj.getTonnage());

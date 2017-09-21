@@ -9,28 +9,38 @@ public class UserObj extends BaseObj {
     /**
      * page :
      * createBy :
-     * createDate : 2017-08-19 16:40:42.0
+     * createDate : 2017-09-19 19:33:35.0
      * updateBy :
-     * updateDate : 2017-08-19 16:40:42.0
+     * updateDate : 2017-09-19 19:33:42.0
      * delFlag : 0
-     * id : 48
+     * id : 63
      * company :
      * office :
      * companyname :
-     * loginName : 王者荣耀
+     * loginName : 18919629287
      * password : d10azc3949ba59abbd56d057e20e883d
      * name : 张晟
      * email :
-     * mobile : 13637058658
-     * userType : 2
+     * mobile : 18919629287
+     * userType : 3
      * loginIp :
      * loginDate :
      * loginFlag : 1
-     * enableStatue :
-     * enableStarttime : 2017-08-19 16:40:42.0
-     * enableEndtime : 2017-10-19 16:40:42.0
+     * enableStatue : 0
+     * enableStarttime : 2010-01-01 00:00:00.0
+     * enableEndtime : 2020-01-01 00:00:00.0
      * oldLoginName :
      * newPassword :
+     * addrees :
+     * companyName :
+     * registeAddress :
+     * belongs : 合肥
+     * shipCode : 6666
+     * belongsCompany : 合肥工业大学
+     * shipLicense : 6666
+     * tonnage : 2000
+     *
+     * 地址(addrees)、公司名称(companyName)、注册地址(registeAddress)
      */
 
     private String page;
@@ -57,6 +67,14 @@ public class UserObj extends BaseObj {
     private String enableEndtime;
     private String oldLoginName;
     private String newPassword;
+    private String addrees;
+    private String companyName;
+    private String registeAddress;
+    private String belongs;
+    private String shipCode;
+    private String belongsCompany;
+    private String shipLicense;
+    private String tonnage;
 
     public String getPage() {
         return page;
@@ -248,5 +266,69 @@ public class UserObj extends BaseObj {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getAddrees() {
+        return addrees;
+    }
+
+    public void setAddrees(String addrees) {
+        this.addrees = addrees;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getRegisteAddress() {
+        return registeAddress;
+    }
+
+    public void setRegisteAddress(String registeAddress) {
+        this.registeAddress = registeAddress;
+    }
+
+    public String getBelongs() {
+        return belongs;
+    }
+
+    public void setBelongs(String belongs) {
+        this.belongs = belongs;
+    }
+
+    public String getShipCode() {
+        return shipCode;
+    }
+
+    public void setShipCode(String shipCode) {
+        this.shipCode = shipCode;
+    }
+
+    public String getBelongsCompany() {
+        return belongsCompany;
+    }
+
+    public void setBelongsCompany(String belongsCompany) {
+        this.belongsCompany = belongsCompany;
+    }
+
+    public String getShipLicense() {
+        return shipLicense;
+    }
+
+    public void setShipLicense(String shipLicense) {
+        this.shipLicense = shipLicense;
+    }
+
+    public String getTonnage() {
+        return tonnage;
+    }
+
+    public void setTonnage(String tonnage) {
+        this.tonnage = tonnage;
     }
 }

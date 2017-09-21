@@ -1,5 +1,9 @@
 package com.watertransport.support;
 
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
 import com.watertransport.entity.UserObj;
 
 import cn.timeface.timekit.util.storage.Remember;
@@ -16,7 +20,34 @@ public class FastData extends Remember {
     public static final String LOGIN_NAME = "loginName";
     public static final String TOKEN = "token";
     public static final String MOBILE = "mobile";
+    public static final String shipCode = "shipCode";
+    public static final String shipLicense = "shipLicense";
+    public static final String tonnage = "tonnage";
+    public static final String belongs = "belongs";
+    public static final String belongsCompany = "belongsCompany";
+    public static final String addrees = "addrees";
+    public static final String companyName = "companyName";
+    public static final String registeAddress = "registeAddress";
+    /*
+    * 船主：
+船号(shipCode)、船主证(shipLicense)、船载吨位(tonnage)、所在地(belongs)、所属公司(belongsCompany);
+货运公司/货主：
+ 地址(addrees)、公司名称(companyName)、注册地址(registeAddress)
+    * */
     private static int phone;
+
+    public static void putUserJson(UserObj userObj) {
+        String toJson = new Gson().toJson(userObj);
+        putString("userJson", toJson);
+    }
+
+    public static
+    @Nullable
+    UserObj getUserInfo() {
+        String userJson = getString("userJson", "");
+        if (TextUtils.isEmpty(userJson)) return null;
+        return new Gson().fromJson(userJson, UserObj.class);
+    }
 
     public static void saveUserInfo(UserObj userObj) {
         if (userObj == null) {

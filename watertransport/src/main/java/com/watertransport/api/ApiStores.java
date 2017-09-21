@@ -169,6 +169,7 @@ public interface ApiStores {
 
     @GET("shiperOrder/updateShipOderStatue")
     Observable<NetResponse> updateShipOderStatue(@Query("userId") String userId,
+                                                 @Query("orderStatue") String orderStatue,
                                                  @Query("id") String id);
 
     //
