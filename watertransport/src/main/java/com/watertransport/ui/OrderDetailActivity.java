@@ -65,7 +65,8 @@ public class OrderDetailActivity extends TfBaseActivity {
         tvCargoName.setText(orderObj.getCargoName());
         tvCargoWeight.setText(String.format("%s吨", orderObj.getTonnage()));
         tvCargoPrice.setText(String.format("%s元/吨", orderObj.getTonnageCost()));
-        tvContacts.setText(String.format("联系人：%s", TextUtils.isEmpty(orderObj.getContactor()) ? orderObj.getTransporterName() : orderObj.getContactor()));
+        String name = TextUtils.isEmpty(orderObj.getContactor()) ? orderObj.getTransporterName() : orderObj.getContactor();
+        tvContacts.setText(String.format("联系人：%s", TextUtils.isEmpty(name) ? orderObj.getTransporter() : name));
         tvPhone.setText(String.format("手机号码：%s", orderObj.getMobile()));
         tvMobile.setText(String.format("固定电话：%s", orderObj.getPhone()));
         tvExtra.setText(String.format("备注：%s", orderObj.getRemarks()));
